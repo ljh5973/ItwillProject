@@ -1,0 +1,98 @@
+.header {
+    height: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#f8eee1;
+    position: sticky;
+    /*
+    position: sticky: 
+    static 속성처럼 행동하다가 설정된 위치에 다다르면 fixed 속성처럼 행동하는 속성
+    sticky 속성은 필수적으로 top, bottom, left, right들 중 하나를 설정해줘야 함.
+    */
+    top: 0;
+    z-index: 1;
+}
+
+.header_logo {
+    width: 50px;
+    object-fit: contain;
+    margin-right: 170px;
+    /* 
+    object-fit: contain 
+    이미지의 비율을 유지하면서 부모의 크기에 맞추겠다. 
+    */
+    
+}
+
+.header_menu_list {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.header_menu_list li {
+    padding: 10px;
+    list-style: none;
+    margin-right: 50px;
+}
+
+.header_menu_list li:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.header_search {
+    display: flex;
+    flex: 0.2;
+    /*
+    flex: 콘테이너 차지 비율
+    */
+    align-items: center;
+    margin: 0 150px;
+}
+
+.space {
+    margin: 0 8px;
+}
+
+.header_option {
+    display: flex;
+    font-size: 12px;
+    margin-left: 40px;
+    margin-right: 40px;
+    color: #31302F;
+}
+
+.header_nav {
+    display: flex;
+    
+}
+
+.header_optionMenu {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 3px;
+}
+
+.header_optionBasket {
+    display: flex;
+    align-items: center;
+    color: #31302F;
+}
+
+.header_optionLineTwoheader_basketCount {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.header_optionMenu:hover {
+    cursor: pointer;
+    color: #aaa6a4
+}
+
+.link_box {
+    text-decoration: none;
+    color: #31302F
+}

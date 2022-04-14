@@ -1,0 +1,40 @@
+.computer_cbox {
+    text-align: center;    
+    width: 650px;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 80px;
+
+}
+
+.innerBox {
+    margin: 20px;
+}
+
+.innerBox div {
+    display: inline;
+}
+
+.innerBox input {
+    margin-right: 10px;
+}
+
+.computer_name {
+    margin: 0 10px;
+    
+}
+
+.computer_search {
+    width: 500px;
+    height: 30px;
+}
+
+.search_icon {
+    background-color: #fbb04c;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

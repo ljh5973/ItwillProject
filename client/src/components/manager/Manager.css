@@ -1,0 +1,31 @@
+.manager {
+    width: 1500px;
+    height: 1500px;
+    margin: 0 auto;
+}
+
+.manager_product ul {
+    list-style: none;
+    padding: 0;
+    padding-top: 20px;
+}
+
+.manager_product ul li {
+    margin-top: 10px;
+}
+
+.product_menu {
+    position: absolute;
+    top: 30px;
+    left: 100px;
+}
+
+.product_menu1 {
+    position: absolute;
+    top: 67px;
+    left: 100px;
+}
+
+.manager_product {
+    margin-left: 150px;
+}
