@@ -136,9 +136,10 @@ app.post('/api/users/login', (req, res) => {
 
     let params = [userEmail, userPw];
     connection.query(sql, params, (err, rows, fields) => {
+
         console.log(rows.length, "rows length");
         console.log(rows);
-        
+
         if (rows.length>0){
             res.json({ loginSuccess: true });
         }else{

@@ -47,7 +47,7 @@ function Header() {
                     <span className="header_optionMenu space">/</span>
                     <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>
                 </div>
-               
+                
                 <div className="header_optionBasket">
                     <Link to="/checkout" className="link_box">
                     <ShoppingBasket/>

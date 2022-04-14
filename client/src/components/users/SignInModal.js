@@ -9,10 +9,12 @@ import HorizonLine from "../HorizonLine";
 import {useDispatch} from 'react-redux';
 import { loginUser, googleLogin } from '../../_action/user_action';
 import { useNavigate } from "react-router-dom";
+
 import axios, { Axios } from "axios";
 
 import config from '../../config/google.json';
 import f1 from '../header/Header';
+
 
 
 const SignInModal = ({show, onHide}) => {
@@ -51,8 +53,10 @@ const SignInModal = ({show, onHide}) => {
 
         dispatch(loginUser(body))
             .then(response => {
+
                 console.log(response);
                 if(response.payload.loginSuccess) {
+
                     navigate('/');
                     closeModal();
                 } else {

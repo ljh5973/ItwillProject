@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
 
-
     const REST_API_KEY = "0bddd89dc68b3e23c70ddd16883b90bf";
     const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
     const CLIENT_SECRET = "MJG7Wjeo6OonDIvSOW4eCMhmajB0OGwM";
@@ -41,9 +40,7 @@ const Auth = () => {
           window.Kakao.init(REST_API_KEY);
           // access token 설정     
           window.Kakao.Auth.setAccessToken(res.data.access_token);
-          setToken(res.data.access_token)
-          
-         
+          setToken(res.data.access_token)        
           navigate("/");       
         } catch (err) {
           console.log(err);
@@ -54,6 +51,6 @@ const Auth = () => {
         
       }, []);
       
-      return ;
+      return  kakaoToken();
     };
 export default Auth;
