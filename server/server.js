@@ -39,31 +39,31 @@ function getGooglePlusApi(auth) {
 
 // 실질적으로 로그인해서 정보를 불러올 코드 작성
 // 리프레시토큰 엑세스토큰 displayName과 id를 얻어와본다.
-async function googleLogin(code) {
-    const { tokens } = await oauth2Client.getToken(code);
-    oauth2Client.setCredentials(tokens);
-    oauth2Client.on('tokens', (token) => {
-        if (token.refresh_token) {
-            console.log("리프레시 토큰 : ", tokens.refresh_token);
-        }
-        console.log("액세스 토큰 : ", tokens.access_token);
-    });
-    const plus = getGooglePlusApi(oauth2Client);
-    const res = await plus.people.get({ userId: 'me' });
-    console.log(`Hello ${res.data.displayName}! ${res.data.id}`);
-    return res.data.displayName;
-}
+// async function googleLogin(code) {
+//     const { tokens } = await oauth2Client.getToken(code);
+//     oauth2Client.setCredentials(tokens);
+//     oauth2Client.on('tokens', (token) => {
+//         if (token.refresh_token) {
+//             console.log("리프레시 토큰 : ", tokens.refresh_token);
+//         }
+//         console.log("액세스 토큰 : ", tokens.access_token);
+//     });
+//     const plus = getGooglePlusApi(oauth2Client);
+//     const res = await plus.people.get({ userId: 'me' });
+//     console.log(`Hello ${res.data.displayName}! ${res.data.id}`);
+//     return res.data.displayName;
+// }
 
-app.get('/googleLogin', function (req, res) {
-    res.redirect(url);
-});
+// app.get('/googleLogin', function (req, res) {
+//     res.redirect(url);
+// });
 
-app.get("/auth/google/callback", async function (req, res) {
-    const displayName = await googleLogin(req.query.code);
-    console.log(displayName);
+// app.get("/auth/google/callback", async function (req, res) {
+//     const displayName = await googleLogin(req.query.code);
+//     console.log(displayName);
 
-    res.redirect("http://localhost:3000");
-});
+//     res.redirect("http://localhost:3000");
+// });
 
 
 app.use(cors());
@@ -126,7 +126,7 @@ app.post('/api/users/register', (req, res) => {
 });
 
 
-app.listen(port, () => console.log(`서버 가동 포트번호: ${port}`));
+
 
 app.post('/api/users/login', (req, res) => {
 
@@ -135,17 +135,17 @@ app.post('/api/users/login', (req, res) => {
     let userPw = req.body.password;
 
     let params = [userEmail, userPw];
-    console.log(params);
     connection.query(sql, params, (err, rows, fields) => {
-        console.log("test");
+        console.log(rows.length, "rows length");
         console.log(rows);
-        console.log(err);
-        console.log(rows.length);
         
-        if (rows != null) res.json({ loginSuccess: true })
-        return res.status(200).json({
-            loginSuccess: false
-        })
+        if (rows.length>0){
+            res.json({ loginSuccess: true });
+        }else{
+            res.status(200).json({loginSuccess: false});
+        }
 
     })
 })
+
+app.listen(port, () => console.log(`서버 가동 포트번호: ${port}`));

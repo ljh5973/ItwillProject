@@ -7,11 +7,12 @@ import { GoogleLogin } from 'react-google-login';
 // 구글 로그인 연동
 import HorizonLine from "../HorizonLine";
 import {useDispatch} from 'react-redux';
-import { loginUser } from '../../_action/user_action';
+import { loginUser, googleLogin } from '../../_action/user_action';
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { Axios } from "axios";
 
-
+import config from '../../config/google.json';
+import f1 from '../header/Header';
 
 
 const SignInModal = ({show, onHide}) => {
@@ -19,7 +20,7 @@ const SignInModal = ({show, onHide}) => {
     const REST_API_KEY = "0bddd89dc68b3e23c70ddd16883b90bf";
     const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-
+    const popup =false;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -34,7 +35,12 @@ const SignInModal = ({show, onHide}) => {
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value)
     }
-
+    const closeModal=()=>{
+        const a=document.querySelector(".modal");
+        a.style.display="none";
+        const b= document.querySelector(".fade");
+        b.style.display="none";
+    }
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
@@ -45,15 +51,38 @@ const SignInModal = ({show, onHide}) => {
 
         dispatch(loginUser(body))
             .then(response => {
+                console.log(response);
                 if(response.payload.loginSuccess) {
                     navigate('/');
+                    closeModal();
                 } else {
-                    alert('Error')
+                    alert('Error');
                 }
             })
 
     }
 
+
+
+
+    const handleGoogleLogin= async (result)=>{
+        const profileObj=result;
+        console.log(profileObj);
+
+        dispatch(googleLogin(result))
+            .then(response=>{
+                console.log(response);
+                if(response.payload){
+                    console.log(response.payload);
+                }else{
+                    alert('Error');
+                }
+            })
+    }
+
+    const handleGoogleFailure= async (googleData)=>{
+        console.log(googleData);
+    }
   
    
     return (
@@ -63,6 +92,7 @@ const SignInModal = ({show, onHide}) => {
             dialogClassName="modal-90w"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            className="modal"
             >
             <Container>
                 <Modal.Header closeButton>
@@ -84,19 +114,13 @@ const SignInModal = ({show, onHide}) => {
                         Sign In
                     </Button>
                     <HorizonLine text={"OR"} />
+                    
                     <GoogleLogin
-                        render={renderProps=>{
-                           return <Button 
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled}
-                            block
-                            style={{backgroundColor: "#176BEF",
-                                    borderColor: "#176BEF",
-                                    width: "100%"
-                            }}>
-                               <i className="fab fa-google"></i>&nbsp; Sign In with Google
-                           </Button> 
-                        }}
+                        clientId={config.web.client_id}
+                        buttonText="Log in with Google"
+                        onSuccess={handleGoogleLogin}
+                        onFailure={handleGoogleFailure}
+                        cookiePolicy={'single_host_origin'}                 
                     />
                     <a href={KAKAO_AUTH_URL}><img style={{width:"100%", height:"45px", marginTop:"10px", marginBottom:"10px"}} src="../img/kakao_login_medium_wide.png" alt="kakao button"/></a>
                 </Form>
