@@ -9,6 +9,9 @@ const cors = require('cors');
 const { google } = require("googleapis");
 const googleClient = require('./config/google.json');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 const googleConfig
     = {
     clientId: googleClient.web.client_id,
@@ -150,34 +153,11 @@ app.post('/api/users/login', (req, res) => {
 })
 
 app.get('/api/users/product', (req, res) => {
-    res.send([
-        {'id':'1',
-        'img':'img/computershop/computer1.jpg',
-        'name':'인텔 코어i7-12세대 12700K (엘더레이크)(정품)인텔',
-        'price': '1,000,000'
-        },
-        {'id':'2',
-        'img':'img/computershop/computer2.jpg',
-        'name':'애인텔 코어i7-12세대 12700K (엘더레이크) (정품)',
-        'price': '1,000,000'
-        },
-        {'id':'3',
-        'img':'img/computershop/computer3.jpg',
-        'name':'AMD 라이젠7-4세대 5800X (버미어) (멀티팩(정품))',
-        'price': '1,000,000'
-        },
-        {'id':'4',
-        'img':'img/computershop/computer3.jpg',
-        'name':'AMD 라이젠7-4세대 5800X (버미어) (멀티팩(정품))',
-        'price': '1,000,000'
-        },
-        {'id':'5',
-        'img':'img/computershop/computer3.jpg',
-        'name':'AMD 라이젠7-4세대 5800X (버미어) (멀티팩(정품))',
-        'price': '1,000,000'
-        },
-
-    ])
+    connection.query(
+        "select * from product", (err, rows, fields) => {
+            res.send(rows);
+        }
+    )
 });
 
 const multer = require('multer');
@@ -188,7 +168,7 @@ app.post('/api/users/productUpload', upload.single('image'), (req, res) => {
     let product_name= req.body.product_name;
     let product_desc = req.body.product_desc;
     let product_price = req.body.product_price;
-    let product_image = '/image/' + req.file.filename;
+    let product_image = 'http://localhost:5000/image/' + req.file.filename;
     let params = [product_name, product_desc, product_price, product_image];
     connection.query(sql, params,
         (err, rows, fields) => {

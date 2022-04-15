@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Computershop.css";
 import Header from "../header/Header";
 import ComputerPrd from './ComputerPrd';
@@ -9,19 +9,42 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import ComputerBox from './ComputerBox';
 import {Link} from 'react-router-dom';
+import { CircularProgress } from "@material-ui/core";
 
-function Computershop() {
 
-    const customers = [
-       
-    ]
-    const [files, setFiles] = useState('');
+function Computershop(props) {
 
-    const onLoadFile = (event) => {
-        console.log(event);
 
-    }
+    const [customersData, setCustomersData] = useState([]);
+    const [completed, setCompleted] = useState(0);
+    const [isLoad, setIsLoad] = useState(false);
 
+    const callApi = async () => {
+      const response = await fetch('/api/users/product');
+      const body = await response.json();
+      setIsLoad(true);
+      console.log(body); 
+      return body;
+    };
+  
+    useEffect(() => {
+      let complete = 0;
+      let timer = setInterval(() => {
+        if (complete >= 100) {
+            complete = 0
+        } else {
+            complete += 1;
+        }
+        setCompleted(complete);
+        if (isLoad) {
+            clearInterval(timer);
+        }
+      }, 20);  
+      callApi().then(res => {
+        setCustomersData(res);
+      }).
+        catch(err => console.log(err));
+    }, [isLoad]);  
     return (
         <>
         <Header/>
@@ -33,22 +56,24 @@ function Computershop() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>상품번호</TableCell>
+                            <TableCell>상품이름</TableCell>
                             <TableCell>상품이미지</TableCell>
                             <TableCell>상품설명</TableCell>
                             <TableCell style={{textAlign: "center"}}>상품가격</TableCell>
                         </TableRow>
                     </TableHead> 
-                    <TableBody >
-                        {customers.map(c => {
+                    <TableBody>
+                        {customersData ? customersData.map(c => {
                             return <ComputerPrd
-                            key={c.id}
-                            id={c.id}
-                            img={c.img}
-                            name={c.name}
-                            price={c.price}
-                            />
-                        })}
+                            key={c.id} product_name={c.product_name} product_image={c.product_image} product_desc={c.product_desc} product_price={c.product_price} />
+                        }) : 
+                        <TableRow>
+                            <TableCell colspan="6" align="center" >
+                                <CircularProgress variant="determinate" value={completed} />
+                            </TableCell>
+                        </TableRow>
+                        }
+                        
                     </TableBody>
                 </Table>
             </div>
