@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Computershop.css";
 import Header from "../header/Header";
 import ComputerPrd from './ComputerPrd';
@@ -8,36 +8,19 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import ComputerBox from './ComputerBox';
+import {Link} from 'react-router-dom';
 
 function Computershop() {
 
     const customers = [
-        {'id':'1',
-         'img':'img/computershop/computer1.jpg',
-         'name':'인텔 코어i7-12세대 12700K (엘더레이크)(정품)인텔',
-         'price': '1,000,000'
-        },
-        {'id':'2',
-        'img':'img/computershop/computer2.jpg',
-        'name':'애인텔 코어i7-12세대 12700K (엘더레이크) (정품)',
-        'price': '1,000,000'
-       },
-       {'id':'3',
-       'img':'img/computershop/computer3.jpg',
-       'name':'AMD 라이젠7-4세대 5800X (버미어) (멀티팩(정품))',
-       'price': '1,000,000'
-      },
-      {'id':'4',
-       'img':'img/computershop/computer3.jpg',
-       'name':'AMD 라이젠7-4세대 5800X (버미어) (멀티팩(정품))',
-       'price': '1,000,000'
-      },
-      {'id':'5',
-       'img':'img/computershop/computer3.jpg',
-       'name':'AMD 라이젠7-4세대 5800X (버미어) (멀티팩(정품))',
-       'price': '1,000,000'
-      },
+       
     ]
+    const [files, setFiles] = useState('');
+
+    const onLoadFile = (event) => {
+        console.log(event);
+
+    }
 
     return (
         <>
@@ -69,6 +52,10 @@ function Computershop() {
                     </TableBody>
                 </Table>
             </div>
+            <Link to="/productUpload">
+              <button>상품등록하기</button>
+            </Link>
+            
         </div>
         </div>
         </>
