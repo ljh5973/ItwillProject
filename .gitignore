@@ -69,7 +69,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+# env파일도 혼선 피할라고 올림 최종적으로 삭제!!!!!!!!!!!!!!!!!!!!!!!!!
+# .env 
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
