@@ -4,10 +4,12 @@
 /upload
 
 #database
-/database.json
+# /database.json 일단 혼선 피해서 올림.. 최종적으로 ignore 시키면 될듯
 
 #google
-/google.json
+
+# google.json도 최종적으로 ignore 시켜야됨 ..
+# /google.json
 google.json
 # dependencies
 /node_modules
