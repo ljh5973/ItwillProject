@@ -1,0 +1,7 @@
+{
+    "host": "jinho-test.cuvbn89lbyyp.ap-northeast-2.rds.amazonaws.com",
+    "user": "admin",
+    "password":"rptdoa00!!",
+    "port":"3306",
+    "database":"login_lecture"
+}

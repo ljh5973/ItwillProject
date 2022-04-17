@@ -3,13 +3,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 5000;
-const api = require("./routes/index");
+const api = require("./routes/users");
 const cors = require('cors');
-// const pythonShell=require("python-shell");
+
 const spawn=require("child_process").spawn;
+
+const logger = require('./config/logger');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const { google } = require("googleapis");
 const googleClient = require('./config/google.json');
+
+app.use(morgan('tiny'));
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -83,26 +90,13 @@ result.stderr.on("data", function(data){
     console.log(data.toString());
 })
 
+
 app.use(cors());
 //api 미들웨어 등록
-app.use('/api', api);
+app.use('/api/users', api);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const data = fs.readFileSync('./database.json');
-const conf = JSON.parse(data);
-const mysql = require('mysql');
-
-const connection = mysql.createConnection({
-    host: conf.host,
-    user: conf.user,
-    password: conf.password,
-    port: conf.port,
-    database: conf.database
-});
-
-connection.connect();
 
 app.get('/', (req, res) => {
     connection.query("select * from users", (err, rows, fields) => {
@@ -110,61 +104,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.post('/api/users/register', (req, res) => {
-    // 회원 가입 할때 필요한 정보들을 client에서 가져오면
-    // 그것들을 데이터 베이스에 넣어준다.
-
-
-    let sql = "insert into users values(?,?,?,?,?)";
-    let userEmail = req.body.email;
-    let userName = req.body.name;
-    let userPw = req.body.password;
-    let userAddr = req.body.address;
-    let zip = req.body.zip;
-
-    let params = [userEmail, userName, userPw, userAddr, zip];
-
-    connection.query('select * from users where email=?', [userEmail], (err, data) => {
-        if (data.length == 0) {
-            console.log("회원가입 성공");
-            connection.query(sql, params, (err, rows, fields) => {
-                if (err) res.json({ success: false, err })
-                return res.status(200).json({
-                    success: true
-                })
-            })
-        } else {
-            console.log("회원가입 실패");
-            res.json({ success: false, err })
-        }
-    })
-
-
-});
-
-
-
-
-app.post('/api/users/login', (req, res) => {
-
-    let sql = "select * from users where email=? and pw=?";
-    let userEmail = req.body.email;
-    let userPw = req.body.password;
-
-    let params = [userEmail, userPw];
-    connection.query(sql, params, (err, rows, fields) => {
-
-        console.log(rows.length, "rows length");
-        console.log(rows);
-
-        if (rows.length>0){
-            res.json({ loginSuccess: true });
-        }else{
-            res.status(200).json({loginSuccess: false});
-        }
-
-    })
-})
 
 app.get('/api/users/product', (req, res) => {
     connection.query(
@@ -175,6 +114,7 @@ app.get('/api/users/product', (req, res) => {
     )
 });
 
+// api/users 들어가는 있는 거는 users.js(routes)에 넣어야 하는데 작동 안될 거에요. ㅠ
 const multer = require('multer');
 const upload = multer({dest: './upload'});
 app.use('/image', express.static('./upload'));
@@ -190,7 +130,6 @@ app.post('/api/users/productUpload', upload.single('image'), (req, res) => {
             res.send(rows);
         }
         )
-
 })
 
 
