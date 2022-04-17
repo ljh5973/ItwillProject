@@ -5,6 +5,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 const api = require("./routes/index");
 const cors = require('cors');
+// const pythonShell=require("python-shell");
+const spawn=require("child_process").spawn;
 
 const { google } = require("googleapis");
 const googleClient = require('./config/google.json');
@@ -68,6 +70,18 @@ function getGooglePlusApi(auth) {
 //     res.redirect("http://localhost:3000");
 // });
 
+
+// python 
+
+const result=spawn("python", ['product.py']);
+
+result.stdout.on('data',function(data){
+    console.log(data.toString());
+})
+
+result.stderr.on("data", function(data){
+    console.log(data.toString());
+})
 
 app.use(cors());
 //api 미들웨어 등록
@@ -154,6 +168,7 @@ app.post('/api/users/login', (req, res) => {
 
 app.get('/api/users/product', (req, res) => {
     connection.query(
+        
         "select * from product", (err, rows, fields) => {
             res.send(rows);
         }
