@@ -83,17 +83,17 @@ function getGooglePlusApi(auth) {
 // });
 
 
-// python 
+//python 
 
-// const result=spawn("python", ['product.py']);
+const result=spawn("python", ['product.py']);
 
-// result.stdout.on('data',function(data){
-//     console.log(data.toString());
-// })
+result.stdout.on('data',function(data){
+    console.log(data.toString());
+})
 
-// result.stderr.on("data", function(data){
-//     console.log(data.toString());
-// })
+result.stderr.on("data", function(data){
+    console.log(data.toString());
+})
 
 
 app.use(cors());
