@@ -1,8 +1,6 @@
 import requests
-from bs4 import BeautifulSoup
 import json
 import uuid
-import urllib.request as url
 import pymysql
 import os
 
