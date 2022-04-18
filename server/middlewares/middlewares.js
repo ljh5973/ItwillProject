@@ -48,7 +48,8 @@ module.exports = {
 
         const result = {
             token: jwt.sign(payload, secretKey, options),
-            refreshToken: randToken.uid(256)
+            refreshToken: randToken.uid(256),
+            isSuccess: true
         };
 
         return result;

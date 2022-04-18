@@ -18,6 +18,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+
+
+
+
 const googleConfig
     = {
     clientId: googleClient.web.client_id,
@@ -68,7 +73,7 @@ app.get('/api/users/product', (req, res) => {
     )
 });
 
-// api/users 들어가는 있는 거는 users.js(routes)에 넣어야 하는데 작동 안될 거에요. ㅠ
+// api/users 들어가는 있는 거는 users.js(routes)에 넣어야 하는데 작동 안될 거에요. 되나?
 const multer = require('multer');
 const upload = multer({dest: './upload'});
 app.use('/image', express.static('./upload'));
@@ -85,6 +90,8 @@ app.post('/api/users/productUpload', upload.single('image'), (req, res) => {
         }
         )
 })
+
+
 
 
 
