@@ -5,6 +5,9 @@ const app = express();
 const port = process.env.PORT || 5000;
 const api = require("./routes/users");
 const cors = require('cors');
+
+const spawn=require("child_process").spawn;
+
 const logger = require('./config/logger');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -51,6 +54,48 @@ function getGooglePlusApi(auth) {
     return google.plus({ version: 'v1', auth });
 }
 
+// 실질적으로 로그인해서 정보를 불러올 코드 작성
+// 리프레시토큰 엑세스토큰 displayName과 id를 얻어와본다.
+// async function googleLogin(code) {
+//     const { tokens } = await oauth2Client.getToken(code);
+//     oauth2Client.setCredentials(tokens);
+//     oauth2Client.on('tokens', (token) => {
+//         if (token.refresh_token) {
+//             console.log("리프레시 토큰 : ", tokens.refresh_token);
+//         }
+//         console.log("액세스 토큰 : ", tokens.access_token);
+//     });
+//     const plus = getGooglePlusApi(oauth2Client);
+//     const res = await plus.people.get({ userId: 'me' });
+//     console.log(`Hello ${res.data.displayName}! ${res.data.id}`);
+//     return res.data.displayName;
+// }
+
+// app.get('/googleLogin', function (req, res) {
+//     res.redirect(url);
+// });
+
+// app.get("/auth/google/callback", async function (req, res) {
+//     const displayName = await googleLogin(req.query.code);
+//     console.log(displayName);
+
+//     res.redirect("http://localhost:3000");
+// });
+
+
+// python 
+
+// const result=spawn("python", ['product.py']);
+
+// result.stdout.on('data',function(data){
+//     console.log(data.toString());
+// })
+
+// result.stderr.on("data", function(data){
+//     console.log(data.toString());
+// })
+
+
 app.use(cors());
 //api 미들웨어 등록
 app.use('/api/users', api);
@@ -67,6 +112,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/users/product', (req, res) => {
     connection.query(
+        
         "select * from product", (err, rows, fields) => {
             res.send(rows);
         }
