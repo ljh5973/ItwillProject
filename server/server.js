@@ -21,6 +21,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+
+
+
+
 const googleConfig
     = {
     clientId: googleClient.web.client_id,
@@ -78,17 +83,17 @@ function getGooglePlusApi(auth) {
 // });
 
 
-// python 
+//python 
 
-// const result=spawn("python", ['product.py']);
+const result=spawn("python", ['product.py']);
 
-// result.stdout.on('data',function(data){
-//     console.log(data.toString());
-// })
+result.stdout.on('data',function(data){
+    console.log(data.toString());
+})
 
-// result.stderr.on("data", function(data){
-//     console.log(data.toString());
-// })
+result.stderr.on("data", function(data){
+    console.log(data.toString());
+})
 
 
 app.use(cors());
@@ -114,7 +119,7 @@ app.get('/api/users/product', (req, res) => {
     )
 });
 
-// api/users 들어가는 있는 거는 users.js(routes)에 넣어야 하는데 작동 안될 거에요. ㅠ
+// api/users 들어가는 있는 거는 users.js(routes)에 넣어야 하는데 작동 안될 거에요. 되나?
 const multer = require('multer');
 const upload = multer({dest: './upload'});
 app.use('/image', express.static('./upload'));
@@ -175,6 +180,8 @@ app.post('/api/users/productUpdate/:id', upload.single('image'), (req, res) => {
             console.log(rows);
         })
 })
+
+
 
 
 
