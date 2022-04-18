@@ -1,7 +1,9 @@
 .computershop {
     width: 1200px;
+    height: 100vh;
     margin: 0 auto;
     padding-top: 100px;
+    position: relative;
 }
 
 .body {
@@ -15,10 +17,21 @@
 
 .computershop_list {
     margin-top: 60px;
+    margin-bottom: 10px;
 }
 
 .home_containerLine {
     width: 100%;
     height: 25px;
     background-color: #31302f;
+}
+
+.write {
+    position: absolute;
+    right: 0;
+    border: none;
+    color: #31302f;
+    background-color: #fbb04c;
+    font-size: 18px;
+    height: 35px;
 }

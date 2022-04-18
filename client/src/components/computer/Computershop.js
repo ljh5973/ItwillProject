@@ -9,42 +9,31 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import ComputerBox from './ComputerBox';
 import {Link} from 'react-router-dom';
-import { CircularProgress } from "@material-ui/core";
 
 
-function Computershop(props) {
+function Computershop() {
 
 
     const [customersData, setCustomersData] = useState([]);
-    const [completed, setCompleted] = useState(0);
-    const [isLoad, setIsLoad] = useState(false);
+
 
     const callApi = async () => {
       const response = await fetch('/api/users/product');
       const body = await response.json();
-      setIsLoad(true);
+      
       console.log(body); 
       return body;
     };
   
     useEffect(() => {
-      let complete = 0;
-      let timer = setInterval(() => {
-        if (complete >= 100) {
-            complete = 0
-        } else {
-            complete += 1;
-        }
-        setCompleted(complete);
-        if (isLoad) {
-            clearInterval(timer);
-        }
-      }, 20);  
+      
       callApi().then(res => {
         setCustomersData(res);
       }).
         catch(err => console.log(err));
-    }, [isLoad]);  
+    }, []);  
+
+    console.log(customersData);
     return (
         <>
         <Header/>
@@ -65,20 +54,16 @@ function Computershop(props) {
                     <TableBody>
                         {customersData ? customersData.map(c => {
                             return <ComputerPrd
-                            key={c.id} product_name={c.product_name} product_image={c.product_image} product_desc={c.product_desc} product_price={c.product_price} />
-                        }) : 
-                        <TableRow>
-                            <TableCell colspan="6" align="center" >
-                                <CircularProgress variant="determinate" value={completed} />
-                            </TableCell>
-                        </TableRow>
+                            key={c.id} id={c.id} product_name={c.product_name} product_image={c.product_image} product_desc={c.product_desc} product_price={c.product_price} />
+                        }) : ""
+                        
                         }
                         
                     </TableBody>
                 </Table>
             </div>
             <Link to="/productUpload">
-              <button>상품등록하기</button>
+              <button className="write">상품등록</button>
             </Link>
             
         </div>

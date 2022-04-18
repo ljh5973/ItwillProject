@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Header from '../header/Header';
-import './ProductUpload.css';
+import './ProductUpdate.css';
 function ProductUpload() {
+
     const navigate = useNavigate();
     const [file, setFile] = useState('');
     const [fileName, setFileName] = useState('');
@@ -11,16 +13,15 @@ function ProductUpload() {
     const [product_name, setProduct_name] = useState('');
     const [product_desc, setProduct_desc] = useState('');
     const [product_price, setProduct_price] = useState('');
+    const {id} = useParams();
 
 
     const fileUploadHandler = (event) => {
         console.log(event.target.files[0]);
         setFile(event.target.files[0]);
         setFileName(event.target.value);
+        console.log(event.target.value);
         setFileImage(URL.createObjectURL(event.target.files[0]));
-        console.log(event.target.files[0])
-        console.log(event.target.value)
-        console.log(URL.createObjectURL(event.target.files[0]))
     }
 
     const onNameHandler = (event) => {
@@ -48,7 +49,7 @@ function ProductUpload() {
             }
         }
 
-        axios.post('/api/users/productUpload', formData, config)
+        axios.post('/api/users/productUpdate/' + id, formData, config)
         .then(response => {
             console.log(response);
             navigate('/computershop');
@@ -62,19 +63,19 @@ function ProductUpload() {
         <div className="home_containerLine" />       
         <div className="productUpload">           
             <form onSubmit={productUpload} className="productBox">
+            
                 <div className="title">상품등록</div>
-                <button type="submit" className="upload">저장</button>
-                <input className="input" type="text" value={product_name} onChange={onNameHandler} 
-                placeholder="상품 이름을 입력해주세요" />                
-                <textarea placeholder="상품 내용을 입력해주세요" style={{width: "100%", height: "400px", marginLeft: "0", 
-                marginTop: "8px"}} value={product_desc} onChange={onDescHandler} />        
-                <input className="input" type="text" placeholder="상품 가격을 입력해주세요" 
-                value={product_price} onChange={onPriceHandler} />
-                <label style={{marginBottom:"10px"}}>이미지</label>
-                <input type="file" onChange={fileUploadHandler} />
-                <div style={{marginTop:"10px"}}>{fileImage && (
-                    <img src={fileImage} style={{width: "200px"}} />
-                )}</div>
+                    <button type="submit" className="upload">저장</button>
+                    <input className="input" type="text" value={product_name} onChange={onNameHandler} placeholder="상품 이름을 입력해주세요" />
+                            
+                    <textarea placeholder="상품 내용을 입력해주세요" style={{width: "100%", height: "400px", marginLeft: "0", marginTop: "8px"}} value={product_desc} onChange={onDescHandler} />        
+                    <input className="input" type="text" placeholder="상품 가격을 입력해주세요" value={product_price} onChange={onPriceHandler} />
+                    <label style={{marginBottom:"10px"}}>이미지</label>
+                    <input type="file" onChange={fileUploadHandler} />
+                    <div style={{marginTop:"10px"}}>{fileImage && (
+                        <img src={fileImage} style={{width: "200px"}} />
+                        )}</div>
+               
                 
             </form>  
         </div>

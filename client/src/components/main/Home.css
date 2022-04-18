@@ -16,6 +16,12 @@
     margin-top: 50px;
 }
 
+.arrow {
+    position: absolute;
+    bottom: 100px;
+    left: 400px;
+}
+
 .home_container1_text1 {
     font-size: 95px;
     font-weight: bold;

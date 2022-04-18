@@ -10,10 +10,7 @@ import {useDispatch} from 'react-redux';
 import { loginUser, googleLogin } from '../../_action/user_action';
 import { useNavigate } from "react-router-dom";
 
-import axios, { Axios } from "axios";
-
 import config from '../../config/google.json';
-import f1 from '../header/Header';
 
 
 
@@ -22,11 +19,9 @@ const SignInModal = ({show, onHide}) => {
     const REST_API_KEY = "0bddd89dc68b3e23c70ddd16883b90bf";
     const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-    const popup =false;
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+   
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -56,7 +51,6 @@ const SignInModal = ({show, onHide}) => {
 
                 console.log(response);
                 if(response.payload.loginSuccess) {
-
                     navigate('/');
                     closeModal();
                 } else {
@@ -119,14 +113,14 @@ const SignInModal = ({show, onHide}) => {
                     </Button>
                     <HorizonLine text={"OR"} />
                     
-                    <GoogleLogin
+                    <GoogleLogin 
                         clientId={config.web.client_id}
                         buttonText="Log in with Google"
                         onSuccess={handleGoogleLogin}
                         onFailure={handleGoogleFailure}
-                        cookiePolicy={'single_host_origin'}                 
+                        cookiePolicy={'single_host_origin'}
                     />
-                    <a href={KAKAO_AUTH_URL}><img style={{width:"100%", height:"45px", marginTop:"10px", marginBottom:"10px"}} src="../img/kakao_login_medium_wide.png" alt="kakao button"/></a>
+                    <a href={KAKAO_AUTH_URL}><img style={{width:"100%", height:"45px", marginTop:"10px", marginBottom:"10px"}} src="../../img/kakao_login_medium_wide.png" alt="kakao button"/></a>
                 </Form>
                 </Modal.Body>
                 

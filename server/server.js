@@ -132,6 +132,50 @@ app.post('/api/users/productUpload', upload.single('image'), (req, res) => {
         )
 })
 
+app.delete('/api/users/product/:id', (req, res) => {
+    let sql = 'delete from product where id= ?';
+    let params = [req.params.id];
+    connection.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+        })
+})
+
+app.get('/api/users/productDetail/:id', (req, res) =>{
+    let sql = 'select * from product where id= ?';
+    let params = [req.params.id];
+    connection.query(sql, params,
+        (err, rows, fields) =>{
+            res.send(rows);
+            console.log(rows);
+        })
+})
+
+app.get('/api/users/productUpdate/:id', (req, res) => {
+    let sql = 'select * from product where id= ?';
+    let params = [req.params.id];
+    connection.query(sql, params,
+        (err, rows, fields) =>{
+            res.send(rows);
+            console.log(rows);
+        })
+})
+
+app.post('/api/users/productUpdate/:id', upload.single('image'), (req, res) => {
+    console.log(req.body);
+    let sql = 'update product set product_name=?, product_desc=?, product_price=?, product_image=? where id=?';
+    let product_name= req.body.product_name;
+    let product_desc = req.body.product_desc;
+    let product_price = req.body.product_price;
+    let product_image = 'http://localhost:5000/image/' + req.file.filename;
+    let params = [product_name, product_desc, product_price, product_image, req.params.id];
+    connection.query(sql, params,
+        (err, rows, fields) =>{
+            res.send(rows);
+            console.log(rows);
+        })
+})
+
 
 
 app.listen(port, () => console.log(`서버 가동 포트번호: ${port}`));

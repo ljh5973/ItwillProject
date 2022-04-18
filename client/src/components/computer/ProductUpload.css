@@ -1,0 +1,38 @@
+.productUpload {
+    height: 100vh;
+    background-color: #f8eee1;
+    display: flex;
+    justify-content: center;
+}
+
+.productBox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    margin-top: 200px;
+}
+
+.input {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 30px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+}
+
+.upload {
+    font-size: 18px;
+    height: 36px;
+    background-color: #fbb04c;
+    color: #31302f;
+    border: none;
+    width: 100px;
+    position: absolute;
+    right: 0;
+    width: 70px;
+}
+

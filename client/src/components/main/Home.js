@@ -16,6 +16,7 @@ function Home() {
                     <img className="home_container1_img2" src="img/container2.webp"/>
                     <Link to="/computershop">
                         <span className="home_container1_text1">Computer Shop</span>
+                        <img className='arrow' src="img/ArrowWHT.webp" />
                     </Link>
                     <span className="home_container1_text2">There are only cheap and good things<br/>
                           Ok Drugs helps elevate micro-experiences<br/> for those 
