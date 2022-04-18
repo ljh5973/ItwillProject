@@ -4,6 +4,15 @@ import json
 import uuid
 import urllib.request as url
 import pymysql
+import os
+
+BASE_DIR="config"
+secret_file= os.path.join(BASE_DIR, "pythonConfig.json")
+
+with open(secret_file)as f:
+    screts=json.loads(f.read())
+
+
 
 cookies = {
     'NNB': '7GSJAI56AJOGE',
@@ -72,22 +81,11 @@ for product in products:
     with open("./upload/computer_{}.jpg".format(product_image), "wb") as f:
             f.write(image_res.content)
             
-    conn = pymysql.connect(host='jinho-test.cuvbn89lbyyp.ap-northeast-2.rds.amazonaws.com', user='admin', password='rptdoa00!!', db='login_lecture', charset='utf8')
+    conn = pymysql.connect(host=screts["DB_HOST"], user=screts["DB_USER"], password=screts["DB_PASS"], db=screts["DB_NAME"], charset='utf8')
     cur = conn.cursor()
     sql = """insert into product (product_name, product_desc, product_price, product_image) values( %s,%s,%s,%s)"""
     
     cur.execute(sql, (product_name,product_desc,product_price,product_image))
     conn.commit()
     conn.close()
-        
-        
-    
 
-# conn = pymysql.connect(host='jinho-test.cuvbn89lbyyp.ap-northeast-2.rds.amazonaws.com', user='admin', password='rptdoa00!!', db='login_lecture', charset='utf8')
-# cur = conn.cursor()
-# sql = "insert into product (id, product_name, product_desc, product_price, product_image) values(280, 'depth test', 'productName', 'productdesc', 'productimg')"
-# cur.execute(sql)
-
-# conn.commit()
-
-# conn.close()
