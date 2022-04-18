@@ -1,11 +1,8 @@
 import requests
-<<<<<<< HEAD
 # from bs4 import BeautifulSoup
 import json 
-=======
-import json
->>>>>>> c9660063e7826dab37dcc14f292756421d5d26ac
 import uuid
+# import urllib.request as url
 import pymysql
 import os
 
