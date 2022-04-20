@@ -2,12 +2,15 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
+const saltRounds = 10;
 //const jwt = require('jsonwebtoken');
 
 const jwt = require('../middlewares/middlewares');
 
 const db_config = require('../config/database.js');
 const conn = db_config.init();
+
+const authUtil = require('../auth/authUtil').checkToken;
 
 const cookieParser = require('cookie-parser');
 router.use(express.urlencoded({ extended: true }));
@@ -16,22 +19,35 @@ router.use(cookieParser());
 db_config.connect(conn);
 
 require('dotenv').config();
-router.post("/login", async (req, res) => {
+router.post("/login",async (req, res) => {
     //db_config.connect(conn);
-    let sql = "select * from users where email=? and pw=?";
+    let sql = "select * from users where email=?";
     let userEmail = req.body.email;
     let userPw = req.body.password;
-    let params = [userEmail, userPw];
+
+    
+
+    let params = [userEmail];
+    //비밀번호 암호화
+    
+
     conn.query(sql, params, async (err, rows, fields) => {
         //정보
-        //console.log(rows);
+        console.log(userPw);
+        console.log(rows[0].pw);
+        const encryptedPW = await bcrypt.hashSync(userPw, saltRounds);
+        console.log(encryptedPW);
+
+        const same = await bcrypt.compareSync(userPw, encryptedPW);    
+        console.log(same);
+        
         if (rows.length > 0) { //로그인 성공
             //res.json({ loginSuccess: true });
             console.log(rows[0].name);
             const jwtToken =  await jwt.sign(rows[0].name);
-            const verify =  await jwt.verify(jwtToken.token);
-            console.log(verify);
-            res.cookie("w_auth", jwtToken).status(200).json({loginSuccess: true, token: jwtToken.token, result: rows[0]});
+            //const verify =  await jwt.verify(jwtToken.token);
+            //console.log(verify);
+            res.cookie("w_auth", jwtToken.token).status(200).json({loginSuccess: true, token: jwtToken.token, result: rows[0]});
 
         } else { //로그인 실패
             res.status(404).json({ loginSuccess: false });
@@ -40,9 +56,7 @@ router.post("/login", async (req, res) => {
 })
 
 
-router.post('/register', (req, res) => {
-    // 회원 가입 할때 필요한 정보들을 client에서 가져오면
-    // 그것들을 데이터 베이스에 넣어준다.
+router.post('/register', async(req, res) => {
     // db_config.connect(conn);
 
     let sql = "insert into users values(?,?,?,?,?,?)";
@@ -55,10 +69,13 @@ router.post('/register', (req, res) => {
     let userSecondAddr = req.body.secondaddr;
 
 
+    const encyptedPW = await bcrypt.hashSync(userPw, saltRounds);
+    console.log(encyptedPW);
+    let params = [userEmail, userName, encyptedPW, userAddr,userSecondAddr, zip];
 
-    let params = [userEmail, userName, userPw, userAddr,userSecondAddr, zip];
 
     conn.query('select * from users where email=?', [userEmail], (err, data) => {
+        
         if (data.length == 0) {
             console.log("회원가입 성공");
             conn.query(sql, params, (err, rows, fields) => {
@@ -86,23 +103,53 @@ router.post('/register', (req, res) => {
 
 
 
-router.get('/logout', (req, res) => {
+router.get('/logout',(req, res) => {
     //db_config.connect(conn);
 
      let token = req.cookies.w_auth;
-     const verify =  jwt.verify(token.token);
+     const verify =  jwt.verify(token);
      //console.log(verify);
      console.log(token);
      if(token) {
          //로그아웃 클릭시 res.clearCookie로 구글 및 카카오 쿠키 삭제
-         console.log('쿠키 제거 성공')
+        console.log('쿠키 제거 성공')
         res.clearCookie("w_auth").json({success: true,});
         //return res.status(200).json({ success: true,});
         //res.redirect('/');
      } else {
-         return res.json({success: false});
+         res.json({success: false});
      }
  });
+
+
+
+ //이메일만 받으면 되는건가? //검증
+router.get("/auth" ,(req, res) => {
+    //console.log(req.token);
+    //console.log("테스트");
+    token = req.cookies.w_auth;
+   //console.log(token);
+   const verify = jwt.verify(token);
+    if(token) {
+        verify.then(verify => {
+            res.json(verify);
+        })
+        console.log(verify);
+        console.log("권한이 있음");
+        //res.json({success: true, verify: verify.decoded});
+        //res.send(verify);
+        
+
+    } else {
+        //console.log(verify);
+        console.log("권한이 없음");
+        //res.json({success: false});
+        verify.then(verify => {
+            res.json(verify);
+        })
+
+    }
+});
 
  
 

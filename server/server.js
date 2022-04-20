@@ -111,30 +111,4 @@ app.use('/api/users', api);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db_config = require('./config/database');
-const conn = db_config.init();
-
-
-//이메일만 받으면 되는건가?
-app.get("/", (req, res) => {
-    //console.log(req.token);
-    //console.log("테스트");
-    token = req.cookies.w_auth;
-   //console.log(token);
-    if(token) {
-        const verify = jwt.verify(token.token);
-        console.log(verify);
-        //console.log("권한이 있음");
-        //res.json({info: verify.name});
-        res.send(verify);
-    } else {
-        console.log(verify);
-        //console.log("권한이 없음");
-        res.json({info: verify});
-    }
-});
-
-
-
-
 app.listen(port, () => console.log(`서버 가동 포트번호: ${port}`));

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Header.css';
 // Header.css 연결
 import { AccountCircle } from '@material-ui/icons';
@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import SignUpModal from '../users/SignUpModal';
 import SignInModal from '../users/SignInModal';
 import axios from 'axios';
+import { Cookies } from 'react-cookie';
+
 function Header() {
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
@@ -32,20 +34,40 @@ function Header() {
         return result;
       }
 
-      console.log(getCookieValue("w_auth"));
+      //console.log(getCookieValue("w_auth"));
+
+      useEffect(() => {
+        axios.get('/api/users/auth').then(res => {
+            //success true, false 반환
+            const cookies = new Cookies();
+            console.log(cookies.get("w_auth"));
+            
+            console.log(res.data);
+            
+
+            //console.log(getCookieValue("w_auth").cookie);
+            //console.log(req.data);
+            //console.log(req.data.name);
+            //console.log(res);
+        })
+      
+      }, [])
+      
+      
 
 
     const logoutHandler = () => {
         axios.get(`/api/users/logout`).then(response => {
             console.log(response.data.success);
             //console.log(response.data);
-            setInlogin(true);
+            //setInlogin(true);
             if (response.data.success == true) {
                 //props.history.push("/login");
                 //Navigate('/');
                 //window.location.reload();
+                alert('logout 성공');
             } else {
-                setInlogin(false);
+                //setInlogin(false);
                 alert('Log Out Failed')
             }
         });
