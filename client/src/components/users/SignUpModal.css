@@ -1,0 +1,29 @@
+.formbox {
+    position: relative;
+    margin-bottom: 20px;
+}
+.message {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -1px;
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+      
+       
+}
+
+.formtext {
+    margin-top: 20px;
+}
+    
+  
+
+.success {
+    color: #8f8c8b;
+}
+
+.error {
+    color: #ff2727;
+}

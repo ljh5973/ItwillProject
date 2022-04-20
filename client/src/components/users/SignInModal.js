@@ -51,6 +51,7 @@ const SignInModal = ({show, onHide}) => {
 
                 console.log(response);
                 if(response.payload.loginSuccess) {
+                    alert('로그인 성공');
                     navigate('/');
                     closeModal();
                 } else {
@@ -113,14 +114,14 @@ const SignInModal = ({show, onHide}) => {
                     </Button>
                     <HorizonLine text={"OR"} />
                     
-                    <GoogleLogin 
+                    <GoogleLogin style={{padding: "100px"}}
                         clientId={config.web.client_id}
                         buttonText="Log in with Google"
                         onSuccess={handleGoogleLogin}
                         onFailure={handleGoogleFailure}
                         cookiePolicy={'single_host_origin'}
                     />
-                    <a href={KAKAO_AUTH_URL}><img style={{width:"100%", height:"45px", marginTop:"10px", marginBottom:"10px"}} src="../../img/kakao_login_medium_wide.png" alt="kakao button"/></a>
+                    <a href={KAKAO_AUTH_URL}><img style={{marginLeft: "62px", height:"45px", marginTop:"10px", marginBottom:"10px"}} src="../../img/kakao_login_medium_narrow.png" alt="kakao button"/></a>
                 </Form>
                 </Modal.Body>
                 
