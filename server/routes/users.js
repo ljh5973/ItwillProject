@@ -95,6 +95,7 @@ router.get('/logout', (req, res) => {
      console.log(token);
      if(token) {
          //로그아웃 클릭시 res.clearCookie로 구글 및 카카오 쿠키 삭제
+        
          console.log('쿠키 제거 성공')
         res.clearCookie("w_auth").json({success: true,});
         //return res.status(200).json({ success: true,});
@@ -109,7 +110,7 @@ router.get('/logout', (req, res) => {
 router.get('/product', (req, res) => {
     // db_config.connect(conn);
     conn.query(
-        "select * from product", (err, rows, fields) => {
+        "select * from product order by id desc", (err, rows, fields) => {
             res.send(rows);
         }
     )

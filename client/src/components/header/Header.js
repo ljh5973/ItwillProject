@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Header.css';
 // Header.css 연결
 import { AccountCircle } from '@material-ui/icons';
@@ -9,16 +9,21 @@ import { Link } from 'react-router-dom';
 import SignUpModal from '../users/SignUpModal';
 import SignInModal from '../users/SignInModal';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import {useCookies} from 'react-cookie';
+
 function Header() {
+    const usenavi = useNavigate();
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
     const [Inlogin, setInlogin] = useState(false);
+    const [cookies, setCookies ]= useCookies('w_auth')
     const getCookieValue = (key) => {
         let cookieKey = key + "="; 
         let result = "";
         const cookieArr = document.cookie.split(";");
         
-        
+  
         for(let i = 0; i < cookieArr.length; i++) {
           if(cookieArr[i][0] === " ") {
             cookieArr[i] = cookieArr[i].substring(1);
@@ -31,26 +36,34 @@ function Header() {
         }
         return result;
       }
+    // let cookie = cookies.w_auth.token
+    // console.log(cookie);
 
-      console.log(getCookieValue("w_auth"));
 
+    console.log(getCookieValue("w_auth"));
 
     const logoutHandler = () => {
         axios.get(`/api/users/logout`).then(response => {
             console.log(response.data.success);
             //console.log(response.data);
-            setInlogin(true);
+        
+            
             if (response.data.success == true) {
                 //props.history.push("/login");
                 //Navigate('/');
                 //window.location.reload();
+                ;
+            
+               
             } else {
-                setInlogin(false);
                 alert('Log Out Failed')
-            }
+               
+            }   
+            console.log("inlogin", Inlogin)
         });
     };
 
+    
 
 
 
@@ -86,15 +99,17 @@ function Header() {
             </div>
             <div className="header_nav">
                 <div className="header_option">
-                    <span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>
-                    <span className="header_optionMenu space">/</span>
-                    <span className="header_optionMenu" onClick={logoutHandler}>logout</span>
-                    <span className="header_optionMenu space">/</span>
-                    <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>
+                    {Inlogin ? [<span className="header_optionMenu" onClick={logoutHandler}>Log out</span>, 
                     <Link to="/profile" className="link_box">
-                        <span className="header_optionMenu"><AccountCircle/></span>
-                    </Link>
+                    <span className="header_optionMenu"><AccountCircle/></span>
+                    </Link>] : 
+                    [<span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>, 
+                    <span className="header_optionMenu space">/</span>,
+                    <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>,
+                    ] 
+                    }          
                 </div>
+                
                 
                 {/* <div className="header_optionBasket">
                     <Link to="/checkout" className="link_box">

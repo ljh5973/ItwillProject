@@ -24,6 +24,7 @@ const SignInModal = ({show, onHide}) => {
    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+  
 
     const onEmailHandler = (event) => {
         setEmail(event.currentTarget.value)
@@ -51,9 +52,9 @@ const SignInModal = ({show, onHide}) => {
 
                 console.log(response);
                 if(response.payload.loginSuccess) {
-                    alert('로그인 성공');
-                    navigate('/');
+                    alert('로그인 성공'); 
                     closeModal();
+                    
                 } else {
                     alert('Error');
                 }

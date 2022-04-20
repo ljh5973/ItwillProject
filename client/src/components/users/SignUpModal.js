@@ -167,9 +167,9 @@ const SignUpModal = ({show, onHide}) => {
                     <Form.Group className="mb-3 formbox" controlId="formBasicEmail">
                         <Form.Label className="formtext">주소</Form.Label>
                         <Form.Control value={zip} onChange={onZipHandler} style={{width:"100px"}} type="text" />          
-                        <button type="button" onClick={()=> {
+                        <Button variant="secondary" onClick={()=> {
                             setPopup(!popup)
-                        }} style={{position:"absolute", top:"50%", left:"120px"}}>주소 검색</button>
+                        }} style={{position:"absolute", top:"47%", left:"120px"}}>주소 검색</Button>
                         { popup && <KaKao adress={address} setAddress={setAddress} setZip={setZip} />}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">

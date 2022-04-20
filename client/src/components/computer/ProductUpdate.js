@@ -4,6 +4,12 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Header from '../header/Header';
 import './ProductUpdate.css';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
+import { DialogTitle } from '@material-ui/core';
+import { DialogContent } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 function ProductUpload() {
 
     const navigate = useNavigate();
@@ -35,9 +41,10 @@ function ProductUpload() {
     const onPriceHandler = (event) => {
         setProduct_price(event.currentTarget.value)
     }
-
+   
     const productUpload = (event) => {
         event.preventDefault();
+        
         const formData = new FormData();
         formData.append("image", file);
         formData.append("product_name", product_name);
@@ -63,23 +70,61 @@ function ProductUpload() {
         <div className="home_containerLine" />       
         <div className="productUpdate">           
             <form onSubmit={productUpload} className="productBox">           
-                <div className="title">상품수정</div>
-                    <button type="submit" className="upload">저장</button>
-                    <input className="input" type="text" value={product_name} onChange={onNameHandler} placeholder="상품 이름을 입력해주세요" />            
-                    <textarea placeholder="상품 내용을 입력해주세요" style={{width: "100%", height: "400px", marginLeft: "0", marginTop: "8px"}}
-                     value={product_desc} onChange={onDescHandler} />        
-                    <input className="input" type="text" placeholder="상품 가격을 입력해주세요" value={product_price} onChange={onPriceHandler} />
-                    <label style={{marginBottom:"10px"}}>이미지</label>
-                    <input type="file" onChange={fileUploadHandler} />
-                    <div style={{marginTop:"10px"}}>{fileImage && (
-                        <img src={fileImage} style={{width: "200px"}} />
+                <DialogTitle className="productTitleName">상품수정</DialogTitle>
+                    <Button className="uploadBtn" type="submit">수정</Button>
+                    <DialogContent>
+                        <TextField style={{width: "100%"}} value={product_name} onChange={onNameHandler} label="상품 이름" type="text" />
+                        <textarea placeholder="상품 내용을 입력해주세요" style={{width: "100%", height: "400px", marginLeft: "0", marginTop: "8px"}}
+                        value={product_desc} onChange={onDescHandler} />        
+                        <TextField style={{width: "100%"}} value={product_price} onChange={onPriceHandler} label="상품 가격" />
+                        <input style={{display:"none"}} accept="image/*" id="raised-button-file" type="file" 
+                        onChange={fileUploadHandler} /><br/>
+                        <label htmlFor="raised-button-file">
+                        <Button style={{marginLeft: "0", marginTop:"20px", backgroundColor:"#e65a41", color:"#fff"}} variant="contained" component="span" name="file">
+                            {fileName === "" ?  "이미지 선택" : fileName}
+                        </Button>
+                        <div style={{marginTop:"10px", marginLeft:"0"}}>{fileImage && (
+                            <img src={fileImage} style={{width: "650px"}} />
                         )}</div>
-               
-                
+                    </label><br/>
+                    </DialogContent>
             </form>  
+        </div>
+        <div style={{}} className="updateFooter"><img src='../img/footerlogo.webp'/>
+            <span className="footerDesc">서울특별시 강남구 테헤란로 124 4층 (역삼동, 삼원타워) 아이티윌</span>
+            <div className="imgList">
+                <img src="../img/facebook.webp"/>
+                <img src="../img/instagram.webp"/>
+                <img src="../img/twitter.webp"/>
+            </div>
         </div>
         </>
     );
 }
 
 export default ProductUpload
+
+// return (
+//     <>
+//     <Header />
+    
+//     <div className="home_containerLine" />       
+//     <div className="productUpdate">           
+//         <form onSubmit={productUpload} className="productBox">           
+//             <div className="title">상품수정</div>
+//                 <button type="submit" className="upload">저장</button>
+//                 <input className="input" type="text" value={product_name} onChange={onNameHandler} placeholder="상품 이름을 입력해주세요" />            
+//                 <textarea placeholder="상품 내용을 입력해주세요" style={{width: "100%", height: "400px", marginLeft: "0", marginTop: "8px"}}
+//                  value={product_desc} onChange={onDescHandler} />        
+//                 <input className="input" type="text" placeholder="상품 가격을 입력해주세요" value={product_price} onChange={onPriceHandler} />
+//                 <label style={{marginBottom:"10px"}}>이미지</label>
+//                 <input type="file" onChange={fileUploadHandler} />
+//                 <div style={{marginTop:"10px"}}>{fileImage && (
+//                     <img src={fileImage} style={{width: "200px"}} />
+//                     )}</div>
+           
+            
+//         </form>  
+//     </div>
+//     </>
+// );
