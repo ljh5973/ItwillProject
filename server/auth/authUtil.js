@@ -3,6 +3,7 @@ const secretKey = require('../config/jwtConfig').secretKey;
 const authUtil = {
     checkToken: async (req, res, next) => {
         const token = req.cookies.w_auth;
+        // const kakaotoken = req.cookies.kakao;
         console.log(token);
         // 토큰 없음
         try {

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, {useState, useEffect} from 'react';
-=======
-import React, {useEffect, useState} from 'react';
->>>>>>> d5cf8ace35ada3c7c48b3674abded45d3809517b
 import './Header.css';
 // Header.css 연결
 import { AccountCircle } from '@material-ui/icons';
@@ -13,19 +9,14 @@ import { Link } from 'react-router-dom';
 import SignUpModal from '../users/SignUpModal';
 import SignInModal from '../users/SignInModal';
 import axios from 'axios';
-<<<<<<< HEAD
 import { Cookies } from 'react-cookie';
-=======
-import { useNavigate } from 'react-router-dom';
-import {useCookies} from 'react-cookie';
->>>>>>> d5cf8ace35ada3c7c48b3674abded45d3809517b
 
 function Header() {
-    const usenavi = useNavigate();
+    //const usenavi = useNavigate();
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
     const [Inlogin, setInlogin] = useState(false);
-    const [cookies, setCookies ]= useCookies('w_auth')
+    //const [cookies, setCookies ]= useCookies('w_auth')
     const getCookieValue = (key) => {
         let cookieKey = key + "="; 
         let result = "";
@@ -47,7 +38,6 @@ function Header() {
     // let cookie = cookies.w_auth.token
     // console.log(cookie);
 
-<<<<<<< HEAD
       //console.log(getCookieValue("w_auth"));
 
       useEffect(() => {
@@ -68,8 +58,6 @@ function Header() {
       }, [])
       
       
-=======
->>>>>>> d5cf8ace35ada3c7c48b3674abded45d3809517b
 
     console.log(getCookieValue("w_auth"));
 
@@ -77,26 +65,14 @@ function Header() {
         axios.get(`/api/users/logout`).then(response => {
             console.log(response.data.success);
             //console.log(response.data);
-<<<<<<< HEAD
             //setInlogin(true);
-=======
-        
-            
->>>>>>> d5cf8ace35ada3c7c48b3674abded45d3809517b
             if (response.data.success == true) {
                 //props.history.push("/login");
                 //Navigate('/');
-                //window.location.reload();
-<<<<<<< HEAD
+                window.location.reload();
                 alert('logout 성공');
             } else {
                 //setInlogin(false);
-=======
-                ;
-            
-               
-            } else {
->>>>>>> d5cf8ace35ada3c7c48b3674abded45d3809517b
                 alert('Log Out Failed')
                
             }   
@@ -107,9 +83,10 @@ function Header() {
     
 
 
-
-
+    const cookies = new Cookies();
+    const cookies_w_auth = cookies.get("w_auth");
     return (
+        
         <>
         <SignUpModal show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
         <SignInModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
@@ -140,7 +117,8 @@ function Header() {
             </div>
             <div className="header_nav">
                 <div className="header_option">
-                    {Inlogin ? [<span className="header_optionMenu" onClick={logoutHandler}>Log out</span>, 
+                    {/* 카카오 혹은 구글 토큰이 있으면 으로??? */}
+                    {cookies_w_auth ? [<span className="header_optionMenu" onClick={logoutHandler}>Log out</span>, 
                     <Link to="/profile" className="link_box">
                     <span className="header_optionMenu"><AccountCircle/></span>
                     </Link>] : 

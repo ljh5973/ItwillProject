@@ -54,6 +54,7 @@ const SignInModal = ({show, onHide}) => {
                 if(response.payload.loginSuccess) {
                     alert('로그인 성공'); 
                     closeModal();
+                    window.location.reload();
                     
                 } else {
                     alert('Error');
