@@ -1,4 +1,4 @@
-
+import './App.css';
 import Home from "./components/main/Home";
 import Checkout from "./Checkout";
 import Computershop from "./components/computer/Computershop";

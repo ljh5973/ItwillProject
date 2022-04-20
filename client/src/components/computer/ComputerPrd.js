@@ -15,7 +15,7 @@ function ComputerPrd(props) {
                 <img src={props.product_image} className="product_img"/>
                 </Link>
             </TableCell>
-            <TableCell>{props.product_desc.length < 45 ? props.product_desc : props.product_desc.slice(0, 45) + '...'}</TableCell>
+            <TableCell>{props.product_desc.length < 40 ? props.product_desc : props.product_desc.slice(0, 40) + '...'}</TableCell>
             <TableCell style={{width:"200px"}}>{props.product_price}</TableCell>
         </TableRow>    
              

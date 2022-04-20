@@ -31,7 +31,7 @@ function ProductDelete(props) {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>삭제</Button>
+      <Button style={{backgroundColor:"#e65a41", color: "#fff"}} variant="contained" onClick={handleClickOpen}>삭제</Button>
       <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
               삭제
@@ -42,7 +42,7 @@ function ProductDelete(props) {
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button variant="contained" color="primary" onClick={(e) => {deleteProduct(props.id)}}>삭제</Button> 
+            <Button style={{backgroundColor:"#e65a41", color: "#fff"}} variant="contained" onClick={(e) => {deleteProduct(props.id)}}>삭제</Button> 
             <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button> 
           </DialogActions>
       </Dialog>

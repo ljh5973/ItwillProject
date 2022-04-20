@@ -12,27 +12,28 @@
     width: 700px;
 }
 
-.input {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.title {
-    font-size: 30px;
-    border-bottom: 1px solid gray;
-    padding-bottom: 10px;
+.productBox .productTitleName {
     margin-top: 100px;
 }
 
-.upload {
-    font-size: 18px;
-    height: 36px;
-    background-color: #fbb04c;
-    color: #31302f;
-    border: none;
-    width: 100px;
+.productBox .uploadBtn {
+    background-color:#e65a41;
+    color: #fff;
+    width: 80px;
+    top: 120px;
+    right: 20px;
     position: absolute;
-    right: 0;
-    width: 70px;
-    top: 100px;
+}
+
+.updateFooter {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    bottom: 10px;
+    background-color: #31302f;
+    color: #f8eee1;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
