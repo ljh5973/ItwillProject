@@ -13,23 +13,25 @@ const cookieParser = require('cookie-parser');
 router.use(express.urlencoded({ extended: true }));
 router.use(cookieParser());
 //const {User} = require("../models/User");
+db_config.connect(conn);
 
 require('dotenv').config();
 router.post("/login", async (req, res) => {
-    db_config.connect(conn);
+    //db_config.connect(conn);
     let sql = "select * from users where email=? and pw=?";
     let userEmail = req.body.email;
     let userPw = req.body.password;
     let params = [userEmail, userPw];
     conn.query(sql, params, async (err, rows, fields) => {
         //정보
-        console.log(rows);
+        //console.log(rows);
         if (rows.length > 0) { //로그인 성공
             //res.json({ loginSuccess: true });
-            const jwtToken =  await jwt.sign(userEmail);
-            // const verify =  await jwt.verify(jwtToken.token);
-
-            res.cookie("w_auth", jwtToken.token).status(200).json({loginSuccess: true, token: jwtToken.token});
+            console.log(rows[0].name);
+            const jwtToken =  await jwt.sign(rows[0].name);
+            const verify =  await jwt.verify(jwtToken.token);
+            console.log(verify);
+            res.cookie("w_auth", jwtToken).status(200).json({loginSuccess: true, token: jwtToken.token, result: rows[0]});
 
         } else { //로그인 실패
             res.status(404).json({ loginSuccess: false });
@@ -41,16 +43,20 @@ router.post("/login", async (req, res) => {
 router.post('/register', (req, res) => {
     // 회원 가입 할때 필요한 정보들을 client에서 가져오면
     // 그것들을 데이터 베이스에 넣어준다.
-    db_config.connect(conn);
+    // db_config.connect(conn);
 
-    let sql = "insert into users values(?,?,?,?,?)";
+    let sql = "insert into users values(?,?,?,?,?,?)";
+    console.log(req.body);
     let userEmail = req.body.email;
     let userName = req.body.name;
     let userPw = req.body.password;
-    let userAddr = req.body.address;
     let zip = req.body.zip;
+    let userAddr = req.body.address;
+    let userSecondAddr = req.body.secondaddr;
 
-    let params = [userEmail, userName, userPw, userAddr, zip];
+
+
+    let params = [userEmail, userName, userPw, userAddr,userSecondAddr, zip];
 
     conn.query('select * from users where email=?', [userEmail], (err, data) => {
         if (data.length == 0) {
@@ -78,15 +84,18 @@ router.post('/register', (req, res) => {
 //     });
 // });
 
+
+
 router.get('/logout', (req, res) => {
     //db_config.connect(conn);
 
      let token = req.cookies.w_auth;
-     const verify =  jwt.verify(token);
+     const verify =  jwt.verify(token.token);
      //console.log(verify);
      console.log(token);
      if(token) {
          //로그아웃 클릭시 res.clearCookie로 구글 및 카카오 쿠키 삭제
+         console.log('쿠키 제거 성공')
         res.clearCookie("w_auth").json({success: true,});
         //return res.status(200).json({ success: true,});
         //res.redirect('/');
@@ -98,9 +107,8 @@ router.get('/logout', (req, res) => {
  
 
 router.get('/product', (req, res) => {
-    db_config.connect(conn);
+    // db_config.connect(conn);
     conn.query(
-        
         "select * from product", (err, rows, fields) => {
             res.send(rows);
         }
@@ -112,6 +120,7 @@ const multer = require('multer');
 const upload = multer({dest: './upload'});
 router.use('/image', express.static('./upload'));
 router.post('/productUpload', upload.single('image'), (req, res) => {
+    // db_config.connect(conn);
     let sql = 'insert into product values (null, ?, ?, ?, ?)';
     let product_name= req.body.product_name;
     let product_desc = req.body.product_desc;
@@ -126,6 +135,7 @@ router.post('/productUpload', upload.single('image'), (req, res) => {
 })
 
 router.delete('/product/:id', (req, res) => {
+    // db_config.connect(conn);
     let sql = 'delete from product where id= ?';
     let params = [req.params.id];
     conn.query(sql, params,
@@ -135,6 +145,7 @@ router.delete('/product/:id', (req, res) => {
 })
 
 router.get('/productDetail/:id', (req, res) =>{
+    // db_config.connect(conn);
     let sql = 'select * from product where id= ?';
     let params = [req.params.id];
     conn.query(sql, params,
@@ -145,6 +156,7 @@ router.get('/productDetail/:id', (req, res) =>{
 })
 
 router.get('/productUpdate/:id', (req, res) => {
+    // db_config.connect(conn);
     let sql = 'select * from product where id= ?';
     let params = [req.params.id];
     conn.query(sql, params,
@@ -155,6 +167,7 @@ router.get('/productUpdate/:id', (req, res) => {
 })
 
 router.post('/productUpdate/:id', upload.single('image'), (req, res) => {
+    // db_config.connect(conn);
     console.log(req.body);
     let sql = 'update product set product_name=?, product_desc=?, product_price=?, product_image=? where id=?';
     let product_name= req.body.product_name;

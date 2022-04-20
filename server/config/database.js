@@ -17,5 +17,5 @@ module.exports = {
             if(err) console.error('mysql connection error : ' + err);
             else console.log('mysql is connected successfully!');
         });
-    }
+    },
 }

@@ -10,7 +10,7 @@
 
 # google.json도 최종적으로 ignore 시켜야됨 ..
 # /google.json
-google.json
+# google.json
 # dependencies
 /node_modules
 /.pnp
