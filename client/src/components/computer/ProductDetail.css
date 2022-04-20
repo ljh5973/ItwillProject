@@ -1,8 +1,8 @@
 .productDetail {
     height: 100vh;
-    background-color: #f8eee1;
     display: flex;
     justify-content: center;
+    background-color: #f8eee1;
 }
 
 .productList {
@@ -24,13 +24,16 @@
     width: 500px;
     top: 100px;
     right: 0px;
-    border: 1px solid gray;
     padding: 10px;
 }
 
 .productListBox span:nth-child(1) {
     margin-bottom: 20px;
     font-size: 25px;
+}
+.productListBox > span {
+    margin-bottom: 20px;
+    
 }
 
 .btnBox {
@@ -47,7 +50,6 @@
 .productDesc {
     position: absolute;
     top: 600px;
-    border: 1px solid gray;
     width: 100%;
     height: 500px;
 }
