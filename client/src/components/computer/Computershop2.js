@@ -147,6 +147,7 @@ function Computershop() {
           setProgress(complete);
           if (isLoad) {
             clearInterval(timer);
+            
           }
         }, 20);
         callApi().then(res => {
@@ -155,7 +156,7 @@ function Computershop() {
           catch(err => console.log(err));
       }, [isLoad]);
 
-    console.log(customersData);
+    //console.log(customersData);
 
     const cellList = ['상품 이름', '상품 이미지', '상품 내용', '상품 가격']
 

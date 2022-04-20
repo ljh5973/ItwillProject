@@ -101,7 +101,7 @@ router.get('/logout',(req, res) => {
  //이메일만 받으면 되는건가? //검증
 router.get("/auth" ,(req, res) => {
     token = req.cookies.w_auth;
-    
+
     //console.log(req.cookies);
    
    const verify = jwt.verify(token);
@@ -145,7 +145,7 @@ router.post('/productUpload', upload.single('image'), (req, res) => {
     let product_name= req.body.product_name;
     let product_desc = req.body.product_desc;
     let product_price = req.body.product_price;
-    let product_image = 'http://localhost:5000/image/' + req.file.filename;
+    let product_image = 'http://localhost:5000/api/users/image/' + req.file.filename;
     let params = [product_name, product_desc, product_price, product_image];
     conn.query(sql, params,
         (err, rows, fields) => {
@@ -193,7 +193,7 @@ router.post('/productUpdate/:id', upload.single('image'), (req, res) => {
     let product_name= req.body.product_name;
     let product_desc = req.body.product_desc;
     let product_price = req.body.product_price;
-    let product_image = 'http://localhost:5000/image/' + req.file.filename;
+    let product_image = 'http://localhost:5000/api/users/image/' + req.file.filename;
     let params = [product_name, product_desc, product_price, product_image, req.params.id];
     conn.query(sql, params,
         (err, rows, fields) =>{

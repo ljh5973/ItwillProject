@@ -57,10 +57,6 @@ function Header() {
       
       }, [])
       
-      
-
-    console.log(getCookieValue("w_auth"));
-
     const logoutHandler = () => {
         axios.get(`/api/users/logout`).then(response => {
             console.log(response.data.success);
