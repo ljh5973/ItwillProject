@@ -8,11 +8,53 @@ import { Link } from 'react-router-dom';
 // 클릭하면 페이지 변경 가능하게 Link 임포트
 import SignUpModal from '../users/SignUpModal';
 import SignInModal from '../users/SignInModal';
-
-
+import axios from 'axios';
 function Header() {
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
+    const [Inlogin, setInlogin] = useState(false);
+    const getCookieValue = (key) => {
+        let cookieKey = key + "="; 
+        let result = "";
+        const cookieArr = document.cookie.split(";");
+        
+        
+        for(let i = 0; i < cookieArr.length; i++) {
+          if(cookieArr[i][0] === " ") {
+            cookieArr[i] = cookieArr[i].substring(1);
+          }
+          
+          if(cookieArr[i].indexOf(cookieKey) === 0) {
+            result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+            return result;
+          }
+        }
+        return result;
+      }
+
+      console.log(getCookieValue("w_auth"));
+
+
+    const logoutHandler = () => {
+        axios.get(`/api/users/logout`).then(response => {
+            console.log(response.data.success);
+            //console.log(response.data);
+            setInlogin(true);
+            if (response.data.success == true) {
+                //props.history.push("/login");
+                //Navigate('/');
+                //window.location.reload();
+            } else {
+                setInlogin(false);
+                alert('Log Out Failed')
+            }
+        });
+    };
+
+
+
+
+
     return (
         <>
         <SignUpModal show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
@@ -45,6 +87,8 @@ function Header() {
             <div className="header_nav">
                 <div className="header_option">
                     <span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>
+                    <span className="header_optionMenu space">/</span>
+                    <span className="header_optionMenu" onClick={logoutHandler}>logout</span>
                     <span className="header_optionMenu space">/</span>
                     <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>
                     <Link to="/profile" className="link_box">
