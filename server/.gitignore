@@ -21,8 +21,8 @@
 
 
 # python
-/pythonConfig.json
-pythonConfig.json
+#/pythonConfig.json
+# pythonConfig.json
 
 # production
 /build
