@@ -31,8 +31,8 @@ router.post("/login",async (req, res) => {
         const same = await bcrypt.compareSync(userPw, rows[0].pw);    
         
         if(same) { //비밀번호 일치 
-            console.log(rows[0].name);
-            const jwtToken =  await jwt.sign(rows[0].name);
+            console.log(rows[0].email);
+            const jwtToken =  await jwt.sign(rows[0].email);
             //const verify =  await jwt.verify(jwtToken.token);
             //console.log(verify);
             res.cookie("w_auth", jwtToken.token).status(200).json({loginSuccess: true, token: jwtToken.token, result: rows[0]});
@@ -96,11 +96,24 @@ router.get('/logout',(req, res) => {
      }
  });
 
+ //회원정보 수정
+ router.put('/:user_email', (req,res) => {
+    let token = req.cookies.w_auth;
+    let info = jwt.verify(token);
+    
+    console.log(info.data)
+    res.send('정보수정 테스트');
+
+    //이메일로 db조회
+ })
+ 
+
 
 
  //이메일만 받으면 되는건가? //검증
 router.get("/auth" ,(req, res) => {
     token = req.cookies.w_auth;
+    kakao = req.cookies.auth;
 
     //console.log(req.cookies);
    
@@ -137,6 +150,7 @@ router.get('/product', (req, res) => {
 
 // api/users 들어가는 있는 거는 users.js(router)에 넣어야 하는데 작동 안될 거에요. 되나?
 const multer = require('multer');
+const { verify } = require("jsonwebtoken");
 const upload = multer({dest: './upload'});
 router.use('/image', express.static('./upload'));
 router.post('/productUpload', upload.single('image'), (req, res) => {

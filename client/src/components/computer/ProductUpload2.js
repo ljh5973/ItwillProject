@@ -27,14 +27,20 @@ function ProductUpload(props) {
     const [product_name, setProduct_name] = useState('');
     const [product_desc, setProduct_desc] = useState('');
     const [product_price, setProduct_price] = useState('');
-
+    const [user_id, setUser_id] = useState('');
    
     
     const [open, setOpen] = useState(false);
     
     const handleClickOpen = () => {
         setOpen(true)
+        axios.get('api/users/auth').then(res => {
+            setUser_id(res.data.name);
+            
+            
+        });
     }
+    //console.log(user_id);
     
     const handleClose = () => {
         setOpen(false)
@@ -91,6 +97,13 @@ function ProductUpload(props) {
         setOpen(false);
        
     }
+
+    useEffect(() => {
+
+    
+    }, [])
+    
+    
 
     return (
         <>         

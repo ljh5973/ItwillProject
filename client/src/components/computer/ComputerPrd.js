@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import ProductDelete from './ProductDelete';
 import {Link} from 'react-router-dom';
 function ComputerPrd(props) {
-
+    //console.log(props.product_image);
     return (
                          
         <TableRow >          
