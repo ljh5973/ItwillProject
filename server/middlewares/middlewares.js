@@ -43,16 +43,20 @@ const options = require('../config/jwtConfig').options;
 module.exports = {
     sign: async (info) => {
         const payload = {
-            email: info.email,
+            name: info,
         };
-
+        console.log('payload: ' + payload);
         const result = {
+            
             token: jwt.sign(payload, secretKey, options),
             refreshToken: randToken.uid(256),
-            isSuccess: true
+            isSuccess: true,
+            payload,
+            
+            
         };
-
-        return result;
+        
+        return await result;
     },
     verify: async (token) => {
         let decoded;
@@ -70,4 +74,6 @@ module.exports = {
 
         return decoded;
     }
+
+
 }

@@ -1,0 +1,7 @@
+{
+    "DB_HOST" : "jinho-test.cuvbn89lbyyp.ap-northeast-2.rds.amazonaws.com",
+    "DB_USER" : "admin",
+    "DB_PASS" : "rptdoa00!!",
+    "DB_NAME" : "login_lecture",
+    "DB_PORT" : "3306"
+  }

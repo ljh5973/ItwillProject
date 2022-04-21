@@ -32,8 +32,9 @@ const jwtConfig = {
         algorithm : "HS256",
         expiresIn : "60m",
         //expiresIn : "10s", //10초 테스트용
+        
         issuer : "issuer",
-        isSuccess: false,
+        // isSuccess: false,
     }
 }
 

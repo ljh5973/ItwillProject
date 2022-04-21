@@ -12,17 +12,18 @@ function Home() {
             <Header />
             <div className="home_container1"> 
                 <div className="home_container_imgBox1">
-                    <img className="home_container1_img1" src="img/container1.webp"/>
-                    <img className="home_container1_img2" src="img/container2.webp"/>
-                    <Link to="/computershop">
+                    <img className="home_container1_img1" src="img/container1.png"/>
+                    <img className="home_container1_img2" src="img/110.jpg"/>
+                    <Link to="/computershop2">
                         <span className="home_container1_text1">Computer Shop</span>
                         <img className='arrow' src="img/ArrowWHT.webp" />
                     </Link>
                     <span className="home_container1_text2">There are only cheap and good things<br/>
                           Ok Drugs helps elevate micro-experiences<br/> for those 
                           who want to check-in to the<br/> moment in a 
-                          hard and heavy world.</span>                      
+                          hard and heavy world.</span>                     
                 </div>
+                
             </div>
             <div className="home_containerLine">
 

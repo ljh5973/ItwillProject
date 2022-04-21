@@ -17,7 +17,7 @@ const Post = (props) => {
     display: "block",
     position: "absolute",
     top: "40%",
-    left: "-12px",
+    left: "-32px",
     width: "500px",
     height: "400px",
     padding: "7px",

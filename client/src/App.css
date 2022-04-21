@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "sb";
+    font-weight: 50;
+    src: url("./fonts/SB\ 어그로\ B.ttf") format("truetype");
+  }
+
+@font-face {
+    font-family: "tway";
+    font-weight: 10;
+    src: url("./fonts/tway_air.ttf");
+}
+
+@font-face {
+    font-family: "gowun";
+    font-weight: 50;
+    src: url("./fonts/GowunDodum-Regular.ttf");
+}

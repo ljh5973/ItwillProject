@@ -96,6 +96,17 @@ function getGooglePlusApi(auth) {
 // result.stderr.on("data", function(data){
 //     console.log(data.toString());
 // })
+<<<<<<< HEAD
+=======
+
+const jwt = require('./middlewares/middlewares')
+
+// app.get(`/`, async (req, res) => {
+// 	const jwtToken = await jwt.sign();
+//     const verify = await jwt.verify(jwtToken.token);
+//     res.send(jwtToken.token +"       "+ verify);
+// });
+>>>>>>> e990827c9192b28ce0e4e02c1d59a923a1b67da1
 
 
 app.use(cors());
@@ -104,87 +115,5 @@ app.use('/api/users', api);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-    connection.query("select * from users", (err, rows, fields) => {
-        res.send(rows);
-    });
-});
-
-
-app.get('/api/users/product', (req, res) => {
-    connection.query(
-        
-        "select * from product", (err, rows, fields) => {
-            res.send(rows);
-        }
-    )
-});
-
-// api/users 들어가는 있는 거는 users.js(routes)에 넣어야 하는데 작동 안될 거에요. 되나?
-const multer = require('multer');
-const upload = multer({dest: './upload'});
-app.use('/image', express.static('./upload'));
-app.post('/api/users/productUpload', upload.single('image'), (req, res) => {
-    let sql = 'insert into product values (null, ?, ?, ?, ?)';
-    let product_name= req.body.product_name;
-    let product_desc = req.body.product_desc;
-    let product_price = req.body.product_price;
-    let product_image = 'http://localhost:5000/image/' + req.file.filename;
-    let params = [product_name, product_desc, product_price, product_image];
-    connection.query(sql, params,
-        (err, rows, fields) => {
-            res.send(rows);
-        }
-        )
-})
-
-app.delete('/api/users/product/:id', (req, res) => {
-    let sql = 'delete from product where id= ?';
-    let params = [req.params.id];
-    connection.query(sql, params,
-        (err, rows, fields) => {
-            res.send(rows);
-        })
-})
-
-app.get('/api/users/productDetail/:id', (req, res) =>{
-    let sql = 'select * from product where id= ?';
-    let params = [req.params.id];
-    connection.query(sql, params,
-        (err, rows, fields) =>{
-            res.send(rows);
-            console.log(rows);
-        })
-})
-
-app.get('/api/users/productUpdate/:id', (req, res) => {
-    let sql = 'select * from product where id= ?';
-    let params = [req.params.id];
-    connection.query(sql, params,
-        (err, rows, fields) =>{
-            res.send(rows);
-            console.log(rows);
-        })
-})
-
-app.post('/api/users/productUpdate/:id', upload.single('image'), (req, res) => {
-    console.log(req.body);
-    let sql = 'update product set product_name=?, product_desc=?, product_price=?, product_image=? where id=?';
-    let product_name= req.body.product_name;
-    let product_desc = req.body.product_desc;
-    let product_price = req.body.product_price;
-    let product_image = 'http://localhost:5000/image/' + req.file.filename;
-    let params = [product_name, product_desc, product_price, product_image, req.params.id];
-    connection.query(sql, params,
-        (err, rows, fields) =>{
-            res.send(rows);
-            console.log(rows);
-        })
-})
-
-
-
-
 
 app.listen(port, () => console.log(`서버 가동 포트번호: ${port}`));
