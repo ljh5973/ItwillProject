@@ -10,7 +10,8 @@ const jwt = require('../middlewares/middlewares');
 const db_config = require('../config/database.js');
 const conn = db_config.init();
 
-const authUtil = require('../auth/authUtil').checkToken;
+//const authUtil = require('../auth/authUtil').checkToken;
+const authTest = require('../auth/authUtil');
 
 const cookieParser = require('cookie-parser');
 router.use(express.urlencoded({ extended: true }));
@@ -97,12 +98,21 @@ router.get('/logout',(req, res) => {
  });
 
  //회원정보 수정
- router.put('/:user_email', (req,res) => {
+ router.put('/:user_email', async(req,res) => {
     let token = req.cookies.w_auth;
-    let info = jwt.verify(token);
+    let info = await jwt.verify(token);
     
-    console.log(info.data)
-    res.send('정보수정 테스트');
+    
+     let sql = 'select * from users where email = ?';
+     let params = [info.name];
+    conn.query(sql, params, (err, rows, fields) => {
+        console.log(rows);
+        res.send(rows);
+
+    })
+
+    
+    //res.send('정보수정 테스트');
 
     //이메일로 db조회
  })
@@ -110,15 +120,15 @@ router.get('/logout',(req, res) => {
 
 
 
- //이메일만 받으면 되는건가? //검증
-router.get("/auth" ,(req, res) => {
-    token = req.cookies.w_auth;
+//이메일만 받으면 되는건가? //검증
+router.get("/auth", (req, res) => {
+    token = req.cookies.w_auth || req.cookies.auth;
     kakao = req.cookies.auth;
 
-    //console.log(req.cookies);
-   
-   const verify = jwt.verify(token);
-    if(token) {
+    console.log(req.cookies);
+   //유효기간 체크
+    const verify = jwt.verify(token);
+    if (token) {
         verify.then(verify => {
             res.json(verify);
         })
@@ -216,6 +226,7 @@ router.post('/productUpdate/:id', upload.single('image'), (req, res) => {
         })
 })
 
+//kakao token
  
 
 

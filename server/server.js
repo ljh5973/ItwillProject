@@ -12,6 +12,8 @@ const logger = require('./config/logger');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
+//const authTest = require('./auth/authUtil');
+
 const { google } = require("googleapis");
 const googleClient = require('./config/google.json');
 

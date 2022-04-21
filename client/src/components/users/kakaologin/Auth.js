@@ -17,6 +17,7 @@ const Auth = () => {
 
     const kakaoToken = () => {
       axios.post('/api/users/kakaotoken', token)
+      //access token 값
       console.log(token)
     }
     
