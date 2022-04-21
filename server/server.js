@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use('/api/dialogflow', require('./routes/dialogflow'));
 
 
 
@@ -50,6 +51,7 @@ const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes
 });
+
 function getGooglePlusApi(auth) {
     return google.plus({ version: 'v1', auth });
 }
@@ -85,15 +87,15 @@ function getGooglePlusApi(auth) {
 
 //python 
 
-const result=spawn("python", ['product.py']);
+// const result=spawn("python", ['product.py']);
 
-result.stdout.on('data',function(data){
-    console.log(data.toString());
-})
+// result.stdout.on('data',function(data){
+//     console.log(data.toString());
+// })
 
-result.stderr.on("data", function(data){
-    console.log(data.toString());
-})
+// result.stderr.on("data", function(data){
+//     console.log(data.toString());
+// })
 
 
 app.use(cors());
