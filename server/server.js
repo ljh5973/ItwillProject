@@ -96,8 +96,7 @@ function getGooglePlusApi(auth) {
 // result.stderr.on("data", function(data){
 //     console.log(data.toString());
 // })
-<<<<<<< HEAD
-=======
+
 
 const jwt = require('./middlewares/middlewares')
 
@@ -106,7 +105,7 @@ const jwt = require('./middlewares/middlewares')
 //     const verify = await jwt.verify(jwtToken.token);
 //     res.send(jwtToken.token +"       "+ verify);
 // });
->>>>>>> e990827c9192b28ce0e4e02c1d59a923a1b67da1
+
 
 
 app.use(cors());
