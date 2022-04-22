@@ -7,6 +7,7 @@ import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import ComputerBox from './ComputerBox';
 import { makeStyles } from "@material-ui/core/styles";
 import ProductUpload2 from './ProductUpload2';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -23,7 +24,6 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import Pagination from "./Pagination";
 
 const useStyles = makeStyles({
     root: {
@@ -97,12 +97,6 @@ function Computershop() {
     const [progress, setProgress] = useState(0);
     const [search, setSearch] = useState('');
     const [isLoad, setIsLoad] = useState(false);
-    const [limit, setLimit] = useState(5);
-    const [page, setPage] = useState(1);
-    const offset = (page - 1) * limit;
-   
-
-    
 
     const callApi = async () => {
       const response = await fetch('/api/products/product');
@@ -117,21 +111,16 @@ function Computershop() {
         setSearch(e.target.value)
     }
 
-    
     const filteredComponents = (data) => {
-          data = data.filter((c) => {
-            return c.product_name.indexOf(search) > -1 || c.product_desc.indexOf(search) > -1
-            
-        }); 
-        
-        return data.slice(offset, offset + limit).map((c) => {
+        data = data.filter((c) => {
+            return c.product_name.indexOf(search) > -1 || c.product_desc.indexOf(search) > -1;
+        });
+        return data.map((c) => {
             return <ComputerPrd stateRefresh = {stateRefresh}
             key={c.id} id={c.id} product_name={c.product_name} product_image={c.product_image} 
             product_desc={c.product_desc} product_price={c.product_price} />
         })
-
     }
-   
 
     const stateRefresh = async () => {
         setSearch('');
@@ -154,7 +143,6 @@ function Computershop() {
           setProgress(complete);
           if (isLoad) {
             clearInterval(timer);
-            
           }
         }, 20);
         callApi().then(res => {
@@ -163,7 +151,7 @@ function Computershop() {
           catch(err => console.log(err));
       }, [isLoad]);
 
-    //console.log(customersData);
+    console.log(customersData);
 
     const cellList = ['상품 이름', '상품 이미지', '상품 내용', '상품 가격']
 
@@ -173,17 +161,7 @@ function Computershop() {
         <div className="home_containerLine"></div>
         <div className="body">
         <div className="computershop">
-          {/* <label style={{marginBottom:"15px"}}>
-            페이지 당 표시할 게시물 수:&nbsp;
-            <select type="number" value={limit} onChange={({target: {value}}) => {
-              setLimit(Number(value))
-            }}>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-            </select>
-          </label> */}
- 
+            
             <div className= {classes.root} >
                 <Box sx={{ flexGrow: 1 }}>
                     <AppBar position="static" >
@@ -240,7 +218,7 @@ function Computershop() {
                     <ProductUpload2 stateRefresh = {stateRefresh} />
                 </div>
                 
-               <Pagination total={customersData.length} limit={limit} page={page} setPage={setPage} />
+               
             </div>
 
            
@@ -250,7 +228,6 @@ function Computershop() {
             
         </div>
         </div>
-        
         </>
     );
 }

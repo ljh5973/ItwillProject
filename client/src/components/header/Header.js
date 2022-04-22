@@ -46,8 +46,10 @@ function Header() {
             const cookies = new Cookies();
             console.log(cookies.get("w_auth"));
             
+
             console.log("data", res.data);
-         
+
+
 
             //console.log(getCookieValue("w_auth").cookie);
             //console.log(req.data);

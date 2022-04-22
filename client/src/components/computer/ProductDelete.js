@@ -19,7 +19,7 @@ function ProductDelete(props) {
   
 
     const deleteProduct = (id) => {
-          fetch('/api/users/product/'+ id, {
+          fetch('/api/products/product/'+ id, {
             method: 'DELETE'
           })
           .then(navigate('/computershop2'))
