@@ -13,12 +13,13 @@ const Auth = () => {
 
     const code = new URL(window.location.href).searchParams.get("code");
     const navigate = useNavigate();
-    const [token, setToken] = useState("");
+    const [kakaoData, setKakaoData] = useState("");
 
     const kakaoToken = () => {
-      axios.post('/api/users/kakaotoken', token)
-      //access token 값
-      console.log(token)
+      axios.post('/api/users/kakaotoken', kakaoData)
+      .then(res => {
+        console.log("res: ", res)
+      })    
     }
     
     const getToken = async () => {
@@ -41,8 +42,10 @@ const Auth = () => {
           window.Kakao.init(REST_API_KEY);
           // access token 설정     
           window.Kakao.Auth.setAccessToken(res.data.access_token);
-          setToken(res.data.access_token)        
-          navigate("/");       
+          setKakaoData(res.data)     
+          console.log("kakaodata: ", res.data)
+          console.log(kakaoData);
+          navigate("/");      
         } catch (err) {
           console.log(err);
         }
@@ -52,6 +55,6 @@ const Auth = () => {
         
       }, []);
       
-      return  kakaoToken();
+      return kakaoToken();
     };
 export default Auth;

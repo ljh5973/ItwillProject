@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import Header from '../header/Header';
+import axios from 'axios';
 
 
 function Profile() {
+
+    
     return (
         <>
         <Header />

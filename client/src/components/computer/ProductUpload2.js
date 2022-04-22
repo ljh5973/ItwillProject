@@ -10,7 +10,7 @@ import { DialogContent } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
-import { TextareaAutosize } from '@material-ui/core';
+
 
 
 const styles = theme => ({
@@ -34,11 +34,11 @@ function ProductUpload(props) {
     
     const handleClickOpen = () => {
         setOpen(true)
-        axios.get('api/users/auth').then(res => {
-            setUser_id(res.data.name);
-            
-            
-        });
+        axios.get('/api/users/auth')
+        .then(res => {
+            setUser_id(res.data.name)
+            console.log(res.data.name);
+        })
     }
     //console.log(user_id);
     
@@ -71,6 +71,7 @@ function ProductUpload(props) {
         setProduct_price(event.currentTarget.value)
     }
 
+
     const productUpload = (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -78,6 +79,7 @@ function ProductUpload(props) {
         formData.append("product_name", product_name);
         formData.append("product_desc", product_desc);
         formData.append("product_price", product_price);
+        formData.append("email", user_id);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -117,7 +119,7 @@ function ProductUpload(props) {
                     <TextField style={{width: "500px", margin: "0 20px"}} label="상품이름" type="text" 
                     value={product_name} onChange={onNameHandler} /><br/>
                     {/* <TextField style={{width: "500px", margin:"10px 0"}} label="상품내용" type="text" value={product_desc} onChange={onDescHandler} /><br/> */}
-                    <textarea style={{margin: "20px 20px 10px 20px", width:"500px"}} placeholder="상품내용" 
+                    <textarea style={{margin: "20px 20px 10px 20px", width:"500px", height:"300px"}} placeholder="상품내용" 
                     value={product_desc} onChange={onDescHandler} />
                     <TextField style={{width: "500px",  margin: "0 20px"}} label="상품가격" type="text" 
                     value={product_price} onChange={onPriceHandler} /><br/>

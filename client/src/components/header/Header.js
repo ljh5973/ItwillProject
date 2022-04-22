@@ -15,7 +15,7 @@ function Header() {
     //const usenavi = useNavigate();
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
-    const [Inlogin, setInlogin] = useState(false);
+
     //const [cookies, setCookies ]= useCookies('w_auth')
     const getCookieValue = (key) => {
         let cookieKey = key + "="; 
@@ -46,16 +46,18 @@ function Header() {
             const cookies = new Cookies();
             console.log(cookies.get("w_auth"));
             
-            console.log(res.data);
-            
+            console.log("data", res.data);
+         
 
             //console.log(getCookieValue("w_auth").cookie);
             //console.log(req.data);
             //console.log(req.data.name);
             //console.log(res);
         })
-      
+        
       }, [])
+
+     
       
     const logoutHandler = () => {
         axios.get(`/api/users/logout`).then(response => {
@@ -66,13 +68,13 @@ function Header() {
                 //props.history.push("/login");
                 //Navigate('/');
                 window.location.reload();
-                alert('logout 성공');
+                alert('로그아웃 성공');
             } else {
                 //setInlogin(false);
                 alert('Log Out Failed')
                
             }   
-            console.log("inlogin", Inlogin)
+           
         });
     };
 
@@ -114,26 +116,25 @@ function Header() {
             <div className="header_nav">
                 <div className="header_option">
                     {/* 카카오 혹은 구글 토큰이 있으면 으로??? */}
-                    {cookies_w_auth ? [<span className="header_optionMenu" onClick={logoutHandler}>Log out</span>, 
-                    <Link to="/profile" className="link_box">
-                    <span className="header_optionMenu"><AccountCircle/></span>
-                    </Link>] : 
+                    {cookies_w_auth ? [<Link to="/profile" className="link_box">
+                    <span className="header_optionMenu"><AccountCircle /></span>
+                    </Link>,
+                    <span style={{marginLeft: "10px"}} className="header_optionMenu" onClick={logoutHandler}>Log out</span> 
+                    ] : 
                     [<span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>, 
                     <span className="header_optionMenu space">/</span>,
                     <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>,
                     ] 
                     }          
-                </div>
-                
-                
-                {/* <div className="header_optionBasket">
-                    <Link to="/checkout" className="link_box">
+                </div>                        
+                <div className="header_optionBasket">
+                    <Link to="/userCart" className="link_box">
                     <ShoppingBasket/>
                     <span className="header_optionLineTwoheader_basketCount">
                         0
                     </span>
                     </Link>
-                </div> */}
+                </div>
             </div>
         </div>
         </>
@@ -142,3 +143,18 @@ function Header() {
 }
 
 export default Header;
+
+{/* <div className="header_nav">
+                <div className="header_option">
+                   
+                    {cookies_w_auth ? [<Link to="/profile" className="link_box">
+                    <span className="header_optionMenu"><AccountCircle /></span>
+                    </Link>,
+                    <span style={{marginLeft: "10px"}} className="header_optionMenu" onClick={logoutHandler}>Log out</span> 
+                    ] : 
+                    [<span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>, 
+                    <span className="header_optionMenu space">/</span>,
+                    <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>,
+                    ] 
+                    }          
+                </div>      */}
