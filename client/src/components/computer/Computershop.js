@@ -99,7 +99,7 @@ function Computershop() {
     const [isLoad, setIsLoad] = useState(false);
 
     const callApi = async () => {
-      const response = await fetch('/api/users/product');
+      const response = await fetch('/api/products/product');
       const body = await response.json();
       
       console.log("body", body); 

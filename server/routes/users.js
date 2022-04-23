@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const mysql = require('mysql');
 const saltRounds = 10;
 //const jwt = require('jsonwebtoken');
 
@@ -10,17 +9,21 @@ const jwt = require('../middlewares/middlewares');
 const db_config = require('../config/database.js');
 const conn = db_config.init();
 
-const authUtil = require('../auth/authUtil').checkToken;
+//const authUtil = require('../auth/authUtil').checkToken;
+const authTest = require('../auth/authUtil');
 
 const cookieParser = require('cookie-parser');
-router.use(express.urlencoded({ extended: true }));
-router.use(cookieParser());
+
+// router.use(express.urlencoded({ extended: true }));
+// router.use(cookieParser());
 //const {User} = require("../models/User");
 db_config.connect(conn);
 
 require('dotenv').config();
 router.post("/login",async (req, res) => {
     //db_config.connect(conn);
+    console.log(req.body);
+
     let sql = "select * from users where email=?";
     let userEmail = req.body.email;
     let userPw = req.body.password;
@@ -33,14 +36,13 @@ router.post("/login",async (req, res) => {
         if(same) { //비밀번호 일치 
             console.log(rows[0].email);
             const jwtToken =  await jwt.sign(rows[0].email);
-            //const verify =  await jwt.verify(jwtToken.token);
-            //console.log(verify);
             res.cookie("w_auth", jwtToken.token).status(200).json({loginSuccess: true, token: jwtToken.token, result: rows[0]});
         } else { //비밀번호 불일치
-            res.status(404).json({ loginSuccess: false });
+            res.json({ loginSuccess: false });
         }
     })
 })
+
 
 
 router.post('/register',(req, res) => {
@@ -90,55 +92,82 @@ router.get('/logout',(req, res) => {
         console.log('쿠키 제거 성공')
         res.clearCookie("w_auth").json({success: true,});
         //return res.status(200).json({ success: true,});
-        //res.redirect('/');
      } else {
          res.json({success: false});
      }
  });
 
- //회원정보 수정
- router.put('/:user_email', (req,res) => {
+ //회원정보 가져오기
+router.put('/user_update', async (req, res) => {
     let token = req.cookies.w_auth;
-    let info = jwt.verify(token);
-    
-    console.log(info.data)
-    res.send('정보수정 테스트');
+    let info = await jwt.verify(token);
+    //console.log(info.name);
+    if (token) {
+        let email = info.name;
+        let name = req.body.name;
+        let pw = req.body.pw;
+        let addr = req.body.addr;
+        let secondAddr = req.body.secondAddr;
+        //비크립트 
+        const encyptedPW = await bcrypt.hashSync(pw, saltRounds);
+        console.log(encyptedPW);
+        //회원정보 수정하면 TOKEN값도 다시 줘야함 ㅇㅋ? -> 안줘도 될듯? email값은 같으니까
+        let param = [name, encyptedPW, addr, secondAddr, email];
+        let sqlupdate = 'update users set name = ?, pw = ?, addr = ?, secondAddr = ? where email = ?'
+        conn.query(sqlupdate, param, async (err, rows, fields) => {
+            console.log(rows);
+            console.log(email);
+            if (!err) {
+                //성공
+                res.json({success: true});
+            } else {
+                //실패
+                console.log(err);
+                res.json({success: false});
+            }
+        });
+    } else {
+        res.json({success: false});
+    }
+})
 
-    //이메일로 db조회
- })
+router.get('/test', async(req, res) => {
+    token = req.cookies.w_auth;
+    const verify = await jwt.verify(token);
+    console.log(verify.name)
+    let sql = 'select * from users where email = ?';
+    let params = [verify.name];
+    conn.query(sql, params, async (err, rows, fields) => {
+        res.send(rows);
+    });
+})
  
 
 
 
- //이메일만 받으면 되는건가? //검증
-router.get("/auth" ,(req, res) => {
-    token = req.cookies.w_auth;
+//이메일만 받으면 되는건가? //검증
+router.get("/auth", (req, res) => {
+    token = req.cookies.w_auth || req.cookies.auth;
     kakao = req.cookies.auth;
-
-    //console.log(req.cookies);
-   
-   const verify = jwt.verify(token);
-    if(token) {
+    console.log(req.body.name);
+    //console.log(token);
+   //유효기간 체크
+    const verify = jwt.verify(token);
+    if (token) {
         verify.then(verify => {
             res.json(verify);
         })
-        //console.log(verify);
         console.log("권한이 있음");
-        //res.json({success: true, verify: verify.decoded});
-        //res.send(verify);
+
     } else {
-        //console.log(verify);
         console.log("권한이 없음");
-        //res.json({success: false});
         verify.then(verify => {
             res.json(verify);
         })
-
     }
 });
 
  
-
 router.get('/product', (req, res) => {
     // db_config.connect(conn);
     conn.query(
@@ -155,15 +184,18 @@ const upload = multer({dest: './upload'});
 router.use('/image', express.static('./upload'));
 router.post('/productUpload', upload.single('image'), (req, res) => {
     // db_config.connect(conn);
-    let sql = 'insert into product values (null, ?, ?, ?, ?)';
+    console.log(req.body);
+    let sql = 'insert into product values (null, ?, ?, ?, ?, ?)';
     let product_name= req.body.product_name;
     let product_desc = req.body.product_desc;
     let product_price = req.body.product_price;
     let product_image = 'http://localhost:5000/api/users/image/' + req.file.filename;
-    let params = [product_name, product_desc, product_price, product_image];
+    let email = req.body.email;
+    let params = [product_name, product_desc, product_price, product_image, email];
     conn.query(sql, params,
         (err, rows, fields) => {
             res.send(rows);
+            console.log(rows);
         }
         )
 })
@@ -216,6 +248,46 @@ router.post('/productUpdate/:id', upload.single('image'), (req, res) => {
         })
 })
 
+router.post('/kakaotoken', (req, res) => {
+    res.cookie("w_auth", req.body.access_token).status(200).json({loginSuccess: true, kakaoToken: req.body.access_token})
+    console.log("token", req.body.access_token);
+  
+})
+
+router.post('/cart', (req, res) => {
+    console.log(req.body)
+    let sql = 'insert into cart values(?, ?, null, ?)';
+    let id = req.body.id;
+    let email = req.body.email;
+    let num = req.body.num;
+    let params = [id, email, num]
+    conn.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+            console.log(rows);
+        })
+})
+
+router.post('/cartList', (req, res) => {
+    console.log(req.body)
+    let sql = 'select * from cart inner join product on cart.id = product.id where cart.email=?'
+    let params = [req.body.email]
+    conn.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+            console.log(rows);
+        })
+
+})
+
+router.get('/cartDelete:id', (req, res) => {
+   let sql = 'delete from cart where id = ?'
+   let params = [req.params.id];
+   conn.query(sql, params,
+    (err, rows, fields) => {
+        res.send(rows);
+    })
+})
  
 
 

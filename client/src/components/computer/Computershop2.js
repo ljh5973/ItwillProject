@@ -7,7 +7,6 @@ import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import ComputerBox from './ComputerBox';
 import { makeStyles } from "@material-ui/core/styles";
 import ProductUpload2 from './ProductUpload2';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -101,9 +100,12 @@ function Computershop() {
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
+   
+
+    
 
     const callApi = async () => {
-      const response = await fetch('/api/users/product');
+      const response = await fetch('/api/products/product');
       const body = await response.json();
       
       console.log("body", body); 
@@ -115,16 +117,21 @@ function Computershop() {
         setSearch(e.target.value)
     }
 
+    
     const filteredComponents = (data) => {
-        data = data.filter((c) => {
-            return c.product_name.indexOf(search) > -1 || c.product_desc.indexOf(search) > -1;
-        });
+          data = data.filter((c) => {
+            return c.product_name.indexOf(search) > -1 || c.product_desc.indexOf(search) > -1
+            
+        }); 
+        
         return data.slice(offset, offset + limit).map((c) => {
             return <ComputerPrd stateRefresh = {stateRefresh}
             key={c.id} id={c.id} product_name={c.product_name} product_image={c.product_image} 
             product_desc={c.product_desc} product_price={c.product_price} />
         })
+
     }
+   
 
     const stateRefresh = async () => {
         setSearch('');
@@ -166,7 +173,7 @@ function Computershop() {
         <div className="home_containerLine"></div>
         <div className="body">
         <div className="computershop">
-          <label style={{marginBottom:"15px"}}>
+          {/* <label style={{marginBottom:"15px"}}>
             페이지 당 표시할 게시물 수:&nbsp;
             <select type="number" value={limit} onChange={({target: {value}}) => {
               setLimit(Number(value))
@@ -175,7 +182,7 @@ function Computershop() {
               <option value="6">6</option>
               <option value="7">7</option>
             </select>
-          </label>
+          </label> */}
  
             <div className= {classes.root} >
                 <Box sx={{ flexGrow: 1 }}>

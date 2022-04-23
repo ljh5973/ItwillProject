@@ -15,7 +15,7 @@ const cookieParser = require('cookie-parser');
 const { google } = require("googleapis");
 const googleClient = require('./config/google.json');
 
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.use(bodyParser.json());
@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/chatbot', require('./routes/chatbot'));
 
-
-
+app.use('/api/products', require('./routes/products'));
+app.use('/api/users', api);
 
 
 const googleConfig
@@ -51,10 +51,12 @@ const url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes
 });
-
 function getGooglePlusApi(auth) {
     return google.plus({ version: 'v1', auth });
 }
+
+
+
 
 // 실질적으로 로그인해서 정보를 불러올 코드 작성
 // 리프레시토큰 엑세스토큰 displayName과 id를 얻어와본다.
@@ -97,22 +99,8 @@ function getGooglePlusApi(auth) {
 //     console.log(data.toString());
 // })
 
-
-const jwt = require('./middlewares/middlewares')
-
-// app.get(`/`, async (req, res) => {
-// 	const jwtToken = await jwt.sign();
-//     const verify = await jwt.verify(jwtToken.token);
-//     res.send(jwtToken.token +"       "+ verify);
-// });
-
-
-
 app.use(cors());
 //api 미들웨어 등록
-app.use('/api/users', api);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => console.log(`서버 가동 포트번호: ${port}`));

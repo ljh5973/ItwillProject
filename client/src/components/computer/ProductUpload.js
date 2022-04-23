@@ -48,7 +48,7 @@ function ProductUpload() {
             }
         }
 
-        axios.post('/api/users/productUpload', formData, config)
+        axios.post('/api/products/productUpload', formData, config)
         .then(response => {
             console.log(response);
             navigate('/computershop');

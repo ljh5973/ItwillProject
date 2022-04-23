@@ -1,0 +1,26 @@
+.userCart {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: #f8eee1;
+}
+
+.cartList {
+    margin-top: 100px;
+}
+
+.cartImg {
+    width: 150px;
+    height: 150px;
+}
+
+.table {
+    width: 900px;
+    margin-top: 20px;
+}
+
+.userCartList {
+    font-size: 50px;
+    font-family: 'sb';
+    color: #e65a41;
+}
