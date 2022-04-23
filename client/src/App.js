@@ -13,6 +13,8 @@ import ProductUpdate from "./components/computer/ProductUpdate";
 import Profile from "./components/users/Profile";
 import Computershop2 from "./components/computer/Computershop2";
 
+import Chatbot from'./components/chatbot/chatbot';
+
 
 
 
@@ -34,6 +36,7 @@ function App() {
           <Route path="/productUpdate/:id" element={<ProductUpdate />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/computershop2" element={<Computershop2/>} />
+          <Route path="/chatbot" element={<Chatbot/>} />
         </Routes>
       </div>
     </BrowserRouter>
