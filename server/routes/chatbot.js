@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const structjson = require("./structjson.js");
 const uuid = require('uuid');
 const config = require('../config/dev');
 const {PythonShell} =require("python-shell");

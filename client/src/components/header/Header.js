@@ -45,15 +45,10 @@ function Header() {
             //success true, false 반환
             const cookies = new Cookies();
             console.log(cookies.get("w_auth"));
-<<<<<<< HEAD
 
-            console.log(res.data);
-=======
             
 
             console.log("data", res.data);
-
->>>>>>> 132ff493e04a13266885a691a5567a9fa6d4dab0
 
 
             //console.log(getCookieValue("w_auth").cookie);
@@ -61,17 +56,9 @@ function Header() {
             //console.log(req.data.name);
             //console.log(res);
         })
-<<<<<<< HEAD
 
     }, [])
 
-=======
-        
-      }, [])
-
-     
-      
->>>>>>> 132ff493e04a13266885a691a5567a9fa6d4dab0
     const logoutHandler = () => {
         axios.get(`/api/users/logout`).then(response => {
             console.log(response.data.success);
@@ -85,15 +72,9 @@ function Header() {
             } else {
                 //setInlogin(false);
                 alert('Log Out Failed')
-<<<<<<< HEAD
 
             }
-            console.log("inlogin", Inlogin)
-=======
-               
-            }   
-           
->>>>>>> 132ff493e04a13266885a691a5567a9fa6d4dab0
+
         });
     };
 
@@ -129,29 +110,7 @@ function Header() {
                         {/* <Link to="/manager" className="link_box">
                         <li>👍</li>
                     </Link> */}
-<<<<<<< HEAD
 
-                    </ul>
-                </div>
-                <div className="header_nav">
-                    <div className="header_option">
-                        {/* 카카오 혹은 구글 토큰이 있으면 으로??? */}
-                        {cookies_w_auth ? [<span className="header_optionMenu" onClick={logoutHandler}>Log out</span>,
-                        <Link to="/profile" className="link_box">
-                            <span className="header_optionMenu"><AccountCircle /></span>
-                        </Link>] :
-                            [<span className="header_optionMenu" onClick={() => setSignInModalOn(true)}>Log in</span>,
-                            <span className="header_optionMenu space">/</span>,
-                            <span className="header_optionMenu" onClick={() => setSignUpModalOn(true)}>Sign up</span>,
-                            ]
-                        }
-                        <a href="/chatbot">chatbot</a>
-                    </div>
-
-
-                    {/* <div className="header_optionBasket">
-                    <Link to="/checkout" className="link_box">
-=======
                     
                 </ul>
             </div>
@@ -168,19 +127,19 @@ function Header() {
                     <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>,
                     ] 
                     }          
-                </div>                        
+                </div>
+                <a href="/chatbot">chatbot</a>
                 <div className="header_optionBasket">
                     <Link to="/userCart" className="link_box">
->>>>>>> 132ff493e04a13266885a691a5567a9fa6d4dab0
+
                     <ShoppingBasket/>
                     <span className="header_optionLineTwoheader_basketCount">
                         0
                     </span>
                     </Link>
-<<<<<<< HEAD
-                </div> */}
-=======
->>>>>>> 132ff493e04a13266885a691a5567a9fa6d4dab0
+
+                </div> 
+
                 </div>
             </div>
         </>
