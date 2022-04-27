@@ -1,0 +1,11 @@
+.modal-content{
+    position: fixed;
+    width: 350px;
+    height: 500px;
+    bottom: 0;
+    right: 0;
+}
+
+.fade{
+    display: none;
+}

@@ -26,7 +26,6 @@ function App() {
           <Route path="/productUpdate/:id" element={<ProductUpdate />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/computershop2" element={<Computershop2/>} />
-          <Route path="/chatbot" element={<Chatbot/>} />
           <Route path="/userCart" element={<UserCart/>}/>
 
         </Routes>

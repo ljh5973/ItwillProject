@@ -8,7 +8,7 @@ import {
 export default function (state={}, action) {
     switch (action.type) {
         case LOGIN_USER:
-            console.log(action);
+            console.log(state);
             return {...state, loginSuccess: action.payload}
             break;
         case REGISTER_USER:
