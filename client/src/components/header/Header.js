@@ -125,7 +125,7 @@ function Header() {
                     ] : 
                     [<span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>, 
                     <span className="header_optionMenu space">/</span>,
-                    <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>,
+                    <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sign up</span>,
                     
                     ] 
                     }          
