@@ -104,3 +104,9 @@
     height: 25px;
     background-color: #31302f;
 }
+
+.chatbotArea{
+    position: fixed;
+    right: 0;
+    bottom: 50px;
+}

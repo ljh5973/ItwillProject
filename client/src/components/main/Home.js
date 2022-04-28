@@ -4,7 +4,7 @@ import './Home.css';
 import Header from '../header/Header';
 // Header.js 연결
 import { Link } from 'react-router-dom';
-
+import Chatbot from '../chatbot/chatbot';
 
 function Home() {
     return (
@@ -38,7 +38,7 @@ function Home() {
                     </Link>
                   
                 </div>
-                
+            
             </div>
             <div className="home_containerLine">
 
@@ -46,7 +46,10 @@ function Home() {
             <div className="home_container3">
                 
             </div>
-            
+            <div className='chatbotArea'>
+                <Chatbot> </Chatbot>
+
+            </div>
 
         </div>        
     );

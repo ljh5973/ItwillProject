@@ -87,7 +87,7 @@ function getGooglePlusApi(auth) {
 // });
 
 
-//python 
+// python 
 
 // const result=spawn("python", ['product.py']);
 

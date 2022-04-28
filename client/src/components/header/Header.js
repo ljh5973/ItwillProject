@@ -10,12 +10,11 @@ import SignUpModal from '../users/SignUpModal';
 import SignInModal from '../users/SignInModal';
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import Chatbot from "../chatbot/chatbot";
 function Header() {
     //const usenavi = useNavigate();
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
-    const [chatbotOn, setChatbotOn]= useState(false);
+
     //const [cookies, setCookies ]= useCookies('w_auth')
     const getCookieValue = (key) => {
         let cookieKey = key + "=";
@@ -90,7 +89,6 @@ function Header() {
         <>
             <SignUpModal show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
             <SignInModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
-            <Chatbot show={chatbotOn} onHide={() => setChatbotOn(false)}/>
             <div className="header">
                 <Link to="/" className='link_box'>
                     <div className='header_logo'><img src="../../img/logo.webp" /></div>
@@ -128,7 +126,7 @@ function Header() {
                     [<span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>, 
                     <span className="header_optionMenu space">/</span>,
                     <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sing up</span>,
-                    <span className="header_optionMenu" onClick={()=>setChatbotOn(true)}>chatbot</span>
+                    
                     ] 
                     }          
                 </div>
