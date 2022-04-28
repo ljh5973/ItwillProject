@@ -116,7 +116,7 @@ router.post('/camera', async (req, res) => {
         args: [req.body.text]
     }
 
-    PythonShell.run('./chat/camera.py', option, function (err, result) {
+    PythonShell.run('./chat/camera.py', option, await function (err, result) {
         console.log("왜 또 널값만 뜨냐고");
         console.log(result);
         // let data = result[0].replace(`b\'`, '').replace(`\'`, '');

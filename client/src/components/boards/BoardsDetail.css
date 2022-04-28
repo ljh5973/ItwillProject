@@ -1,0 +1,114 @@
+.boardDetail {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: #f8eee1;
+    border: 1px solid gray;
+}
+
+.boardList {
+    margin-top: 50px;
+    height: 90vh;
+    width: 90vh;
+    border: 3px solid white;
+}
+/* 헤더 */
+.boardHeaderbox {
+    margin: 50px 50px 5px 50px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #a9a9a9;
+    
+}
+/* 글 제목 */
+.boardHeaderbox > .boardTitle {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* 작성자 */
+.boardHeaderbox > .boardEmail {
+    font-size: 20px;
+    font-weight: lighter;
+    /* color: #a9a9a9; */
+}
+
+/* 작성일 */
+.boardHeaderbox > .boardregdate {
+    font-size: 15px;
+    /* font-weight: lighter; */
+    color: #a9a9a9;
+}
+
+/* 조회수 */
+.boardHeaderbox > .boardview_cnt {
+    /* 보유 기술: 데이터 전처리, 시각화, 텐서플로우, 판다스 파이썬 추가 */
+    font-size: 15px;
+    color: #a9a9a9;
+}
+
+/* 글 본문 */
+.boardSectionbox {
+    margin: 15px 50px 15px 50px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #a9a9a9;
+}
+
+/* 좋아요 버튼, 댓글 버튼 */
+.boardSectionbox > .board_Like_Cnt {
+    
+}
+
+/* 댓글박스 */
+.replieSectionbox {
+    margin: 15px 50px 15px 50px;
+}
+
+/* 댓글 */
+.replieSectionbox > .replyHeader {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 댓글 입력창 */
+.replie_WriteSectionBox {
+    margin: 10px 50px 15px 50px;
+    border: 2px solid #a9a9a9;
+    padding: 10px;
+    position: relative;
+}
+
+/*  */
+.replie_user_id {
+    font-weight: bold;
+}
+
+
+.replie_WriteSectionBox > .input_comment {
+    background-color: transparent;
+    border: 0;
+    filter: chroma(color=ffffff);
+    width: 100%;
+    height: 6.25em;
+    resize: none;
+    position: relative;
+}
+
+.replie_WriteSectionBox > Button.submit_Btn {
+    /* width: auto; */
+    /* position: relative; */
+    font-size: 15px;
+    
+    /* vertical-align: middle; */
+}
+
+Button.write {
+
+    margin: 10px 50px 15px 50px;
+    
+}
+
+.imagefile {
+    max-width: 30vh;
+    max-height: 30vh;
+}
+
