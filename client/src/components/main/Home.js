@@ -48,7 +48,6 @@ function Home() {
             </div>
             <div className='chatbotArea'>
                 <Chatbot> </Chatbot>
-
             </div>
 
         </div>        
