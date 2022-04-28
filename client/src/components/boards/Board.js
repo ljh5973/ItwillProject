@@ -99,6 +99,8 @@ function Board() {
     const [isLoad, setIsLoad] = useState(false);
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
+    const [count, setcount] = useState('');
+
     const offset = (page - 1) * limit;
    
 

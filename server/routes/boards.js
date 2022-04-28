@@ -93,8 +93,53 @@ router.delete('/delete/:bno', (req, res) => {
 
 });
 
+//댓긋 수 count
+router.get('/count', (req, res) => {
+
+    let sql = 'select count(replys.bno) as count from boards inner join replys on boards.bno = replys.bno';
+    conn.query(sql, (err, rows) => {
+        if (!err) {
+            res.json(rows);
+        } else {
+            res.json(err);
+        }
+    })
+})
+
+
 //조회수 upcount
-//TODO: 
+router.put('/view/:bno', (req, res) => {
+    bno = req.params.bno;
+
+    let sql = 'update boards set view_cnt= view_cnt+1 where bno = ? '
+
+    conn.query(sql, bno, (err, rows ) => {
+        
+        if(!err) {
+            res.json({success: true});    
+        } else {
+            res.json({success: false});
+        }
+    })
+})
+
+//좋아요
+router.post('/like/:bno', (req, res) => {
+    bno = req.params.bno;
+    
+    console.log(bno);
+    let sql = 'update boards set like_cnt= like_cnt+1 where bno = ? '
+    conn.query(sql, bno, (err, rows) => {
+        if(!err) {
+            res.json({success: true});    
+        } else {
+            console.log(err);
+            res.json({success: false});
+        }
+    })
+})
+
+
 
 const multer = require("multer");
 const path = require("path");

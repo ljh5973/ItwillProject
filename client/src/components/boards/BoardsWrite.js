@@ -19,8 +19,19 @@ const BoardWrite = () => {
     const [id, setId] = useState(0);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
-    const [type, setType] = useState('공지사항');
     const uploadReferenece = React.createRef();
+    const [user_id, setUser_id] = useState('');
+    const [type, setType] = useState('공지사항');
+
+    useEffect(() => {
+        axios.get('/api/users/auth')
+            .then(res => {
+                console.log(res.data.name);
+                setUser_id(res.data.name)
+            })
+
+
+    }, [])
 
     async function onClickSearch() {
 
@@ -35,7 +46,7 @@ const BoardWrite = () => {
         await uploadReferenece.current.upload().then(function (result) {
 
             const files = result;
-            
+            // email값 받기
             let body = {
                 title: title,
                 content: desc,

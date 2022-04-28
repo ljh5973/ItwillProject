@@ -11,12 +11,17 @@ import { emailChange, timeForToday } from './TimeForToday';
 import SingleTweet from "./SingleTweet";
 import TextArea from "antd/lib/input/TextArea";
 
+import HeartButton from "./HeartButton";
+
 const BoardDetail = () => {
+
+    const [like, setLike] = useState(false);
 
     const [board, setBoard] = useState([]);
     const [reply, setReply] = useState([]);
     const { id } = useParams();
     const [comment, setComment] = useState("");
+    
 
     const [uploadUser_id, setUploadUser_id] = useState('');
     const [user_id, setUser_id] = useState('');
@@ -43,10 +48,17 @@ const BoardDetail = () => {
             })    
     }, [])
     //한번 만 클릭 할 수 있음
-    const postLike = (e) => {
-        
-    }
-
+const toggleLike = async (e) => {
+     const res = await axios.post('/api/boards/like/'+ id).
+     then(response => {
+        if(response.data.success === true) {
+            
+        } else {
+            
+        }
+     }) // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like) }
+     setLike(!like)
+}
     const onSubmitHandler = (e) => {
         let body = {
             bno: id,
@@ -65,6 +77,7 @@ const BoardDetail = () => {
         setComment(e.currentTarget.value);
     }
 
+    
 
     return (
         <>
@@ -83,17 +96,17 @@ const BoardDetail = () => {
                                     <span className="boardregdate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{timeForToday(b.regdate)} </span>
                                     <span className="boardview_cnt">&nbsp; 조회 {b.view_cnt} </span>
                                 </div>
-                                {/* TODO: if문 으로 filename이 있을 경우 보여주기 */}
+                                
                                 <div className="boardSectionbox" >
                                     <div className="cotent" dangerouslySetInnerHTML={{__html: b.content}}></div>
                                     {b.filename ? <div className="imageSection>">
-                                        {/* 여기서 이미지 파일 불러오면 된다. */}
                                         <img className="imagefile" src={'http://localhost:5000/api/boards/image/'+b.filename}></img>
                                     </div>
                                         : ""}
+
+                                        {/* TODO: 좋아요 버튼 */}
                                     <div className="board_Like_Cnt">
-                                        <span>여기는 좋아요 버튼 and </span>
-                                        <span>여기는 댓글 버튼</span>
+                                        <HeartButton like={like} onClick={toggleLike}></HeartButton>
                                     </div>
                                 </div>
                                 
