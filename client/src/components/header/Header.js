@@ -11,8 +11,10 @@ import SignInModal from '../users/SignInModal';
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
 import Chatbot from "../chatbot/chatbot";
+import { useNavigate } from 'react-router-dom';
+
 function Header() {
-    //const usenavi = useNavigate();
+    const navigate = useNavigate();
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
     const [chatbotOn, setChatbotOn]= useState(false);
@@ -48,15 +50,7 @@ function Header() {
             const cookies = new Cookies();
             console.log(cookies.get("w_auth"));
 
-            
-
-            console.log("data", res.data);
-
-
-            //console.log(getCookieValue("w_auth").cookie);
-            //console.log(req.data);
-            //console.log(req.data.name);
-            //console.log(res);
+            console.log("data", res.data.name);
         })
 
     }, [])
@@ -69,8 +63,8 @@ function Header() {
             if (response.data.success == true) {
                 //props.history.push("/login");
                 //Navigate('/');
-                window.location.reload();
                 alert('로그아웃 성공');
+                navigate('/');
             } else {
                 //setInlogin(false);
                 alert('Log Out Failed')
@@ -108,6 +102,9 @@ function Header() {
                         </Link>
                         <Link to="/camerashop" className="link_box">
                             <li>Camera</li>
+                        </Link>
+                        <Link to="/board" className="link_box">
+                            <li>Board</li>
                         </Link>
 
                         {/* <Link to="/manager" className="link_box">

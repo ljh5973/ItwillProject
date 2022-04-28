@@ -74,19 +74,20 @@ for product in products:
     image_res.raise_for_status()
     
     product_price=product["price"]
-    
-    product_image=uuid.uuid4()
+    "localhost:5000/api/products/"
+    product_image= uuid.uuid4()
+    test= "http://localhost:5000/api/products/image/" + str(product_image)
     product_name=product["productTitle"]
     product_desc=product["characterValue"]   
     
-    with open("./upload/computer_{}.jpg".format(product_image), "wb") as f:
+    with open("./upload/{}".format(product_image), "wb") as f:
             f.write(image_res.content)
             
     conn = pymysql.connect(host=screts["DB_HOST"], user=screts["DB_USER"], password=screts["DB_PASS"], db=screts["DB_NAME"], charset='utf8')
     cur = conn.cursor()
     sql = """insert into product (product_name, product_desc, product_price, product_image) values( %s,%s,%s,%s)"""
     
-    cur.execute(sql, (product_name,product_desc,product_price,product_image))
+    cur.execute(sql, (product_name,product_desc,product_price,test))
     conn.commit()
     conn.close()
 

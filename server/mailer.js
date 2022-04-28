@@ -35,8 +35,8 @@ const send = async(data)=>{
 
 
 const content={
-    from:"wlsgh6650@gmail.com",
-    to:"ljh6650@naver.com",
+    from:"dudgh7410@naver.com", //nodemailer 
+    to:"dudgh7410@naver.com", // to 사용자 이메일 주소 적용
 
     subject: "이메일 개발중",
     html: `<h1>이메일 인증</h1>

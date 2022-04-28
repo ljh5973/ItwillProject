@@ -65,10 +65,13 @@ module.exports = {
         } catch (error) {
             if(error.message === 'jwt expired') {
                 console.log('유효기간 완료 토큰 입니다.');
+                return false;
             } else if(error.message === 'invalid token') {
                 console.log('유효하지 않은 토큰입니다.');
+                return false;
             } else {
                 console.log('유효하지 않은 토큰입니다.');
+                return false;
             }
         }
 

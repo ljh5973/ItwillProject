@@ -22,9 +22,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/chatbot', require('./routes/chatbot'));
-
-app.use('/api/products', require('./routes/products'));
 app.use('/api/users', api);
+app.use('/api/products', require('./routes/products'));
+app.use('/api/boards', require('./routes/boards'));
+app.use('/api/replys', require('./routes/replys'));
+
+//const mail = require('./mailer');
 
 
 const googleConfig

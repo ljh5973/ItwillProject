@@ -1,0 +1,9 @@
+.text-center-pd12 {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.text-center-pd12 > .lf-button primary float-right {
+    
+}

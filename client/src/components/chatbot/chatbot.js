@@ -83,7 +83,7 @@ function Chatbot({ show, onHide }) {
                     }
                 }
             }
-            // console.log(conversation);
+             console.log(conversation);
         }
     }
 
@@ -130,7 +130,7 @@ function Chatbot({ show, onHide }) {
     }
 
     const renderOneMessage = (message, i) => {
-        console.log('message', message);
+        //console.log('message', message);
 
         return <Message key={i} who={message.who} text={message.content.text.text} />
     }

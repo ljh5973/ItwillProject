@@ -23,7 +23,7 @@ const ProductDetail = () => {
             setUser_id(res.data.name)
         })
         
-        axios.get('/api/users/productDetail/'+ id)
+        axios.get('/api/products/productDetail/'+ id)
         .then(response => {setProduct(response.data)
             console.log(response.data);
             setUploadUser_id(response.data[0].email)
