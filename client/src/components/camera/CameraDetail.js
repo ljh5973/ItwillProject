@@ -1,11 +1,11 @@
 import axios from "axios";
 import Header from '../header/Header';
-import './ProductDetail.css';
+import './CameraDetail.css';
 import React, {useEffect, useState} from "react";
 import { Link, useParams } from "react-router-dom";
-import ProductDelete from "./ProductDelete";
 import { Button } from "@material-ui/core";
-import ProductCart from './ProductCart';
+import CameraCart from './CameraCart';
+import CameraDelete from './CameraDelete';
 
 
 const ProductDetail = () => {
@@ -23,7 +23,7 @@ const ProductDetail = () => {
             console.log(res.data.name);
             setUser_id(res.data.name)
         })
-        axios.get('/api/products/productDetail/'+ id)
+        axios.get('/api/products/cameraDetail/'+ id)
         .then(response => {setProduct(response.data)
             console.log(response.data);
             setUploadUser_id(response.data[0].email)
@@ -41,8 +41,8 @@ const ProductDetail = () => {
                      <>
                      <div className="productList">
                         <div className="productListBox">
-                            <span className="productName">{p.product_name}</span>
-                            <span className="productPrice">가격 : {p.product_price * num}</span>
+                            <span className="productName">{p.camera_name}</span>
+                            <span className="productPrice">가격 : {p.camera_price * num}</span>
                             <span className="productline">사은품: 2년 무상출장 AS 키보드+마우스</span>
                             <span className="productline">구매혜택: 이달의 신용카드 | 혜택세이프업플러스</span>
                             <span className="productline">배송방법: 무료배송 | 퀵서비스 | 직접수령 | 안전배송 </span>
@@ -55,15 +55,15 @@ const ProductDetail = () => {
                                 <option value="5">5</option>
                             </select>
                         </div>
-                        <div><img src={p.product_image}/></div>
+                        <div><img src={p.camera_image}/></div>
                         {uploadUser_id === user_id ? <div className="btnBox">
-                            <ProductDelete id={p.id} />
-                            <Link to={`/productUpdate/${p.id}`} className="link_box">
+                            <CameraDelete id={p.id} />
+                            <Link to={`/CameraUpdate/${p.id}`} className="link_box">
                                 <Button variant="contained" style={{backgroundColor:"#e65a41", color:"#fff"}}>수정</Button>
                             </Link>
                         </div> : ""}
-                        <ProductCart cartNum={num} productId={id} userId={user_id} />
-                        <span className="productDesc">{p.product_desc}</span>
+                        <CameraCart cartNum={num}cameraId={id} userId={user_id} />
+                        <span className="productDesc">{p.camera_desc}</span>
                      </div>
                      </>
                  )

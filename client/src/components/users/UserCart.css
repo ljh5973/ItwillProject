@@ -15,7 +15,7 @@
 }
 
 .table {
-    width: 900px;
+    width: 1200px;
     margin-top: 20px;
 }
 
@@ -24,3 +24,13 @@
     font-family: 'sb';
     color: #e65a41;
 }
+
+.table thead {
+    text-align: center;
+}
+
+.table tbody {
+    line-height: 130px;
+    text-align: center;
+}
+

@@ -7,13 +7,13 @@ function Pagination({total, limit, page, setPage}) {
     return (
         <>
         <nav style={{display:"flex", justifyContent:"center"}}>
-            <Button  variant="contained" onClick={() => setPage(page - 1)} disabled={page === 1}>
+            <Button variant="contained" onClick={() => setPage(page - 1)} disabled={page === 1}>
             &lt;
             </Button>
             {Array(numPages)
             .fill()
             .map((_, i) => (
-                <Button  variant="contained" color="primary"
+                <Button style={{backgroundColor: "#e65a41", color: "#fff"}} variant="contained"
                 key={i + 1}
                 onClick={() => setPage(i + 1)}
                 aria-current={page === i + 1 ? "page" : null}

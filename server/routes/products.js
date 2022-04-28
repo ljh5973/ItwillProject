@@ -22,12 +22,12 @@ const upload = multer({dest: './upload'});
 router.use('/image', express.static('./upload'));
 router.post('/productUpload', upload.single('image'), (req, res) => {
     // db_config.connect(conn);
-    let sql = 'insert into product values (null, ?, ?, ?, ?,?)';
+    let sql = 'insert into product values (null, ?, ?, ?, ?, ?)';
     let product_name= req.body.product_name;
     let product_desc = req.body.product_desc;
     let product_price = req.body.product_price;
-    let email = 'test@naver.com';
-    console.log(req.body);
+    let email = req.body.email;
+    console.log("??????", req.body);
     let product_image = 'http://localhost:5000/api/products/image/' + req.file.filename;
     let params = [product_name, product_desc, product_price, product_image, email];
     conn.query(sql, params,
@@ -83,6 +83,114 @@ router.post('/productUpdate/:id', upload.single('image'), (req, res) => {
             res.send(rows);
             console.log(rows);
         })
+})
+
+router.post('/cameraUpload', upload.single('image'), (req, res) => {
+    db_config.connect(conn);
+    let sql = 'insert into camera values (null, ?, ?, ?, ?, ?)';
+    let camera_name= req.body.camera_name;
+    let camera_desc = req.body.camera_desc;
+    let camera_price = req.body.camera_price;
+    let email = req.body.email;
+    console.log(req.body);
+    let camera_image = 'http://localhost:5000/api/products/image/' + req.file.filename;
+    let params = [camera_name, camera_desc, camera_price, camera_image, email];
+    conn.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+        )
+})
+
+router.get('/camera', (req, res) => {
+   // db_config.connect(conn);
+   conn.query(
+       "select * from camera order by id desc", (err, rows, fields) => {
+           res.send(rows);
+       }
+   )
+});
+
+router.get('/cameraDetail/:id', (req, res) =>{
+   // db_config.connect(conn);
+   let sql = 'select * from camera where id= ?';
+   let params = [req.params.id];
+   conn.query(sql, params,
+       (err, rows, fields) =>{
+           res.send(rows);
+           console.log(rows);
+       })
+})
+
+router.delete('/camera/:id', (req, res) => {
+   // db_config.connect(conn);
+   let sql = 'delete from camera where id= ?';
+   let params = [req.params.id];
+   conn.query(sql, params,
+       (err, rows, fields) => {
+           res.send(rows);
+       })
+})
+
+router.post('/cameraUpdate/:id', upload.single('image'), (req, res) => {
+   // db_config.connect(conn);
+   console.log(req.body);
+   let sql = 'update camera set camera_name=?, camera_desc=?, camera_price=?, camera_image=? where id=?';
+   let camera_name= req.body.camera_name;
+   let camera_desc = req.body.camera_desc;
+   let camera_price = req.body.camera_price;
+   let camera_image = 'http://localhost:5000/api/products/image/' + req.file.filename;
+   let params = [camera_name, camera_desc, camera_price, camera_image, req.params.id];
+   conn.query(sql, params,
+       (err, rows, fields) =>{
+           res.send(rows);
+           console.log(rows);
+       })
+})
+
+router.post('/cart', (req, res) => {
+   console.log(req.body)
+   let sql = 'insert into cart values(?, ?, null, ?)';
+   let id = req.body.id;
+   let email = req.body.email;
+   let num = req.body.num;
+   let params = [id, email, num]
+   conn.query(sql, params,
+       (err, rows, fields) => {
+           res.send(rows);
+           console.log(rows);
+       })
+})
+
+router.post('/cartNum', (req, res) => {
+   console.log(req.body);
+   let sql = 'select * from cart where email = ?'
+   let params = req.body.email;
+   conn.query(sql, params,
+       (err, rows, fields) => {
+           res.send(rows);
+       })
+})
+
+router.get('/updateProduct/:id', (req, res) => {
+    let sql = 'select * from product where id=?';
+    let params = req.params.id;
+
+    conn.query(sql, params, 
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+        )
+})
+
+router.get('/updateCamera/:id', (req, res) => {
+    let sql = 'select * from camera where id = ?'
+    let params = req.params.id;
+    conn.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+        }
+        )
 })
 
 

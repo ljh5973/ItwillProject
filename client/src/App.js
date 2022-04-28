@@ -12,6 +12,8 @@ import UserCart from './components/users/UserCart';
 import Board from './components/boards/Board';
 import BoardDetail from './components/boards/BoardsDetail';
 import BoardWrite from './components/boards/BoardsWrite';
+import CameraDetail from './components/camera/CameraDetail';
+import CameraUpdate from './components/camera/CameraUpdate';
 
 
 
@@ -30,6 +32,8 @@ function App() {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/computershop2" element={<Computershop2/>} />
           <Route path="/userCart" element={<UserCart/>}/>
+          <Route path="/cameraDetail/:id" element={<CameraDetail/>} />
+          <Route path="/cameraUpdate/:id" element={<CameraUpdate />} />
 
           <Route path="/board" element={<Board/>}/>
           <Route path="/detail/:id" element={<BoardDetail/>}/>

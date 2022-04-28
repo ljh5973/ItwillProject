@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import Typography from '@material-ui/core/Button';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import axios from 'axios';
-import ProductDetail from './ProductDetail';
 
 
-function ProductCart(props) {
+function CameraCart(props) {
     const [open, setOpen] = useState(false);
     const userId = props.userId
-    const productId = props.productId
+    const cameraId = props.cameraId
     const cartNum = props.cartNum
-    // const [num, setNum] = useState(1);
 
     const handleClose = () => {
         setOpen(false)
@@ -22,11 +20,11 @@ function ProductCart(props) {
     }
     let data = {
         email: userId,
-        id: productId,
-        num: props.cartNum
+        id: cameraId,
+        num: cartNum
     }
 
-    console.log(productId)
+    console.log(cameraId)
     console.log(userId)
     const cartAdd = () => {
         setOpen(false);
@@ -81,4 +79,4 @@ function ProductCart(props) {
 
 
 
-export default ProductCart
+export default CameraCart

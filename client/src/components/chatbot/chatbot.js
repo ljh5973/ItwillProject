@@ -4,16 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveMessage } from '../../_action/message_action';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Message from './Sections/Message';
-
 import { Modal, Button, Form, Container } from 'react-bootstrap';
 import "./chatbot.css";
 let type = "answer";
-
-
 function Chatbot({ show, onHide }) {
 
 
-    
     const dispatch = useDispatch()
     const messagesFromRedux = useSelector(state => state.message.messages)
     useEffect(() => {
@@ -32,23 +28,20 @@ function Chatbot({ show, onHide }) {
             }
         }
 
-        
 
         dispatch(saveMessage(conversation));
         // console.log('text i sent ', conversation);
         const textQueryVariables = {
-            text: text,
+            text: text
         }
         // We need to take care of the message Chatbot sent
         try {
-            
-            let response;
+
             // I will send request 
+            let response;
             if (type === 'answer') {
                 response = await Axios.post("/api/chatbot/answer", textQueryVariables)
-                console.log(response)
                 console.log(response.data);
-                
                 if (response.data == '찾으시는 컴퓨터를 입력해주세요') {
                     type = 'computer';
                 } else if (response.data == '찾으시는 노트북을 입력해주세요') {
@@ -56,16 +49,8 @@ function Chatbot({ show, onHide }) {
                 } else if (response.data == '찾으시는 카메라를 입력해주세요') {
                     type = 'camera';
                 }
-                
-
             } else if (type === 'computer') {
                 response = await Axios.post('/api/chatbot/computer', textQueryVariables)
-
-                type="answer";
-
-                console.log(response);
-
-               
             } else if (type === 'notebook') {
                 response = await Axios.post('/api/chatbot/notebook', textQueryVariables)
             } else if (type === 'camera') {
@@ -73,22 +58,18 @@ function Chatbot({ show, onHide }) {
             }
 
             // TODO content
-            
-            
-                conversation = {
-                    who: 'chatbot',
-                    content: {
-                        text: {
-                            text: response.data
-                        }
+            const content = response
+            const result = ""
+
+            conversation = {
+                who: 'chatbot',
+                content: {
+                    text: {
+                        text: content.data
                     }
                 }
-            
-            
+            }
             dispatch(saveMessage(conversation));
-           
-
-              
 
 
 
@@ -147,20 +128,6 @@ function Chatbot({ show, onHide }) {
             e.target.value = "";
         }
     }
-    const chatbotOn = () => {
-        const a = document.querySelector(".chatbotModal")
-        a.style.display = "block";
-        const sect = document.querySelector(".sect01")
-        sect.style.display = 'block';
-        const closeBtn = document.querySelector(".chatbotClose")
-        closeBtn.style.display = "block";
-    }
-    const chatbotClose = () => {
-        const closeBtn = document.querySelector(".chatbotClose")
-        closeBtn.style.display = "none";
-        const chatbot = document.querySelector(".chatbotModal")
-        chatbot.style.display = 'none';
-    }
 
     const renderOneMessage = (message, i) => {
         //console.log('message', message);
@@ -177,51 +144,51 @@ function Chatbot({ show, onHide }) {
         }
     }
     return (
+        <Modal
+            style={{
+                position: "absolute", right: 0, bottom: 0
 
-        <div className='chatbot'
-            
+            }}
+            show={show}
+            onHide={onHide}
+            dialogClassName="modal-90w"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            className="modal"
+            shouldCloseOnOverlayClick={false}
         >
-            <div className='chatbotImgArea'
-            onClick={chatbotOn}>
+            <Container>
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Chatbot
+                    </Modal.Title>
 
-                <strong>Chatbot</strong>
-                <img className='chatbotImg' src='../../img/chat.png'></img>
-            
-            </div>
-            <div className='chatbotArea'>
-                <div style={{
-                    height: 400, width: 300,
-                    border: '3px solid black', borderRadius: '7px',
-                    backgroundColor: 'white'
-                }}
-                    className="chatbotModal">
-
-                    <div style={{ height: 345, width: '100%', overflow: 'auto' }}>
-                        {renderMessage(messagesFromRedux)}
-                    </div>
-
-
-                    <input style={{
-                        margin: 0, width: '100%', height: 50,
-                        borderRadius: '4px', padding: '5px', fontSize: '1rem'
+                </Modal.Header>
+                <Modal.Body>
+                    <div style={{
+                        height: 300, width: 300,
+                        border: '3px solid black', borderRadius: '7px'
                     }}
-                        placeholder="Send a message..."
-                        onKeyPress={keyPressHandler}
-                        type="text"
-                    />
+                        className="chatbotModal">
 
-                </div>
-                <div class="chatbotClose">
-                    <div class="sect01"
-                        onClick={chatbotClose}>
-                        <div class="line-box">
-                            <span class="line-01"></span>
-                            <span class="line-02"></span>
+                        <div style={{ height: 300, width: '100%', overflow: 'auto' }}>
+                            {renderMessage(messagesFromRedux)}
                         </div>
+
+
+                        <input style={{
+                            margin: 0, width: '100%', height: 50,
+                            borderRadius: '4px', padding: '5px', fontSize: '1rem'
+                        }}
+                            placeholder="Send a message..."
+                            onKeyPress={keyPressHandler}
+                            type="text"
+                        />
+
                     </div>
-                </div>
-            </div>
-        </div>
+                </Modal.Body>
+            </Container>
+        </Modal>
     )
 }
 

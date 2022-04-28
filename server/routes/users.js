@@ -196,15 +196,6 @@ router.get("/auth",  async (req, res) => {
 
 });
 
- 
-router.get('/product', (req, res) => {
-    // db_config.connect(conn);
-    conn.query(
-        "select * from product order by id desc", (err, rows, fields) => {
-            res.send(rows);
-        }
-    )
-});
 
 router.post('/kakaotoken', (req, res) => {
     res.cookie("w_auth", req.body.access_token).status(200).json({loginSuccess: true, kakaoToken: req.body.access_token})
@@ -212,19 +203,7 @@ router.post('/kakaotoken', (req, res) => {
   
 })
 
-router.post('/cart', (req, res) => {
-    console.log(req.body)
-    let sql = 'insert into cart values(?, ?, null, ?)';
-    let id = req.body.id;
-    let email = req.body.email;
-    let num = req.body.num;
-    let params = [id, email, num]
-    conn.query(sql, params,
-        (err, rows, fields) => {
-            res.send(rows);
-            console.log(rows);
-        })
-})
+
 
 router.post('/cartList', (req, res) => {
     console.log(req.body)
@@ -236,6 +215,18 @@ router.post('/cartList', (req, res) => {
             console.log(rows);
         })
 
+})
+
+router.post('/cameraCartList', (req, res) => {
+    console.log(req.body)
+    let sql = 'select * from cart inner join camera on cart.id = camera.id where cart.email=?'
+    
+    let params = [req.body.email]
+    conn.query(sql, params,
+        (err, rows, fields) => {
+            res.send(rows);
+            console.log("cartList: ", rows);
+        })
 })
 
 router.get('/cartDelete:id', (req, res) => {

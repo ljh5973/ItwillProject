@@ -18,12 +18,11 @@ import {styled, alpha} from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Pagination from "./Pagination";
+
 
 const useStyles = makeStyles({
     root: {
@@ -100,15 +99,12 @@ function Computershop() {
     const [limit, setLimit] = useState(5);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
-   
 
     
 
     const callApi = async () => {
       const response = await fetch('/api/products/product');
       const body = await response.json();
-      
-      console.log("body", body); 
       setIsLoad(true);
       return body;
     };
@@ -116,10 +112,9 @@ function Computershop() {
     const handleValueChange = (e) => {    
         setSearch(e.target.value)
     }
-
     
     const filteredComponents = (data) => {
-          data = data.filter((c) => {
+            data = data.filter((c) => {
             return c.product_name.indexOf(search) > -1 || c.product_desc.indexOf(search) > -1
             
         }); 
@@ -161,12 +156,12 @@ function Computershop() {
             setCustomersData(res);
         }).
           catch(err => console.log(err));
-      }, [isLoad]);
+      }, []);
 
     //console.log(customersData);
 
-    const cellList = ['상품 이름', '상품 이미지', '상품 내용', '상품 가격']
-
+    const cellList = ['상품 이름', '상품 이미지', '상품 내용', '상품 가격']  
+    
     return (
         <>
         <Header/>
@@ -195,7 +190,7 @@ function Computershop() {
                             component="div"
                             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                         >
-                            상품 목록
+                            Computer
                         </Typography>
                         <Search style={{position:'absolute', right:'15px'}}>
                             <SearchIconWrapper>
@@ -214,7 +209,7 @@ function Computershop() {
            
                 <TableContainer component={Paper}>
                 <Paper > 
-                    <Table className={classes.table} aria-label="simple table">
+                    <Table style={{backgroundColor:"#f8eee1"}} className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                {cellList.map(c => {
@@ -242,7 +237,6 @@ function Computershop() {
                 
                <Pagination total={customersData.length} limit={limit} page={page} setPage={setPage} />
             </div>
-
            
             {/* <Link to="/productUpload">
               <button className="write">상품등록</button>
@@ -250,7 +244,7 @@ function Computershop() {
             
         </div>
         </div>
-        
+         
         </>
     );
 }

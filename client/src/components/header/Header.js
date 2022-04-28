@@ -136,7 +136,7 @@ function Header() {
 
                     <ShoppingBasket/>
                     <span className="header_optionLineTwoheader_basketCount">
-                        0
+                       
                     </span>
                     </Link>
 
