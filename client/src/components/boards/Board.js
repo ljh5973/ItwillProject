@@ -24,7 +24,7 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Pagination from "../computer/Pagination";
-
+import Chatbot from '../chatbot/chatbot';
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -253,7 +253,9 @@ function Board() {
             {/* <Link to="/productUpload">
               <button className="write">상품등록</button>
             </Link> */}
-            
+             <div className='chatbotArea'>
+                <Chatbot> </Chatbot>
+            </div>
         </div>
         </div>
     </>

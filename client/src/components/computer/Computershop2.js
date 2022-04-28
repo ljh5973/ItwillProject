@@ -22,6 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Pagination from "./Pagination";
+import Chatbot from '../chatbot/chatbot';
 
 
 const useStyles = makeStyles({
@@ -241,7 +242,10 @@ function Computershop() {
             {/* <Link to="/productUpload">
               <button className="write">상품등록</button>
             </Link> */}
-            
+            <div className='chatbotArea'>
+                <Chatbot> </Chatbot>
+            </div>
+           
         </div>
         </div>
          

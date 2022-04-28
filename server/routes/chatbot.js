@@ -32,7 +32,8 @@ router.post('/computer', async (req, res) => {
 
        
         // console.log(typeof(text));
-        text=text.replace("품명",'').replace('가격','').replaceAll(",", "").replace(/\d{5,10}원$/g,"").trim();
+        // text=text.replace("품명",'').replace('가격','').replaceAll(",", "").replace(/\d{5,10}원$/g,"").trim();
+        text=text.replace("품명",'').replace('가격','').trim();
         
         text = text.substr(3);
       
