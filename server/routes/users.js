@@ -175,7 +175,7 @@ router.get("/auth",  async (req, res) => {
     const check = await verify.then( res => {
         return res;
     })
-    console.log(check);
+    //console.log(check);
     try {
         //유효기간 체크
         if (check) {
@@ -221,8 +221,9 @@ router.post('/googleLogin', function (req, res) {
 
 
 router.post('/kakaotoken', (req, res) => {
-    res.cookie("w_auth", req.body.access_token).status(200).json({loginSuccess: true, kakaoToken: req.body.access_token})
-    console.log("token", req.body.access_token);
+    console.log(req.body);
+    res.cookie("w_auth", req.body.id_token).status(200).json({loginSuccess: true, kakaoToken: id_token})
+    //console.log("token", req.body.access_token);
   
 })
 
