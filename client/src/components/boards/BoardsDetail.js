@@ -125,12 +125,6 @@ const toggleLike = async (e) => {
                                 </div>
                                 : ""}
 
-                                <div >
-                                    <Link to={`/boardPost`} className="link_box">
-                                        <Button className="write" variant="outlined">글쓰기</Button>
-                                        
-                                    </Link>
-                                </div>
                             </div>
                         </>
                     )

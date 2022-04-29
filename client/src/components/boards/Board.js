@@ -23,8 +23,10 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import Pagination from "../computer/Pagination";
+import Pagination from "./Pagination";
 import Chatbot from '../chatbot/chatbot';
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -193,7 +195,7 @@ function Board() {
             <div className= {classes.root} >
                 <Box sx={{ flexGrow: 1 }}>
                     <AppBar position="static" >
-                        <Toolbar>
+                        <Toolbar style={{backgroundColor:"#fbb04c"}}>
                         
                         <Typography
                             variant="h6"
@@ -220,7 +222,7 @@ function Board() {
            
                 <TableContainer component={Paper}>
                 <Paper > 
-                    <Table className={classes.table} aria-label="simple table">
+                    <Table style={{backgroundColor:"#f8eee1"}} className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                {cellList.map(c => {
@@ -232,7 +234,7 @@ function Board() {
                             {customersData !=0 ? filteredComponents(customersData): 
                             <TableRow>
                                 <TableCell colSpan="6" align="center">
-                                    <CircularProgress className={progress} variant="indeterminate" value={progress}/>
+                                    <CircularProgress color="success" className={progress} variant="indeterminate" value={progress}/>
                                 </TableCell>
                             </TableRow>     
                             }
@@ -243,7 +245,9 @@ function Board() {
                 </Paper>               
                 </TableContainer>
                 <div className={classes.menu}>
-                    {/* <ProductUpload2 stateRefresh = {stateRefresh} /> */}
+                <Link to={`/boardPost`} className="link_box">
+                   <Button variant="contained" style={{backgroundColor: "#fbb04c", color:"white"}}>글쓰기</Button>
+                </Link>
                 </div>
                 
                <Pagination total={customersData.length} limit={limit} page={page} setPage={setPage} />

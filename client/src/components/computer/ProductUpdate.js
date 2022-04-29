@@ -95,7 +95,7 @@ function ProductUpload() {
                             {fileName === "" ?  "이미지 선택" : fileName}
                         </Button>
                         <div style={{marginTop:"10px", marginLeft:"0"}}>{fileImage && (
-                            <img src={fileImage} style={{width: "650px"}} />
+                            <img src={fileImage} style={{width: "300px"}} />
                         )}</div>
                     </label><br/>
                     </DialogContent>

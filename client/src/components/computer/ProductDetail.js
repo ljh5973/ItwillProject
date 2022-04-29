@@ -68,15 +68,16 @@ const ProductDetail = () => {
                      </>
                  )
              })}
+       
         </div>
         <div className="detailFooter"><img src='../img/footerlogo.webp'/>
-        <span className="footerDesc">서울특별시 강남구 테헤란로 124 4층 (역삼동, 삼원타워) 아이티윌</span>
-        <div className="imgList">
-            <img src="../img/facebook.webp"/>
-            <img src="../img/instagram.webp"/>
-            <img src="../img/twitter.webp"/>
+            <span className="footerDesc">서울특별시 강남구 테헤란로 124 4층 (역삼동, 삼원타워) 아이티윌</span>
+            <div className="imgList">
+                <img src="../img/facebook.webp"/>
+                <img src="../img/instagram.webp"/>
+                <img src="../img/twitter.webp"/>
+            </div>
         </div>
-                                    </div>
         
         </>
 

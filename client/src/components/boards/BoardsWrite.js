@@ -77,6 +77,8 @@ const BoardWrite = () => {
     return (
         <>
         <Header/>
+        <div className="home_containerLine"></div>
+        <div className="boardWrite" style={{backgroundColor:"#f8eee1"}}>
         <div className="container" style={{ fontFamily: 'Noto Sans Korean,Malgun Gothic,sans-serif' }}>
             <div className="lf-contents pd12">
 
@@ -99,6 +101,7 @@ const BoardWrite = () => {
                 </div>
                 </div>
             </div>
+        </div>
         </div>
 
         </>
