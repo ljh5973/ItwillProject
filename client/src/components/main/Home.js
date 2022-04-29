@@ -44,6 +44,15 @@ function Home() {
 
             </div>
             <div className="home_container3">
+                <div className="home_container_imgBox3">
+                    <img className="home_container3_img1" src="img/container3-1.jpg"/>
+                    <img className="home_container3_img2" src="img/container3-2.png"/>
+                    <Link to="board">
+                        <span className="home_container3_text1">Board</span> 
+                        <img className='arrow2' src="img/ArrowWHT.webp" />                       
+                    </Link>
+                  
+                </div>
                 
             </div>
             <div className='chatbotArea'>

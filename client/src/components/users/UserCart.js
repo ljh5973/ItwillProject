@@ -78,7 +78,7 @@ function UserCart() {
                         }):
                         <tr>
                             <td colSpan="6" align="center">
-                                <CircularProgress className={progress} variant="indeterminate" value={progress}/>
+                                <CircularProgress style={{color:"red"}} className={progress} variant="indeterminate" value={progress}/>
                             </td>
                         </tr> 
                         }

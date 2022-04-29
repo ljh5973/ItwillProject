@@ -77,8 +77,10 @@ const BoardWrite = () => {
     return (
         <>
         <Header/>
-        <div className="container" style={{ fontFamily: 'Noto Sans Korean,Malgun Gothic,sans-serif' }}>
-            <div className="lf-contents pd12">
+        <div className="home_containerLine"></div>
+        <div className="boardWrite" style={{backgroundColor:"#f8eee1"}}>
+        <div className="boardContainer" style={{ fontFamily: 'Noto Sans Korean,Malgun Gothic,sans-serif' }}>
+            <div className="lf-contents pd12" style={{width:"700px"}}>
 
                 <div style={{ padding: "12px" }}>
                   
@@ -91,14 +93,15 @@ const BoardWrite = () => {
                     <UploadFiles ref={uploadReferenece} />
                     <Editor value={desc} onChange={onEditorChange} />
                     <div className="text-center-pd12">
-                        <Button variant="outlined" className="lf-button primary" onClick={onClickSearch}>저장</Button>
-                        <a href="/boards"><Button variant="outlined" className="lf-button primary float-right">목록으로</Button></a>
+                        <Button variant="outlined" style={{marginTop: "10px"}} className="lf-button primary" onClick={onClickSearch}>저장</Button>
+                        <Link className="link_box" to="/board"><Button style={{marginTop: "10px"}} variant="outlined" className="lf-button primary float-right">목록으로</Button></Link>
                     </div>
                     <Link id="notice_Detail_Link" to={{ pathname: '/board', state: { _id: id } }}></Link>
                     <div className="top-controls">
                 </div>
                 </div>
             </div>
+        </div>
         </div>
 
         </>

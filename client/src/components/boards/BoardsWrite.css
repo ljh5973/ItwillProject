@@ -4,3 +4,15 @@
     
 }
 
+
+.boardWrite {
+    background-color: #f8eee1;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.boardContainer {
+    margin-top: 20px;
+}
+
