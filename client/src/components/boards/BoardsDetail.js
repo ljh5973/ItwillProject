@@ -91,9 +91,9 @@ const toggleLike = async (e) => {
                                 <div className="boardHeaderbox">
                                     <span className="boardTitle">{b.title}</span>
                                     <br />
-                                    <span className="boardEmail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{b.email} </span>
+                                    <span className="boardEmail">&nbsp;{b.email} </span>
                                     <br />
-                                    <span className="boardregdate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{timeForToday(b.regdate)} </span>
+                                    <span className="boardregdate">&nbsp;{timeForToday(b.regdate)} </span>
                                     <span className="boardview_cnt">&nbsp; 조회 {b.view_cnt} </span>
                                 </div>
                                 

@@ -112,3 +112,11 @@ Button.write {
     max-height: 30vh;
 }
 
+.board_Like_Cnt {
+    margin-top: 10px;
+}
+
+.board_Like_Cnt img {
+    width: 30px;
+}
+
