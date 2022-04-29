@@ -21,7 +21,9 @@ const BoardDetail = () => {
     const [reply, setReply] = useState([]);
     const { id } = useParams();
     const [comment, setComment] = useState("");
-    
+
+    const [like_cnt, setLike_cnt] = useState([]);
+    const [reply_cnt, setReply_cnt] = useState([]);
 
     const [uploadUser_id, setUploadUser_id] = useState('');
     const [user_id, setUser_id] = useState('');
@@ -38,6 +40,8 @@ const BoardDetail = () => {
             .then(response => {
                 setBoard(response.data)
                 console.log(response.data);
+                setLike_cnt(response.data[0].like_cnt);
+                setReply_cnt(response.data[0].cnt);
                 setUploadUser_id(response.data[0].email)
             })
 
@@ -45,39 +49,49 @@ const BoardDetail = () => {
             .then(response => {
                 setReply(response.data)
                 console.log(response.data);
-            })    
+            })
     }, [])
     //한번 만 클릭 할 수 있음
-const toggleLike = async (e) => {
-     const res = await axios.post('/api/boards/like/'+ id).
-     then(response => {
-        if(response.data.success === true) {
-            
-        } else {
-            
+    const toggleLike = async (e) => {
+        let body = {
+            type: like
         }
-     }) // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like) }
-     setLike(!like)
-}
+
+        const res = await axios.post('/api/boards/like/' + id, body).
+            then(response => {
+                if (response.data.success === true) {
+
+                } else {
+
+                }
+            }) // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like) }
+        if (!like) {
+            setLike_cnt(like_cnt + 1);
+        } else {
+            setLike_cnt(like_cnt - 1);
+        }
+        setLike(!like)
+    }
     const onSubmitHandler = (e) => {
         let body = {
             bno: id,
-            comment: comment, 
+            comment: comment,
             email: user_id
         }
-        axios.post('/api/replys/insert',body)
+        axios.post('/api/replys/insert', body)
             .then(response => {
                 console.log(response);
 
             })
         setComment('');
+        setReply_cnt(reply_cnt + 1)
     }
 
     const OnCommitHandler = (e) => {
         setComment(e.currentTarget.value);
     }
 
-    
+
 
     return (
         <>
@@ -96,41 +110,43 @@ const toggleLike = async (e) => {
                                     <span className="boardregdate">&nbsp;{timeForToday(b.regdate)} </span>
                                     <span className="boardview_cnt">&nbsp; 조회 {b.view_cnt} </span>
                                 </div>
-                                
+
                                 <div className="boardSectionbox" >
-                                    <div className="cotent" dangerouslySetInnerHTML={{__html: b.content}}></div>
+                                    <div className="cotent" dangerouslySetInnerHTML={{ __html: b.content }}></div>
                                     {b.filename ? <div className="imageSection>">
-                                        <img className="imagefile" src={'http://localhost:5000/api/boards/image/'+b.filename}></img>
+                                        <img className="imagefile" src={'http://localhost:5000/api/boards/image/' + b.filename}></img>
                                     </div>
                                         : ""}
 
-                                        {/* TODO: 좋아요 버튼 */}
+                                    {/* TODO: 좋아요 버튼 */}
                                     <div className="board_Like_Cnt">
-                                        <HeartButton like={like} onClick={toggleLike}></HeartButton>
+                                        <HeartButton like={like} onClick={toggleLike} ></HeartButton>
+                                        <span className="font-like-cnt" value={like_cnt}> 좋아요  {like_cnt}</span>
+                                        <span className="font_reply_cnt" value={reply_cnt}> 댓글 {reply_cnt}</span>
                                     </div>
                                 </div>
-                                
+
                                 <div className="replieSectionbox">
                                     <span className="replyHeader">댓글</span>
                                     {reply.map(tweet => {
-                                        return <SingleTweet key={tweet.email} tweet={tweet}/>
+                                        return <SingleTweet key={tweet.email} tweet={tweet} />
                                     })}
                                 </div>
-                                
+
                                 {user_id ? <div className="replie_WriteSectionBox">
                                     <div className="replie_user_id">{user_id}</div>
                                     <TextArea className="input_comment" onChange={OnCommitHandler}
-                                    type='text' value={comment} placeholder="댓글을 남겨보세요"></TextArea>
+                                        type='text' value={comment} placeholder="댓글을 남겨보세요"></TextArea>
                                     <Button className="submit_Btn" onClick={onSubmitHandler} value='등록'>등록</Button>
                                 </div>
-                                : ""}
+                                    : ""}
 
                             </div>
                         </>
                     )
                 })}
             </div>
-                
+
         </>
     )
 }

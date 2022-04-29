@@ -120,3 +120,11 @@ Button.write {
     width: 30px;
 }
 
+.font-like-cnt {
+    font-weight: bold;
+}
+
+.font_reply_cnt {
+    font-weight: bold;
+}
+

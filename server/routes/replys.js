@@ -30,5 +30,15 @@ router.post('/insert', (req, res) => {
     });
 })
 
+router.get('/count/:bno', (req,res) => {
+    let bno = req.body.bno;
+
+    sql = 'select bno, count(bno) as cnt from replys where = ? group by bno';
+    conn.query(sql, bno, (err, rows) => {
+        console.log(rows);
+        res.json(rows);
+    })
+})
+
 
 module.exports = router;

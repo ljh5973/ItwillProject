@@ -7,17 +7,16 @@ const conn = db_config.init();
 
 //게시글 전체조회
 router.get('/read', (req, res) => {
-    let sql = 'select * from boards order by bno desc';
-
+    //let sql = 'select * from boards order by bno desc';
+    let sql = 'select bno, title, content, regdate, view_cnt, like_cnt, filename, email, (select count(*) from replys where bno=b.bno) as cnt from boards as b order by bno desc';
     conn.query(sql, (err, rows) => {
         res.json(rows);
     })
 });
 
 //게시글 bno조회
-//조회수 올리기
 router.get('/read/:bno', (req, res) => {
-    let sql = 'select * from boards where bno = ?';
+    let sql = 'select bno, title, content, regdate, view_cnt, like_cnt, filename, email, (select count(*) from replys where bno=b.bno) as cnt from boards as b where bno = ?';
     //var url = require('url');
     let bno = req.params.bno;
 
@@ -28,7 +27,7 @@ router.get('/read/:bno', (req, res) => {
 
 //게시글 post
 router.post('/create', (req, res) => {
-    let sql = 'insert into boards values (null, ?,?,CURRENT_TIMESTAMP, 0,0, ?, ?)';
+    let sql = 'insert into boards values (null, ?,?,CURRENT_TIMESTAMP, 0,0,0, ?, ?)';
     let bno = req.body.bno;
     let title = req.body.title;
     let content = req.body.content;
@@ -93,9 +92,9 @@ router.delete('/delete/:bno', (req, res) => {
 
 });
 
-//댓긋 수 count
+//댓긋 수 upcount
 router.get('/count', (req, res) => {
-
+    
     let sql = 'select count(replys.bno) as count from boards inner join replys on boards.bno = replys.bno';
     conn.query(sql, (err, rows) => {
         if (!err) {
@@ -109,6 +108,7 @@ router.get('/count', (req, res) => {
 
 //조회수 upcount
 router.put('/view/:bno', (req, res) => {
+    
     bno = req.params.bno;
 
     let sql = 'update boards set view_cnt= view_cnt+1 where bno = ? '
@@ -125,10 +125,16 @@ router.put('/view/:bno', (req, res) => {
 
 //좋아요
 router.post('/like/:bno', (req, res) => {
+    let type = req.body.type;
     bno = req.params.bno;
-    
     console.log(bno);
-    let sql = 'update boards set like_cnt= like_cnt+1 where bno = ? '
+    let sql = '';
+    if(type === true) {
+        sql = 'update boards set like_cnt= like_cnt-1 where bno = ? '
+    } else {
+        sql = 'update boards set like_cnt= like_cnt+1 where bno = ? '
+    }
+    
     conn.query(sql, bno, (err, rows) => {
         if(!err) {
             res.json({success: true});    

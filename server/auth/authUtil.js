@@ -33,14 +33,14 @@ const verifyToken = async (req, res, next) => {
     try {
         //decoded = jwt.verify(token, secretKey);
         decoded = await decodeToken(token);
-
+        console.log(decode);
         //next();
     } catch (error) {
         if (error.message === 'jwt expired') {
             console.log('유효기간 완료 토큰 입니다.');
             res.json({info: '유효기간 완료 토큰 입니다'})
         } else if (error.message === 'invalid token') {
-            console.log('유효하지 않은 토큰입니다.');
+            console.log('Invalid token.');
             res.json({info: '유효하지 않은 토큰입니다.'})
         } else {
             console.log('유효하지 않은 토큰입니다.');

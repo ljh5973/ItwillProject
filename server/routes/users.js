@@ -135,16 +135,16 @@ router.put('/user_update', async (req, res) => {
 })
 
 //회원정보 가져오기
-router.get('/get_user', async(req, res) => {
-    token = req.cookies.w_auth;
-    const verify = await jwt.verify(token);
-    //console.log(verify.name)
-    let sql = 'select * from users where email = ?';
-    let params = [verify.name];
-    conn.query(sql, params, async (err, rows, fields) => {
-        res.send(rows);
-    });
-})
+// router.get('/get_user', async(req, res) => {
+//     token = req.cookies.w_auth;
+//     const verify = await jwt.verify(token);
+//     //console.log(verify.name)
+//     let sql = 'select * from users where email = ?';
+//     let params = [verify.name];
+//     conn.query(sql, params, async (err, rows, fields) => {
+//         res.send(rows);
+//     });
+// })
 
 //회원탈퇴
 //정말로 삭제하시겠습니까? client -> alert(yes)
@@ -175,9 +175,9 @@ router.get("/auth",  async (req, res) => {
     const check = await verify.then( res => {
         return res;
     })
+    console.log(check);
     try {
         //유효기간 체크
-        
         if (check) {
             verify.then(verify => {
                 res.json(verify);

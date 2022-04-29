@@ -51,7 +51,7 @@ const BoardWrite = () => {
                 title: title,
                 content: desc,
                 filename: files,
-                email: 'test@naver.com',
+                email: user_id,
             }
             axios.post('/api/boards/create', body).then(response => {
                 if(response.data) {

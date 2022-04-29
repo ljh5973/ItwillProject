@@ -133,7 +133,7 @@ function Board() {
         return data.slice(offset, offset + limit).map((c) => {
             return <BoardPrd stateRefresh = {stateRefresh}
             key={c.bno} id={c.bno} board_title={c.title} board_regdate={c.regdate}
-            board_view_cnt={c.view_cnt}
+            board_view_cnt={c.view_cnt} board_reply_cnt={c.cnt}
             board_like_cnt={c.like_cnt} board_email={c.email} />
         })
 

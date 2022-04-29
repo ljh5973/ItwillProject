@@ -24,8 +24,9 @@ function ComputerPrd(props) {
             <TableCell style={{width: "150px"}}>{props.id}</TableCell>
             <TableCell >
                 <Link to={`/detail/${props.id}`} onClick={BtnHandler} className="link_box">
-                {props.board_title} 
+                {props.board_title}
                 </Link>
+                <span>&nbsp;[{props.board_reply_cnt}]</span>
             </TableCell>
             {/* <TableCell>{props.board_title.length < 40 ? props.board_title : props.board_title.slice(0, 40) + '...'}</TableCell> */}
             {/* <TableCell style={{width:"200px"}}>{props.board_regdate}</TableCell> */}
