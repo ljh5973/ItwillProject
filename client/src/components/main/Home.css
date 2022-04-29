@@ -32,6 +32,12 @@
     left: 400px;
 }
 
+.arrow2 {
+    position: absolute;
+    bottom: 100px;
+    left: 500px;
+}
+
 .home_container1_text1 {
     font-size: 95px;
     font-weight: bold;
@@ -45,7 +51,7 @@
     font-size: 95px;
     font-weight: bold;
     position: absolute;
-    left: 100px;
+    left: 200px;
     bottom: 50px;
     color: #31302f;
 }

@@ -123,7 +123,7 @@ const SignInModal = ({show, onHide}) => {
                         onFailure={handleGoogleFailure}
                         cookiePolicy={'single_host_origin'}
                     />
-                    <a href={KAKAO_AUTH_URL}><img style={{marginLeft: "62px", height:"45px", marginTop:"10px", marginBottom:"10px"}} src="../../img/kakao_login_medium_narrow.png" alt="kakao button"/></a>
+                    <a href={KAKAO_AUTH_URL}><img style={{marginLeft: "75px", height:"45px", marginTop:"10px", marginBottom:"10px"}} src="../../img/kakao_login_medium_narrow.png" alt="kakao button"/></a>
                 </Form>
                 </Modal.Body>
                 
