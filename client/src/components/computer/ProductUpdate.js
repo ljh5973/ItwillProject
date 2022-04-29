@@ -101,7 +101,7 @@ function ProductUpload() {
                     </DialogContent>
             </form>  
         </div>
-        <div style={{}} className="updateFooter"><img src='../img/footerlogo.webp'/>
+        <div style={{}} className="updateFooter1"><img src='../img/footerlogo.webp'/>
             <span className="footerDesc">서울특별시 강남구 테헤란로 124 4층 (역삼동, 삼원타워) 아이티윌</span>
             <div className="imgList">
                 <img src="../img/facebook.webp"/>

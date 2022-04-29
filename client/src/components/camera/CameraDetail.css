@@ -66,11 +66,9 @@
     margin-top: 60px;
 }
 
-.detailFooter {
+.detailFooter1 {
     width: 100%;
     height: 70px;
-    position: absolute;
-    bottom: 100px;
     background-color: #31302f;
     color: #f8eee1;
     font-size: 15px;
