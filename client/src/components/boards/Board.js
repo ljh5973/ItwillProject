@@ -234,7 +234,7 @@ function Board() {
                             {customersData !=0 ? filteredComponents(customersData): 
                             <TableRow>
                                 <TableCell colSpan="6" align="center">
-                                    <CircularProgress color="success" className={progress} variant="indeterminate" value={progress}/>
+                                    <CircularProgress style={{color: "orange"}} className={progress} variant="indeterminate" value={progress}/>
                                 </TableCell>
                             </TableRow>     
                             }
