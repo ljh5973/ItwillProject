@@ -3,7 +3,7 @@ import axios from "axios";
 import Editor from './UploadConfig/EditorComponent';
 import UploadFiles from './UploadConfig/UploadFiles';
 
-import './BoardsWrite.css';
+import './css/BoardsWrite.css';
 
 import Header from '../header/Header';
 import { Link } from "react-router-dom";

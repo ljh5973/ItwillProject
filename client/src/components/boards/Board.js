@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import Header from '../header/Header';
-import './Board.css';
+import './css/Board.css';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -23,7 +23,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import Pagination from "./Pagination";
+import Pagination from "./Page/Pagination";
 import Chatbot from '../chatbot/chatbot';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';

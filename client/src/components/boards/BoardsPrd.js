@@ -1,10 +1,10 @@
 import React from 'react';
-import './BoardsPrd.css';
+import './css/BoardsPrd.css';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 //import ProductDelete from './ProductDelete';
 import {Link} from 'react-router-dom';
-import {emailChange, timeForToday} from './TimeForToday';
+import {emailChange, timeForToday} from './Page/TimeForToday';
 import axios from 'axios';
 
 function ComputerPrd(props) {

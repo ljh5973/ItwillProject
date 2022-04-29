@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import HeartImg from './redHeart.gif'
-import EmptyHeartImg from './blackHeart.png'
+import HeartImg from '../UploadConfig/redHeart.gif'
+import EmptyHeartImg from '../UploadConfig/blackHeart.png'
 
 const Heart = styled.img` width:50px color:red } `;
 const HeartButton = ({ like, onClick }) => {

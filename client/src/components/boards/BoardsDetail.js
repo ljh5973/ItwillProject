@@ -1,17 +1,17 @@
 import axios from "axios";
 import Header from '../header/Header';
 import React, { useEffect, useState } from "react";
-import './BoardsDetail.css';
+import './css/BoardsDetail.css';
 import { Link, useParams } from "react-router-dom";
 import { TextField } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
 
-import { emailChange, timeForToday } from './TimeForToday';
-import SingleTweet from "./SingleTweet";
+import { emailChange, timeForToday } from './Page/TimeForToday';
+import SingleTweet from "./Page/SingleTweet";
 import TextArea from "antd/lib/input/TextArea";
 
-import HeartButton from "./HeartButton";
+import HeartButton from "./Page/HeartButton";
 
 const BoardDetail = () => {
 
