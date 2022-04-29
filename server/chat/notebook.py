@@ -9,7 +9,7 @@ import base64
 
 model = SentenceTransformer('jhgan/ko-sroberta-multitask')
 df = pd.read_csv('./chat/notebook.csv')
-df = df.drop(columns=['링크'])
+# df = df.drop(columns=['링크'])
 model.encode(df.loc[0, '품명'])
 df['embedding'] = pd.Series([[]] * len(df)) # dummy
 df['embedding'] = df['품명'].map(lambda x: list(model.encode(x)))

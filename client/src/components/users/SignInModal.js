@@ -9,6 +9,7 @@ import HorizonLine from "../HorizonLine";
 import {useDispatch} from 'react-redux';
 import { loginUser, googleLogin } from '../../_action/user_action';
 import { useNavigate } from "react-router-dom";
+import {Cookie} from "react-cookie";
 
 import config from '../../config/google.json';
 
@@ -67,14 +68,16 @@ const SignInModal = ({show, onHide}) => {
 
 
     const handleGoogleLogin= async (result)=>{
-        const profileObj=result;
-        console.log(profileObj);
+        
+        
 
         dispatch(googleLogin(result))
             .then(response=>{
                 console.log(response);
+                
                 if(response.payload){
-                    console.log(response.payload);
+                    closeModal();
+                    window.location.reload();
                 }else{
                     alert('Error');
                 }

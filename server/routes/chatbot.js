@@ -92,17 +92,16 @@ router.post('/notebook', async (req, res) => {
         encoding: 'utf-8'
     }
     PythonShell.run('./chat/notebook.py', option, function (err, result) {
-        console.log(result);
-        // let data = result[0].replace(`b\'`, '').replace(`\'`, '');
+        let data = result[0].replace(`b\'`, '').replace(`\'`, '');
 
-        // let buff = Buffer.from(data, 'base64'); 
+        let buff = Buffer.from(data, 'base64'); 
         
-        // let text = buff.toString('utf-8');
-        // console.log(text);
-        // console.log(typeof(text));
+        let text = buff.toString('utf-8');
+        console.log(text);
+        console.log(typeof(text));
 
 
-        // res.json(text);
+        res.json(text);
     })
 }
 )
@@ -118,22 +117,21 @@ router.post('/camera', async (req, res) => {
     }
 
     PythonShell.run('./chat/camera.py', option, await function (err, result) {
-        console.log("왜 또 널값만 뜨냐고");
-        console.log(result);
-        // let data = result[0].replace(`b\'`, '').replace(`\'`, '');
-
-        // let buff = Buffer.from(data, 'base64'); 
         
-        // let text = buff.toString('utf-8');
+        let data = result[0].replace(`b\'`, '').replace(`\'`, '');
 
-        // text=text.replace("품명",'').replace('가격','').trim();
-        // // text = text.substr(3);
+        let buff = Buffer.from(data, 'base64'); 
+        
+        let text = buff.toString('utf-8');
 
-        // console.log(text);
-        // console.log(typeof(text))
+        text=text.replace("품명",'').replace('가격','').trim();
+        // text = text.substr(3);
+
+        console.log(text);
+        console.log(typeof(text))
 
 
-        // res.json(text);
+        res.json(text);
     });
 
 }

@@ -29,7 +29,7 @@ export function registerUser(dataTosubmit) {
 }
 
 export function googleLogin(data){
-    const request =axios.get('/googleLogin',data)
+    const request =axios.post('/api/users/googleLogin',data)
     .then(response=>response.data)
 
     return {

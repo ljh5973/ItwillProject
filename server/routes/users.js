@@ -13,11 +13,13 @@ const conn = db_config.init();
 const authTest = require('../auth/authUtil');
 
 const cookieParser = require('cookie-parser');
+const mailer = require('../mailer');
 
 // router.use(express.urlencoded({ extended: true }));
 router.use(cookieParser());
 //const {User} = require("../models/User");
 db_config.connect(conn);
+
 
 require('dotenv').config();
 
@@ -194,6 +196,27 @@ router.get("/auth",  async (req, res) => {
 
 
 
+});
+
+// 이메일 인증
+router.post("/emailAuth", async(req,res)=>{
+    console.log("받아온 이메일 :", req.body.email);
+   
+    mailer.mail(req.body.email);
+
+    res.json("이메일 발송을 하였습니다.");
+        
+        // mail.send()
+})
+router.get("/mailModify/:info", async(req,res)=>{
+    console.log(req.params.info);
+    console.log(req.body);
+})
+
+// gooogleLogin
+router.post('/googleLogin', function (req, res) {
+    console.log(req.body.tokenId);
+    res.cookie("w_auth", req.body.tokenId).status(200).json({loginSuccess:true});
 });
 
 

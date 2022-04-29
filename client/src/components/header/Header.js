@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 // 클릭하면 페이지 변경 가능하게 Link 임포트
 import SignUpModal from '../users/SignUpModal';
 import SignInModal from '../users/SignInModal';
+import ProfileModal from "../users/ProfileModal";
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
 
@@ -19,6 +20,7 @@ function Header() {
     const navigate = useNavigate();
     const [signUpModalOn, setSignUpModalOn] = useState(false);
     const [signInModalOn, setSignInModalOn] = useState(false);
+    const [profileModalOn, setProfileModalOn] = useState(false);
 
     //const [cookies, setCookies ]= useCookies('w_auth')
     const getCookieValue = (key) => {
@@ -86,6 +88,7 @@ function Header() {
         <>
             <SignUpModal show={signUpModalOn} onHide={() => setSignUpModalOn(false)} />
             <SignInModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
+            <ProfileModal show={profileModalOn} onHide={()=>setProfileModalOn(false)}/>
             <div className="header">
                 <Link to="/" className='link_box'>
                     <div className='header_logo'><img src="../../img/logo.webp" /></div>
@@ -118,17 +121,18 @@ function Header() {
             <div className="header_nav">
                 <div className="header_option">
                     {/* 카카오 혹은 구글 토큰이 있으면 으로??? */}
-                    {cookies_w_auth ? [<Link to="/profile" className="link_box">
-                    <span className="header_optionMenu"><AccountCircle /></span>
-                    </Link>,
+                    {cookies_w_auth ? [
+                    <div>
+                    <span className="header_optionMenu" onClick={()=>setProfileModalOn(true)}><AccountCircle /></span>
                     <span style={{marginLeft: "10px"}} className="header_optionMenu" onClick={logoutHandler}>Log out</span> 
+                    </div>
                     ] : 
                     [<span className="header_optionMenu" onClick={()=>setSignInModalOn(true)}>Log in</span>, 
                     <span className="header_optionMenu space">/</span>,
                     <span className="header_optionMenu" onClick={()=>setSignUpModalOn(true)}>Sign up</span>,
                     
                     ] 
-                    }          
+                    }         
                 </div>
               
                 <div className="header_optionBasket">

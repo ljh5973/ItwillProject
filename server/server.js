@@ -78,9 +78,6 @@ function getGooglePlusApi(auth) {
 //     return res.data.displayName;
 // }
 
-// app.get('/googleLogin', function (req, res) {
-//     res.redirect(url);
-// });
 
 // app.get("/auth/google/callback", async function (req, res) {
 //     const displayName = await googleLogin(req.query.code);

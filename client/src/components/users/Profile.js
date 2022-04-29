@@ -95,7 +95,7 @@ function Profile() {
                 <label className="profileTitle">이름</label>
                 <input type="text"  onChange={OnNameHandler} value={name}/>
                 <label className="profileTitle">비밀번호</label>
-                <input type="text"  onChange={OnPwHandler} value={pw}/>
+                <input type="password"  onChange={OnPwHandler} value={pw}/>
                 <label className="profileTitle">주소</label>
                 <input type="text"  onChange={OnAddrHandler} value={addr} className="addr1"/>
                 <input type="text"  onChange={OnSecondAddrHandler} value={secondAddr} className="addr2"/>

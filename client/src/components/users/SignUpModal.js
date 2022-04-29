@@ -9,7 +9,7 @@ import HorizonLine from "../../components/HorizonLine";
 import {registerUser} from '../../_action/user_action';
 import {useDispatch} from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import KaKao from '../../KaKao';
+import KaKao from './KaKao';
 import './SignUpModal.css';
 
 const SignUpModal = ({show, onHide}) => {

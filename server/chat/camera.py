@@ -11,8 +11,8 @@ model = SentenceTransformer('jhgan/ko-sroberta-multitask')
 df = pd.read_csv('./chat/camera.csv')
 # df = df.drop(columns=['링크'])
 model.encode(df.loc[0, '품명'])
-# df['embedding'] = pd.Series([[]] * len(df)) # dummy 만들기
-# df['embedding'] = df['품명'].map(lambda x: list(model.encode(x)))
+df['embedding'] = pd.Series([[]] * len(df)) # dummy 만들기
+df['embedding'] = df['품명'].map(lambda x: list(model.encode(x)))
 # df.to_csv('./chat/computer1.csv', index=False)
 text = sys.argv[-1:][0]
 
