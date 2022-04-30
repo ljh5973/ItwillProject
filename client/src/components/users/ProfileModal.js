@@ -3,32 +3,33 @@ import { Modal, Button, Form, Container } from 'react-bootstrap';
 import KaKao from './KaKao2';
 import axios from "axios";
 import './ProfileModal.css';
-
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../_action/user_action';
 const ProfileModal = ({ show, onHide }) => {
 
   // 정보받아오기
-  
-    const [authSuccess, setAuthSuccess]= useState(false);
-    const [name, setName] = useState([]);
-    const [email, setEmail] = useState([]);
-    const [pw, setPw] = useState([]);
-    const [addr, setaddr] = useState([]);
+
+  const [authSuccess, setAuthSuccess] = useState(false);
+  const [name, setName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [pw, setPw] = useState([]);
+  const [addr, setaddr] = useState([]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    axios.get('/api/users/get_user/')
+      .then(response => {
+        setName(response.data[0].name);
+        setEmail(response.data[0].email);
+        setPw(response.data[0].pw);
+        setaddr(response.data[0].addr);
 
 
-    useEffect(() => {    
-        axios.get('/api/users/get_user/')
-        .then(response => {
-            setName(response.data[0].name);
-            setEmail(response.data[0].email);
-            setPw(response.data[0].pw);
-            setaddr(response.data[0].addr);
-            
+        console.log(response.data[0]);
+      })
+  }, [])
 
-            console.log(response.data[0]);
-        })
-    }, [])
 
-    
 
   // submit Btn disable
   const [isEmail, setIsEmail] = useState(false);
@@ -52,22 +53,52 @@ const ProfileModal = ({ show, onHide }) => {
   const onSecondAddrHandler = (event) => {
     setSecondAddr(event.currentTarget.value)
   }
+  const closeModal = () => {
+    const a = document.querySelector(".modal-content");
+    a.style.display = "none";
+    const b = document.querySelector(".fade");
+    b.style.display = "none";
+  }
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    console.log("onSubmitHandler")
+    let body = {
+      email: email,
+      password: pw,
+      zip: zip,
+      addr: address,
+      secondAddr: secondAddr,
+
+      
+    }
+    axios.put('/api/users/user_update', body)
+    .then(res=>{
+      console.log(res);
+    })
+      
+
+  }
   // email Auth
-  const onEmailAuth=(event)=>{
-    
-    let body={
-      email:email
+  const onEmailAuth = (event) => {
+
+    let body = {
+      email: email
     }
 
-    axios.post('/api/users/emailAuth',body )
-      .then(res=>{
+    axios.post('/api/users/emailAuth', body)
+      .then(res => {
         alert(res.data);
       })
   }
 
   const OnEmailHandler = (e) => {
     setEmail(e.currentTarget.value);
-}
+  }
+  const OnNameHandler = (e) => {
+    setName(e.currentTarget.value);
+  }
 
 
 
@@ -83,15 +114,16 @@ const ProfileModal = ({ show, onHide }) => {
           <Modal.Title>정보 수정화면</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={onSubmitHandler}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label> 
-              <Button type="button" className="emailAuthBtn" onChange={OnEmailHandler} onClick={onEmailAuth}>Email Auth</Button>
+              <Form.Label>Email address</Form.Label>
+              {/* <Button type="button" className="emailAuthBtn" onClick={onEmailAuth}>Email Auth</Button> */}
               <Form.Control
                 type="email"
                 placeholder="name@example.com"
                 autoFocus
                 value={email}
+                onChange={OnEmailHandler}
               />
             </Form.Group>
             <Form.Group className="profileTitle" controlId="exampleForm.ControlInput2">
@@ -99,6 +131,7 @@ const ProfileModal = ({ show, onHide }) => {
               <Form.Control
                 type="text"
                 value={name}
+                onChange={OnNameHandler}
               />
             </Form.Group>
             <Form.Group className="profileTitle" controlId="exampleForm.ControlInput2">
@@ -124,8 +157,9 @@ const ProfileModal = ({ show, onHide }) => {
               <Form.Control type="text" value={secondAddr} onChange={onSecondAddrHandler} />
             </Form.Group>
             <Button variant="secondary" type="submit" className="my-3" style={{ width: "100%" }}
-              disabled={!(isEmail && isPassword && isPasswordConfirm)}>
-              Sign Up
+            // disabled={!(isEmail && isPassword && isPasswordConfirm)}
+            >
+              Modify
             </Button>
           </Form>
         </Modal.Body>

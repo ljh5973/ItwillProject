@@ -97,8 +97,9 @@ router.post('/notebook', async (req, res) => {
         let buff = Buffer.from(data, 'base64'); 
         
         let text = buff.toString('utf-8');
-        console.log(text);
-        console.log(typeof(text));
+
+        text=text.replace("품명",'').replace('가격','').trim();
+    
 
 
         res.json(text);
