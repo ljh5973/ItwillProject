@@ -23,6 +23,9 @@ const ProfileModal = ({ show, onHide }) => {
         setEmail(response.data[0].email);
         setPw(response.data[0].pw);
         setaddr(response.data[0].addr);
+        setSecondAddr(response.data[0].secondAddr);
+        setZip(response.data[0].zip);
+
 
 
         console.log(response.data[0]);
@@ -70,9 +73,10 @@ const ProfileModal = ({ show, onHide }) => {
       zip: zip,
       addr: address,
       secondAddr: secondAddr,
-
+      
       
     }
+    
     axios.put('/api/users/user_update', body)
     .then(res=>{
       console.log(res);
@@ -98,6 +102,10 @@ const ProfileModal = ({ show, onHide }) => {
   }
   const OnNameHandler = (e) => {
     setName(e.currentTarget.value);
+  }
+
+  const onPasswordHandler = (e) => {
+    setPw(e.currentTarget.value);
   }
 
 
@@ -138,6 +146,8 @@ const ProfileModal = ({ show, onHide }) => {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
+                onChange={onPasswordHandler}
+                value={pw}
               />
             </Form.Group>
             <Form.Group className="mb-3 formbox" controlId="formBasicEmail">

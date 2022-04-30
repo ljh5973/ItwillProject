@@ -104,11 +104,12 @@ router.get('/logout',(req, res) => {
 router.put('/user_update', async (req, res) => {
     let token = req.cookies.w_auth;
     let info = await jwt.verify(token);
-    //console.log(info.name);
+
+    console.log(req.body)
     if (token) {
         let email = info.name;
         let name = req.body.name;
-        let pw = req.body.pw;
+        let pw = req.body.password;
         let addr = req.body.addr;
         let secondAddr = req.body.secondAddr;
         //비크립트 
