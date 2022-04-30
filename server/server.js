@@ -99,8 +99,8 @@ function getGooglePlusApi(auth) {
 //     console.log(data.toString());
 // })
 
-app.use(cors());
-//api 미들웨어 등록
+// app.use(cors());
+// //api 미들웨어 등록
 
 
 app.listen(port, () => console.log(`서버 가동 포트번호: ${port}`));

@@ -1,14 +1,22 @@
 .boardDetail {
-    height: 100vh;
+    height: 110%;
     display: flex;
     justify-content: center;
+    /* flex-direction: column; */
+    margin: 0 auto;
     background-color: #f8eee1;
     border: 1px solid gray;
 }
 
 .boardList {
+    display: flex;
     margin-top: 50px;
-    height: 90vh;
+    margin-bottom: 50px;
+    flex-direction: column;
+    /* align-items: center; */
+    /* height: 140vh; */
+    /* margin: 0 auto; */
+    height: auto;
     width: 90vh;
     border: 3px solid white;
 }
