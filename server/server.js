@@ -84,12 +84,12 @@ function getGooglePlusApi(auth) {
 //     console.log(displayName);
 
 //     res.redirect("http://localhost:3000");
-// });
+// });sudo  
 
 
 // python 
 
-// const computer=spawn("python", ['product/product.py']);
+// const computer=spawn("python3", ['product/product.py']);
 
 // computer.stdout.on('data',function(data){
 //     console.log(data.toString());
@@ -99,7 +99,7 @@ function getGooglePlusApi(auth) {
 //     console.log(data.toString());
 // })
 
-// const camera=spawn("python", ['product/camera.py']);
+// const camera=spawn("python3", ['product/camera.py']);
 
 // camera.stdout.on('data',function(data){
 //     console.log(data.toString());

@@ -21,7 +21,7 @@ const ProfileModal = ({ show, onHide }) => {
       .then(response => {
         setName(response.data[0].name);
         setEmail(response.data[0].email);
-        setPw(response.data[0].pw);
+        // setPw(response.data[0].pw);
         setaddr(response.data[0].addr);
         setSecondAddr(response.data[0].secondAddr);
         setZip(response.data[0].zip);
@@ -80,9 +80,11 @@ const ProfileModal = ({ show, onHide }) => {
     
     axios.put('/api/users/user_update', body)
     .then(res=>{
-      console.log("뭐가 에러야");
+
       console.log(res);
     })
+    alert('회원정보 수정 완료');
+    window.location.reload();
       
 
   }
