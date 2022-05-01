@@ -143,7 +143,6 @@ router.put('/user_update', async (req, res) => {
 // 회원정보 가져오기
 router.get('/get_user', async(req, res) => {
     token = req.cookies.w_auth;
-<<<<<<< Updated upstream
     // const verify = await jwt.verify(token);
         const  verify = await jwttest.decode(token);
         console.log(verify);
@@ -156,15 +155,6 @@ router.get('/get_user', async(req, res) => {
         }
     
     
-=======
-    const verify = await jwt.verify(token);
-    //console.log(verify.name)
-    let sql = 'select * from users where email = ?';
-    let params = [verify.name];
-    conn.query(sql, params, async (err, rows, fields) => {
-        res.send(rows);
-    });
->>>>>>> Stashed changes
 })
 
 //회원탈퇴

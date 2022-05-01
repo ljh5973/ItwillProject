@@ -147,6 +147,7 @@ const ProfileModal = ({ show, onHide }) => {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
+                value={pw}
                 onChange={onPasswordHandler}
               />
             </Form.Group>
@@ -167,7 +168,7 @@ const ProfileModal = ({ show, onHide }) => {
               <Form.Control type="text" value={secondAddr} onChange={onSecondAddrHandler} />
             </Form.Group>
             <Button variant="secondary" type="submit" className="my-3" style={{ width: "100%" }}
-            disabled={!(isEmail && isPassword && isPasswordConfirm)}
+            disabled={!(name && pw && zip)}
             >
               Modify
             </Button>

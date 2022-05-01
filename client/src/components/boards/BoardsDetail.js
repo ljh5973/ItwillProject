@@ -28,6 +28,8 @@ const BoardDetail = () => {
     const [uploadUser_id, setUploadUser_id] = useState('');
     const [user_id, setUser_id] = useState('');
 
+    const [test, setTest] = useState([]);
+
 
     useEffect(() => {
         axios.get('/api/users/auth')
@@ -85,10 +87,21 @@ const BoardDetail = () => {
             })
         setComment('');
         setReply_cnt(reply_cnt + 1)
+
+        axios.get('/api/replys/read/' + id)
+        .then(response => {
+            setReply(response.data)
+            console.log(response.data);
+        })
+
     }
 
     const OnCommitHandler = (e) => {
         setComment(e.currentTarget.value);
+    }
+
+    const ReplyHandler = (e) => {
+
     }
 
 
@@ -129,7 +142,7 @@ const BoardDetail = () => {
                                 <div className="replieSectionbox">
                                     <span className="replyHeader">댓글</span>
                                     {reply.map(tweet => {
-                                        return <SingleTweet key={tweet.email} tweet={tweet} />
+                                        return <SingleTweet key={tweet.email} tweet={tweet} onChange={ReplyHandler}/>
                                     })}
                                 </div>
 
