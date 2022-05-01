@@ -14,6 +14,8 @@ const ProfileModal = ({ show, onHide }) => {
   const [email, setEmail] = useState([]);
   const [pw, setPw] = useState([]);
   const [addr, setaddr] = useState([]);
+  const [secondAddr, setSecondAddr] = useState("");
+  const [zip, setZip] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,19 +40,16 @@ const ProfileModal = ({ show, onHide }) => {
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-
+  
   // 주소
   const [popup, setPopup] = useState(false);
-  const [address, setAddress] = useState("");
-  const [zip, setZip] = useState("");
-  const [secondAddr, setSecondAddr] = useState("");
 
   const onZipHandler = (event) => {
     setZip(event.currentTarget.value)
   }
 
   const onAddressHandler = (event) => {
-    setAddress(event.currentTarget.value)
+    setaddr(event.currentTarget.value)
   }
 
   const onSecondAddrHandler = (event) => {
@@ -69,9 +68,10 @@ const ProfileModal = ({ show, onHide }) => {
     console.log("onSubmitHandler")
     let body = {
       email: email,
+      name: name,
       password: pw,
       zip: zip,
-      addr: address,
+      addr: addr,
       secondAddr: secondAddr,
       
       
@@ -81,6 +81,8 @@ const ProfileModal = ({ show, onHide }) => {
     .then(res=>{
       console.log(res);
     })
+    alert('정보 수정 완료');
+    closeModal();
       
 
   }
@@ -131,7 +133,6 @@ const ProfileModal = ({ show, onHide }) => {
                 placeholder="name@example.com"
                 autoFocus
                 value={email}
-                onChange={OnEmailHandler}
               />
             </Form.Group>
             <Form.Group className="profileTitle" controlId="exampleForm.ControlInput2">
@@ -156,7 +157,11 @@ const ProfileModal = ({ show, onHide }) => {
               <Button variant="secondary" onClick={() => {
                 setPopup(!popup)
               }} style={{ position: "absolute", top: "47%", left: "120px" }}>주소 검색</Button>
+<<<<<<< HEAD
               {popup && <KaKao adress={address} setAddress={setaddr} setZip={setZip} />}
+=======
+              {popup && <KaKao adress={addr} setAddress={setaddr} setZip={setZip} />}
+>>>>>>> ab3d0193b7d980ffbd2a79ba851c12902f0d4630
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
 
