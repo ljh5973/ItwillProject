@@ -42,7 +42,6 @@ const SignInModal = ({show, onHide}) => {
     }
     const onSubmitHandler = (event) => {
         event.preventDefault();
-
         let body = {
             email: email,
             password: password

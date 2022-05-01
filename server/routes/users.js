@@ -139,14 +139,17 @@ router.put('/user_update', async (req, res) => {
 router.get('/get_user', async(req, res) => {
     token = req.cookies.w_auth;
     // const verify = await jwt.verify(token);
-
-    const verify = await jwttest.decode(token);
-    //console.log(verify.name)
-    let sql = 'select * from users where email = ?';
-    let params = [verify.name];
-    conn.query(sql, params, async (err, rows, fields) => {
-        res.send(rows);
-    });
+        const  verify = await jwttest.decode(token);
+        console.log(verify);
+        if(verify!=null){
+            let sql = 'select * from users where email = ?';
+            let params = [verify.name];
+            conn.query(sql, params, async (err, rows, fields) => {
+                res.send(rows);
+            });
+        }
+    
+    
 })
 
 //회원탈퇴

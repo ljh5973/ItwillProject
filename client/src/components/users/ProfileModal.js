@@ -14,12 +14,10 @@ const ProfileModal = ({ show, onHide }) => {
   const [email, setEmail] = useState([]);
   const [pw, setPw] = useState([]);
   const [addr, setaddr] = useState([]);
-  const [secondAddr, setSecondAddr] = useState("");
-  const [zip, setZip] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('/api/users/get_user/')
+    axios.get('/api/users/get_user')
       .then(response => {
         setName(response.data[0].name);
         setEmail(response.data[0].email);
@@ -40,16 +38,19 @@ const ProfileModal = ({ show, onHide }) => {
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  
+
   // 주소
   const [popup, setPopup] = useState(false);
+  const [address, setAddress] = useState("");
+  const [zip, setZip] = useState("");
+  const [secondAddr, setSecondAddr] = useState("");
 
   const onZipHandler = (event) => {
     setZip(event.currentTarget.value)
   }
 
   const onAddressHandler = (event) => {
-    setaddr(event.currentTarget.value)
+    setAddress(event.currentTarget.value)
   }
 
   const onSecondAddrHandler = (event) => {
@@ -68,8 +69,8 @@ const ProfileModal = ({ show, onHide }) => {
     console.log("onSubmitHandler")
     let body = {
       email: email,
-      name: name,
       password: pw,
+      name:name,
       zip: zip,
       addr: addr,
       secondAddr: secondAddr,
@@ -79,10 +80,9 @@ const ProfileModal = ({ show, onHide }) => {
     
     axios.put('/api/users/user_update', body)
     .then(res=>{
+      console.log("뭐가 에러야");
       console.log(res);
     })
-    alert('정보 수정 완료');
-    closeModal();
       
 
   }
@@ -148,7 +148,6 @@ const ProfileModal = ({ show, onHide }) => {
               <Form.Control
                 type="password"
                 onChange={onPasswordHandler}
-                value={pw}
               />
             </Form.Group>
             <Form.Group className="mb-3 formbox" controlId="formBasicEmail">
@@ -157,11 +156,7 @@ const ProfileModal = ({ show, onHide }) => {
               <Button variant="secondary" onClick={() => {
                 setPopup(!popup)
               }} style={{ position: "absolute", top: "47%", left: "120px" }}>주소 검색</Button>
-<<<<<<< HEAD
               {popup && <KaKao adress={address} setAddress={setaddr} setZip={setZip} />}
-=======
-              {popup && <KaKao adress={addr} setAddress={setaddr} setZip={setZip} />}
->>>>>>> ab3d0193b7d980ffbd2a79ba851c12902f0d4630
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
 
