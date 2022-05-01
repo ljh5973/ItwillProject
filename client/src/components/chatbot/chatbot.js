@@ -51,9 +51,7 @@ function Chatbot({ show, onHide }) {
                 
                 if (response.data == '찾으시는 컴퓨터를 입력해주세요') {
                     type = 'computer';
-                } else if (response.data == '찾으시는 노트북을 입력해주세요') {
-                    type = 'notebook';
-                } else if (response.data == '찾으시는 카메라를 입력해주세요') {
+                }else if (response.data == '찾으시는 카메라를 입력해주세요') {
                     type = 'camera';
                 }
                 
@@ -111,7 +109,7 @@ function Chatbot({ show, onHide }) {
     const eventQuery = async () => {
 
         try {
-            let content = "안녕하세요? 무엇을 원하세요? 컴퓨터 / 노트북 / 카메라"
+            let content = "안녕하세요? 무엇을 원하세요? 컴퓨터 / 카메라"
 
             let conversation = {
                 who: 'chatbot',

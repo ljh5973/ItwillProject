@@ -27,7 +27,7 @@ const ProfileModal = ({ show, onHide }) => {
         setZip(response.data[0].zip);
 
 
-
+      
         console.log(response.data[0]);
       })
   }, [])
@@ -114,7 +114,7 @@ const ProfileModal = ({ show, onHide }) => {
     <>
 
       <Modal show={show} onHide={onHide}
-        dialogClassName="modal-90w"
+        dialogClassName="modal-profile"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="modal">
@@ -156,11 +156,11 @@ const ProfileModal = ({ show, onHide }) => {
               <Button variant="secondary" onClick={() => {
                 setPopup(!popup)
               }} style={{ position: "absolute", top: "47%", left: "120px" }}>주소 검색</Button>
-              {popup && <KaKao adress={address} setAddress={setAddress} setZip={setZip} />}
+              {popup && <KaKao adress={address} setAddress={setaddr} setZip={setZip} />}
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
 
-              <Form.Control type="text" value={address} onChange={onAddressHandler} />
+              <Form.Control type="text" value={addr} onChange={onAddressHandler} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
 
