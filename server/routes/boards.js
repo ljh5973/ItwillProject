@@ -149,11 +149,11 @@ router.post('/like/:bno', (req, res) => {
 
 const multer = require("multer");
 const path = require("path");
-router.use('/image', express.static('./upload'));
+router.use('/image', express.static('./upload_board'));
 
 let storage = multer.diskStorage({ //multer disk storage settings
     destination: function(req, file, callback) {
-        callback(null, "upload/")
+        callback(null, "upload_board/")
     },
     filename: function(req, file, callback) {
         let extension = path.extname(file.originalname);
