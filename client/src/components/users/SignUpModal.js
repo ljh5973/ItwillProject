@@ -127,6 +127,7 @@ const SignUpModal = ({show, onHide}) => {
                     document.querySelector(".modal").style.display="none";
                     document.querySelector(".fade").style.display="none";
                     navigate('/');
+                    window.location.reload();
 
                 } else {
                     alert('Error')

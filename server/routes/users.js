@@ -27,6 +27,7 @@ require('dotenv').config();
 router.post("/login", async (req, res) => {
     //db_config.connect(conn);
     console.log(req.body);
+    console.log('hellow');
 
     let sql = "select * from users where email=?";
     let userEmail = req.body.email;
@@ -37,13 +38,17 @@ router.post("/login", async (req, res) => {
         //비밀번호 암호화
         try {
             const same = await bcrypt.compareSync(userPw, rows[0].pw);    
+            console.log(same);
             if(same) {
                 const jwtToken = await jwt.sign(rows[0].email);
             res.cookie("w_auth", jwtToken.token).status(200).json({ loginSuccess: true, token: jwtToken.token, result: rows[0] });
+            console.log('good');
             } else {
+                console.log('bad');
                 return res.json({ loginSuccess: false });       
             }
         } catch (error) {
+            console.log('not good');
             return res.json({ loginSuccess: false });   
         }
     })
@@ -138,6 +143,7 @@ router.put('/user_update', async (req, res) => {
 // 회원정보 가져오기
 router.get('/get_user', async(req, res) => {
     token = req.cookies.w_auth;
+<<<<<<< Updated upstream
     // const verify = await jwt.verify(token);
         const  verify = await jwttest.decode(token);
         console.log(verify);
@@ -150,6 +156,15 @@ router.get('/get_user', async(req, res) => {
         }
     
     
+=======
+    const verify = await jwt.verify(token);
+    //console.log(verify.name)
+    let sql = 'select * from users where email = ?';
+    let params = [verify.name];
+    conn.query(sql, params, async (err, rows, fields) => {
+        res.send(rows);
+    });
+>>>>>>> Stashed changes
 })
 
 //회원탈퇴

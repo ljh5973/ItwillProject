@@ -167,7 +167,7 @@ const ProfileModal = ({ show, onHide }) => {
               <Form.Control type="text" value={secondAddr} onChange={onSecondAddrHandler} />
             </Form.Group>
             <Button variant="secondary" type="submit" className="my-3" style={{ width: "100%" }}
-            // disabled={!(isEmail && isPassword && isPasswordConfirm)}
+            disabled={!(isEmail && isPassword && isPasswordConfirm)}
             >
               Modify
             </Button>
