@@ -48,7 +48,7 @@ headers = {
 
 params = {
     'sort': 'rel',
-    'pagingIndex': '2',
+    'pagingIndex': '3',
     'pagingSize': '40',
     'viewType': 'list',
     'productSet': 'total',
@@ -73,7 +73,7 @@ for product in products:
     image_res.raise_for_status()
     
     product_price=product["price"]
-    "localhost:5000/api/products/"
+    # "localhost:5000/api/products/"
     product_image= uuid.uuid4()
     test= "http://localhost:5000/api/products/image/" + str(product_image)
     product_name=product["productTitle"]

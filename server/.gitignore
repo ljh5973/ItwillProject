@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 #upload
-/upload
+# /upload
 
 #database
 # /database.json 일단 혼선 피해서 올림.. 최종적으로 ignore 시키면 될듯

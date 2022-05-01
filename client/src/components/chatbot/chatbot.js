@@ -190,13 +190,13 @@ function Chatbot({ show, onHide }) {
             </div>
             <div className='chatbotArea'>
                 <div style={{
-                    height: 400, width: 300,
+                    height: 500, width: 300,
                     border: '3px solid black', borderRadius: '7px',
                     backgroundColor: 'white'
                 }}
                     className="chatbotModal">
 
-                    <div style={{ height: 345, width: '100%', overflow: 'auto' }}>
+                    <div style={{ height: 445, width: '100%', overflow: 'auto' }}>
                         {renderMessage(messagesFromRedux)}
                     </div>
 

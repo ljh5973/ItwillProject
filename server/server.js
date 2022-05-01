@@ -89,13 +89,23 @@ function getGooglePlusApi(auth) {
 
 // python 
 
-// const result=spawn("python", ['product.py']);
+// const computer=spawn("python", ['product/product.py']);
 
-// result.stdout.on('data',function(data){
+// computer.stdout.on('data',function(data){
 //     console.log(data.toString());
 // })
 
-// result.stderr.on("data", function(data){
+// computer.stderr.on("data", function(data){
+//     console.log(data.toString());
+// })
+
+// const camera=spawn("python", ['product/camera.py']);
+
+// camera.stdout.on('data',function(data){
+//     console.log(data.toString());
+// })
+
+// camera.stderr.on("data", function(data){
 //     console.log(data.toString());
 // })
 

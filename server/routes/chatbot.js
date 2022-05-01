@@ -22,29 +22,12 @@ router.post('/computer', async (req, res) => {
     }
 
     PythonShell.run('./chat/computer.py', option, function (err, result) {
-
-        console.log(result);
         let data = result[0].replace(`b\'`, '').replace(`\'`, '');
-
         let buff = Buffer.from(data, 'base64'); 
-        
         let text = buff.toString('utf-8');
-
-       
-        // console.log(typeof(text));
-        // text=text.replace("품명",'').replace('가격','').replaceAll(",", "").replace(/\d{5,10}원$/g,"").trim();
         text=text.replace("품명",'').replace('가격','').trim();
-        
         text = text.substr(3);
-      
         res.json(text);
-        // var patten=/[원$]/;
-        // text=text.match(patten);
-        // console.log(typeof(data));
-        // console.log("일단 첫번째 데이터 값", data);
-        // data= data.toString();
-        // data.replace('"', '');
-        // console.log('챗봇의 답변', data);
 
     });
 
